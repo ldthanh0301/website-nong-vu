@@ -1,0 +1,136 @@
+POST   http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "ldthanh",
+    "password": "1234"
+}
+###
+GET http://localhost:5000/api/carts/62dab6019f17fc372dc67f92
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjQyMjE0MjMzNjFiMjI0NzlkNTEiLCJpYXQiOjE2Njc3MzAzNDB9.nVZE0rnMxaSoHfKd4Khcp6hGIMBHImJNaljJ76HNJMI
+
+###
+POST http://localhost:5000/api/carts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjQyMjE0MjMzNjFiMjI0NzlkNTEiLCJpYXQiOjE2Njc3MzAzNDB9.nVZE0rnMxaSoHfKd4Khcp6hGIMBHImJNaljJ76HNJMI
+Content-Type: application/json
+
+{
+    "userId": "62dab6019f17fc372dc67f92",
+    "productId":"635aa648d5ce1af17b9d7062"
+}
+
+###
+GET  http://localhost:5000/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjQyMjE0MjMzNjFiMjI0NzlkNTEiLCJpYXQiOjE2Njc3MzAzNDB9.nVZE0rnMxaSoHfKd4Khcp6hGIMBHImJNaljJ76HNJMI
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "ldthanh",
+    "password": "1234"
+}
+
+###
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjQyMjE0MjMzNjFiMjI0NzlkNTEiLCJpYXQiOjE2NjU4MTgxMjR9.s8JLFcLGzq75viy1Tz1alj-KbQ4EoINISKpWuVGaEt8
+
+{
+    "title":"VueJS",
+    "description": "Hoc VueJS",
+    "url" : "Vuejs.org",
+    "status": "Learned"
+}
+
+###
+GET http://localhost:5000/api/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjYwMTlmMTdmYzM3MmRjNjdmOTIiLCJpYXQiOjE2NTg2Mzk1Njh9.Yye8wp-_42EI-hyTEQhDtZXDkR36LkuQ5Pcy0hzEuMg
+
+###
+PUT http://localhost:5000/api/posts/62dd06a91ce9cabdcfa3d202
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjYwMTlmMTdmYzM3MmRjNjdmOTIiLCJpYXQiOjE2NTg2Mzk1Njh9.Yye8wp-_42EI-hyTEQhDtZXDkR36LkuQ5Pcy0hzEuMg
+
+{
+    "title": "ReactJS New Page",
+    "description": "New description",
+    "url": "reactjs.org"
+}
+
+###
+DELETE http://localhost:5000/api/posts/62dd086c9f1ede7758e69f87
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmRhYjYwMTlmMTdmYzM3MmRjNjdmOTIiLCJpYXQiOjE2NTg2Mzk1Njh9.Yye8wp-_42EI-hyTEQhDtZXDkR36LkuQ5Pcy0hzEuMg
+
+
+// Category
+###
+POST http://localhost:5000/api/categories
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRlYWJiYjU3OTQ0MjllMjU3YmI2ZDUiLCJpYXQiOjE2NjYxMDAxNTV9.Gz5dqUDasgMSetLp85Mu_dT8bqZnGx8JNLrxSjwq1mQ
+
+{
+    "name": "Phân bón"
+}
+###
+GET http://localhost:5000/api/categories
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRlYWJiYjU3OTQ0MjllMjU3YmI2ZDUiLCJpYXQiOjE2NjYxMDAxNTV9.Gz5dqUDasgMSetLp85Mu_dT8bqZnGx8JNLrxSjwq1mQ
+
+// Product
+###
+POST http://localhost:5000/api/products
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRlYWJiYjU3OTQ0MjllMjU3YmI2ZDUiLCJpYXQiOjE2NjYxMDAxNTV9.Gz5dqUDasgMSetLp85Mu_dT8bqZnGx8JNLrxSjwq1mQ
+
+{
+    "name": "Phân dạm NPK",
+    "description": "Phân dạm NPK 20 20 30",
+    "price": 750000,
+    "category":"634ec9b9e44ac43b7ebc979d"
+}
+
+###
+GET http://localhost:5000/api/products
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRlYWJiYjU3OTQ0MjllMjU3YmI2ZDUiLCJpYXQiOjE2NjYxMDAxNTV9.Gz5dqUDasgMSetLp85Mu_dT8bqZnGx8JNLrxSjwq1mQ
+
+###
+PUT http://localhost:5000/api/products/6357f117e89a57ed265743de
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzRlYWJiYjU3OTQ0MjllMjU3YmI2ZDUiLCJpYXQiOjE2NjYxMDAxNTV9.Gz5dqUDasgMSetLp85Mu_dT8bqZnGx8JNLrxSjwq1mQ
+
+{
+    "name": "Phân dạm NPK",
+    "description": "Phân dạm NPK 20 20 30",
+    "price": 750000,
+    "categoryId":"634ec9b9e44ac43b7ebc979d",
+    "quantity": 100,
+    "srcImg": "/uploads\\1666707726934.jpg"
+}
+
+###
+POST http://localhost:5000/api/muavu/
+Content-Type: application/json
+
+{
+    "tenMuaVu": "Vụ Đông Xuân",
+    "nam": "2022-2023"
+}
+
+
+//tai khoan
+###
+POST http://localhost:5000/api/taikhoan/dangnhap
+Content-Type: application/json
+
+{
+    "username": "ldthanh9",
+    "password": "1234"
+}
+###
+POST http://localhost:5000/api/giohang
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY2ODQzODI3Mn0.ymz7eKnPZef6_tnyHovQUX-3RYOiDdlRvenUG7dlalw
+
+{
+    "msnd": 
+}
