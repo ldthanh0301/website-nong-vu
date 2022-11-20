@@ -6,10 +6,25 @@ const verifyToken = require('../middlewave/auth')
 
 const User = require('../models/User')
 const TaiKhoan = require('../models/TaiKhoan')
+const GioHang = require('../models/GioHang')
 
 //@route Get api/auth
 //@desc Check if user is logged in
 //@access Public
+router.get('/admin', verifyToken, async(req, res)=> {
+    try {
+        TaiKhoan.findByAdmin(req.userId, function(err, result){
+            if (err || result.length ==0) {
+                return res.status(400).json({ success: false, message: 'Không tìm thấy tài khoản' })
+            } else {
+                res.json({ success: true, taiKhoan:result[0] })
+            }
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ success: false, message: 'Internal server error' })
+    }
+})
 router.get('/', verifyToken, async(req, res) => {
     try {
         TaiKhoan.findById(req.userId, function(err, result){
@@ -57,6 +72,7 @@ router.post('/dangky', async(req, res) => {
                             res.status(400).json({success: false, message:"Lỗi khi thêm vào nông dân"})
                             return 
                         }
+
                         // return token
                         const accessToken = jwt.sign({ userId: username}, process.env.ACCESS_TOKEN_SECRET)
                         res.json({ success: true, message: "Tạo tài khoản thành công", accessToken })
@@ -83,9 +99,9 @@ router.post('/dangnhap', async(req, res) => {
             .json({ success: false, message: 'Thiếu tài khoản hoặc mật khẩu' })
     try {
         //check for existing user
-        TaiKhoan.findById(username, async (err, result) =>{
+        TaiKhoan.findByTaiKhoan(username, async (err, result) =>{
             if (err || result.length==0) {
-                res.json({success: false, message:'Không tìm thấy tài khoản hoặc mật khẩu'})
+                res.json({success: false, message:'Không tìm thấy tài khoản hoặc mật khẩu 1'})
             }else {
                 let account = result[0];
                 const passwordValid = await argon2.verify(account.matKhau, password)

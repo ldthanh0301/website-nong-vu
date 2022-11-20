@@ -16,6 +16,8 @@ import CartContextProvider from "./contexts/CartContext";
 import MuaVu from "./views/admin/MuaVu";
 import MuaVuContextProvider from "./contexts/MuaVuContext";
 import VatTu from "./views/VatTu";
+import DonHangContextProvider from "./contexts/DonHangContext";
+import DonHang from "./views/admin/DonHang";
 
 function App() {
   return (
@@ -24,29 +26,33 @@ function App() {
           <CategoryContextProvider>
             <CartContextProvider>
               <MuaVuContextProvider>
-                <Router>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="dangnhap" element={<Auth authRoute="login" />} />
-                    <Route
-                      path="dangky"
-                      element={<Auth authRoute="register" />}
-                    />
-                    <Route path="vattu" element={<VatTu />}></Route>
-                    <Route path="vattu/:id" element={<ChiTietVatTu />}></Route>
-                    {/* User */}
-                    <Route path="user" element={<ProtectedRouteUser />}>
-                      <Route path="giohang" element={<Cart />}></Route>
-                    </Route>
-                    {/* admin */}
-                    <Route path="admin" element={<ProtectedRouteAdmin />}>
-                      <Route path="" element={<Dashboard />}></Route>
-                      <Route path="vattu" element={<Product />}></Route>
-                      <Route path="categories" element={<Category />}></Route>
-                      <Route path="muavu" element={<MuaVu />}></Route>
-                    </Route>
-                  </Routes>
-                </Router>
+                <DonHangContextProvider>
+
+                  <Router>
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="dangnhap" element={<Auth authRoute="login" />} />
+                      <Route
+                        path="dangky"
+                        element={<Auth authRoute="register" />}
+                      />
+                      <Route path="vattu" element={<VatTu />}></Route>
+                      <Route path="vattu/:id" element={<ChiTietVatTu />}></Route>
+                      {/* User */}
+                      <Route path="user" element={<ProtectedRouteUser />}>
+                        <Route path="giohang" element={<Cart />}></Route>
+                      </Route>
+                      {/* admin */}
+                      <Route path="admin" element={<ProtectedRouteAdmin />}>
+                        <Route path="" element={<Dashboard />}></Route>
+                        <Route path="donhang" element={<DonHang />}></Route>
+                        <Route path="vattu" element={<Product />}></Route>
+                        <Route path="categories" element={<Category />}></Route>
+                        <Route path="muavu" element={<MuaVu />}></Route>
+                      </Route>
+                    </Routes>
+                  </Router>
+                </DonHangContextProvider>
               </MuaVuContextProvider>
             </CartContextProvider>
           </CategoryContextProvider>

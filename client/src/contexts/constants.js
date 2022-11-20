@@ -22,8 +22,19 @@ export const ADD_CATEGORY = 'ADD_CATEGORY'
 export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 export const FIND_CATEGORY = 'FIND_CATEGORY'
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
-//cart
+//muavu
 export const GET_CART = 'GET_CART'
 export const GET_MUAVU = 'GET_MUAVU'
 export const ADD_MUAVU = 'ADD_MUAVU'
 export const DELETE_MUAVU = 'DELETE_MUAVU'
+
+//cart 
+export const Add_PRODUCT_TO_CART = 'Add_PRODUCT_TO_CART'
+export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
+export const RESET_CART = 'RESET_CART'
+
+// don hang
+export const DAT_HANG = 'DAT_HANG'
+export const GET_ORDERS = 'GET_ORDERS'
+
+

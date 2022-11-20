@@ -78,7 +78,7 @@ function Product() {
                 <td>
                   <img src={apiUrl+"/"+vatTu.diaChiHinh} width='126px' alt="" srcset="" />
                 </td>
-                <td>{vatTu.Gia}</td>
+                <td>{vatTu.gia}</td>
                 <td>{vatTu.moTa}</td>
                 <td>{vatTu.soLuong}</td>
                 <td>

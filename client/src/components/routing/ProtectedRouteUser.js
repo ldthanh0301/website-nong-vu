@@ -28,7 +28,7 @@ function ProtectedRouteUser({component: Component, ...props}) {
                 </Col>
             </Row>
         </> 
-        : <Navigate to='dangnhap'/>     )
+        : <Navigate to='/dangnhap'/>     )
 }
 
 export default ProtectedRouteUser;

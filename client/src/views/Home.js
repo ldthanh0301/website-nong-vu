@@ -6,6 +6,8 @@ import Spinner from 'react-bootstrap/esm/Spinner'
 import SidebarMenuUser from '../components/layout/SidebarMenuUser'
 import NavbarMenu from '../components/Navbar/NavbarMenu'
 import SingleProductUser from '../components/products/SingleProductUser'
+import { AuthContext } from '../contexts/AuthContext'
+import { CartContext } from '../contexts/CartContext'
 import { ProductContext } from '../contexts/ProductContext'
 function Home() {
   // context
@@ -15,7 +17,12 @@ function Home() {
     getProducts
   } = useContext(ProductContext)
   
-  
+  // const {authState: { user}} = useContext(AuthContext)
+  // const {getCart} = useContext(CartContext)
+  // useEffect(()=>{
+  //   getCart(user.msnd)
+  // },[])
+  //state 
   useEffect(()=>{
     getProducts()
   },[])

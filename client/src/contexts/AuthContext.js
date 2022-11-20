@@ -14,12 +14,17 @@ const AuthContextProvider = ({ children }) => {
         })
     
     //Authenticate user
-    const loadUser = async () => {
+    const loadUser = async (quanLy=0) => {
         if (localStorage[LOCAL_STORAGE_TOKEN_NAME]){
             setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
         }
         try {
-            const response = await axios.get(`${apiUrl}/taikhoan`)
+            let response;
+            if (!quanLy) {
+                response = await axios.get(`${apiUrl}/taikhoan`)
+            } else {
+                response = await axios.get(`${apiUrl}/taikhoan/admin`)
+            }
             if (response.data.success) {
                 dispatch({
                     type:'SET_AUTH',
@@ -44,7 +49,8 @@ const AuthContextProvider = ({ children }) => {
             const response = await axios.post(`${apiUrl}/taikhoan/dangnhap`, userForm)
             if (response.data.success)
             localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.accessToken)
-            await loadUser()
+            let quanLy = response.data.account.quanLy;
+            await loadUser(quanLy)
             return response.data
         } catch (error) {
             if (error.response.data) return error.response.data 

@@ -123,14 +123,28 @@ POST http://localhost:5000/api/taikhoan/dangnhap
 Content-Type: application/json
 
 {
-    "username": "ldthanh9",
+    "username": "ldthanh",
     "password": "1234"
 }
 ###
 POST http://localhost:5000/api/giohang
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY2ODQzODI3Mn0.ymz7eKnPZef6_tnyHovQUX-3RYOiDdlRvenUG7dlalw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTgwNTkxNSIsImlhdCI6MTY2ODc3NzY3Nn0.uS0t2AA1m_ZbgET2DNiId-pFGc9NPEQxoW5kuKtIaYc
 
 {
-    "msnd": 
+    "msnd": 1
+}
+
+###
+POST http://localhost:5000/api/dathang/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oIiwiaWF0IjoxNjY4OTYwNTU2fQ.fEtX1L2LIzO9KrRXnv7V1MxWSYTfuv4_Ak6jxsguHYQ
+
+{
+    "msnd": 3,
+    "tongTien": 150000,
+    "gioHang":[
+        {"msvt": 11,"soLuong":1,"tongGia": 12000},
+        {"msvt": 12,"soLuong":1,"tongGia": 59000}
+    ]
 }

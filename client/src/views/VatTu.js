@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
-import addIcon from "../assets/plus-circle-fill.svg"
-import Tooltip from "react-bootstrap/esm/Tooltip";
-import AddProductModal from "../components/products/AddProductModal"
 import { ProductContext } from "../contexts/ProductContext";
 import SingleProductUser from "../components/products/SingleProductUser";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Spinner from "react-bootstrap/esm/Spinner";
-import UpdateProductModal from "../components/products/UpdateProductModal";
 import { useSearchParams } from "react-router-dom";
 import NavbarMenu from "../components/Navbar/NavbarMenu";
 import SidebarMenuUser from "../components/layout/SidebarMenuUser";
@@ -20,12 +16,11 @@ function VatTu() {
 
   // context
   const {
-    productState:{product,products,productsLoading},
-    setShowAddProductModal,
+    productState:{products,productsLoading},
     getProducts,
     findByMslvt
   } = useContext(ProductContext)
-  //state 
+  
 
   
   useEffect(()=>{

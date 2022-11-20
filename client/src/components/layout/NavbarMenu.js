@@ -36,6 +36,13 @@ const NavbarMenu = () => {
 				<Nav >
 					<Nav.Link
 						className='font-weight-bolder text-white'
+						to='donhang'
+						as={Link}
+					>
+						Đơn hàng
+					</Nav.Link>
+					<Nav.Link
+						className='font-weight-bolder text-white'
 						to='vattu'
 						as={Link}
 					>
