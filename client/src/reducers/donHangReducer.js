@@ -1,4 +1,4 @@
-import { DAT_HANG, GET_ORDERS } from "../contexts/constants"
+import { DAT_HANG, GET_ORDERS, GET_ORDERS_BY_USER, GET_ORDER_INFO } from "../contexts/constants"
 
 export const donHangReducer = (state, action) => {
     const { type, payload }= action
@@ -15,6 +15,18 @@ export const donHangReducer = (state, action) => {
                 ...state,
                 ordersLoading: false,
                 orders: payload
+            }
+        case GET_ORDERS_BY_USER:
+            return {
+                ...state,
+                ordersLoading: false,
+                orders: payload
+            }
+        case GET_ORDER_INFO:
+            return {
+                ...state,
+                orderInfo: payload,
+                orderInfoLoading: false
             }
         default:
             return state

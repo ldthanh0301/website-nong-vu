@@ -6,26 +6,23 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { CartContext } from "../../contexts/CartContext";
 import { apiUrl } from "../../contexts/constants";
 
-const SingleProductUser = ({ product: { msvt,tenVatTu, moTa, gia ,diaChiHinh} }) => {
-  const {addProductToCart} = useContext(CartContext)
+const SingleProductUser = ({ vatTu}) => {
+  const {addProductToCart,setShowToast} = useContext(CartContext)
   const {authState: {isAuthenticated}} = useContext(AuthContext)
-
+  
   return (
   <Card>
-      <Card.Img variant="top" src={apiUrl+"/"+diaChiHinh } />
+      <Card.Img variant="top" src={apiUrl+"/"+ vatTu.diaChiHinh } />
       <Card.Body>
         <Card.Title>
-          <Link to={"/vattu/"+msvt}>{tenVatTu}</Link>  
+          <Link to={"/vattu/"+vatTu.msvt}>{vatTu.tenVatTu}</Link>  
         </Card.Title>
         <Card.Text>
-        {moTa}
-        </Card.Text>
-        <Card.Text>
-        {gia}
+        {vatTu.gia}
         </Card.Text>
         <Button variant="primary" onClick={()=>{
           if (isAuthenticated) {
-            addProductToCart({msvt})
+            addProductToCart(vatTu)
           } else {
             window.location.replace('/dangnhap');
           }

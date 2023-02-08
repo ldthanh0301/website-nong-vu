@@ -48,11 +48,11 @@ function ChiTietVatTu() {
             color:'red',
             fontSize:18
           }}>{product.gia}</span>
-        <p
+        <pre
           style={{
             fontSize:18
           }}
-        >{product.moTa}</p>
+        >{product.moTa}</pre>
         <Button>Mua ngay</Button>
       </div>
     </div>

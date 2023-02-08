@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const NavbarMenu = () => {
     const {authState: {authLoading, isAuthenticated,user}, logoutUser}= useContext(AuthContext)
-	
+	let navbar = null;
 	let body= (
 		<>
 			<Nav.Link
@@ -28,6 +28,24 @@ const NavbarMenu = () => {
 		</>
 	);
 	if (isAuthenticated) {
+		navbar = (
+		<>
+			<Nav.Link
+				className="font-weight-bolder text-white"
+				to="/user/donhang"
+				as={Link}
+			>
+				Đơn hàng
+			</Nav.Link>
+			<Nav.Link
+				className="font-weight-bolder text-white"
+				to="chiphi"
+				as={Link}
+			>
+				Chi phí
+			</Nav.Link>
+		</>
+		);
 		body= (
 			<>
 			<Nav.Link
@@ -84,6 +102,7 @@ const NavbarMenu = () => {
 					>
 						Vật tư
 					</Nav.Link>
+					{navbar}
 				</Nav>
 				<Nav className='ms-auto'>
 					{body}

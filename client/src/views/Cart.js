@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
@@ -8,32 +8,25 @@ import { AuthContext } from '../contexts/AuthContext'
 import { CartContext } from '../contexts/CartContext'
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-
+import CartRow from "../components/table/CartRow"
 function Cart() {
   const {authState: { user}} = useContext(AuthContext)
   const {
     cartState: { cart,cartLoading}, 
-    getCart,
     deleteProductInCart,
     datHang,
     showToast:{ show, message, type},
     setShowToast
   } = useContext(CartContext)
-  useEffect(()=>{
-    getCart(user.msnd)
-    
-  },[])
 
+  let {soLuong, setSoLuong} = useState()
+
+  const thayDoiSoLuong = (e) =>{
+    console.log("event:",e)
+  }
   let body= null;
 
-  if (cartLoading) {
-    body = (
-      <div className="spinner-container">
-        <Spinner animation="border" varient="info">
-        </Spinner>
-      </div>
-    );
-  } else  if (cart.products.length==0){
+  if (cart.products.length==0){
       body= (
         <div>
           <h3>Giỏ hàng trống</h3>
@@ -49,26 +42,25 @@ function Cart() {
             <th>Tên vật tư</th>
             <th>Giá</th>
             <th>Số lượng</th>
+            <th>Tổng giá</th>
             <th>Tùy chọn</th>
           </tr>
         </thead>
         <tbody>
         {
         cart.products.map((product,index)=> (
-          <tr key={index}>
-            <td>{index + 1 }</td>
-            <td>{product.tenVatTu}</td>
-            <td>{product.gia}</td>
-            <td>{product.soLuong}</td>
-            <td>
-              <Button onClick={()=> {deleteProductInCart(product.msctgh)}}>Xóa</Button>  
-            </td>
-          </tr>
+          <CartRow key={index} product={product} index={index} deleteProductInCart={deleteProductInCart}/>
+         
         ))
         }
         </tbody>
         </Table>
-        <Button onClick={()=>{datHang()}}>Đặt hàng</Button>
+        <div>
+          <hr />
+          <span>Tổng tiền: {cart.tongTien}</span>
+          <hr />
+          <Button onClick={()=>{datHang()}}>Đặt hàng</Button>
+        </div>
       </div>
     )
   }

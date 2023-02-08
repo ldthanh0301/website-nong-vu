@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import Button from "react-bootstrap/esm/Button";
-import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 import { ProductContext } from "../contexts/ProductContext";
 import SingleProductUser from "../components/products/SingleProductUser";
 import Row from "react-bootstrap/esm/Row";
@@ -9,7 +7,9 @@ import Spinner from "react-bootstrap/esm/Spinner";
 import { useSearchParams } from "react-router-dom";
 import NavbarMenu from "../components/Navbar/NavbarMenu";
 import SidebarMenuUser from "../components/layout/SidebarMenuUser";
-
+import { CartContext } from "../contexts/CartContext";
+import Toast from "react-bootstrap/esm/Toast";
+import Breadcrumb from "../components/layout/Breadcrumb"
 function VatTu() {
   const [searchParams, setSearchParams] = useSearchParams();
   const mslvt = searchParams.get('mslvt');
@@ -21,6 +21,7 @@ function VatTu() {
     findByMslvt
   } = useContext(ProductContext)
   
+  const {  showToast:{show, message, type}, setShowToast} = useContext(CartContext)
 
   
   useEffect(()=>{
@@ -47,7 +48,7 @@ function VatTu() {
           
           {products.map((product) => (
             <Col key={product.msvt} className="my-2">
-              <SingleProductUser product={product} />
+              <SingleProductUser vatTu={product} />
             </Col>
           ))}
         </Row>
@@ -64,9 +65,23 @@ function VatTu() {
           <SidebarMenuUser/>
         </Col>
         <Col>
+          <Breadcrumb></Breadcrumb>
           {body}
         </Col>
       </Row>
+      <Toast
+      show={show} 
+      className={`bg-${type} text-white`}
+      style={{ position: 'fixed', top: '20%', right: '10px' }}
+      onClose={setShowToast.bind(this,{show:false,message:'',type:null})}
+    >
+      <Toast.Header>
+        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+        <strong className="me-auto">{type}</strong>
+        <small>Now</small>
+      </Toast.Header>
+      <Toast.Body>{message}</Toast.Body>
+    </Toast>
     </>
   );
 }

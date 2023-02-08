@@ -136,15 +136,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTgwN
 }
 
 ###
-POST http://localhost:5000/api/dathang/
+GET http://localhost:5000/api/dathang/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oIiwiaWF0IjoxNjY4OTYwNTU2fQ.fEtX1L2LIzO9KrRXnv7V1MxWSYTfuv4_Ak6jxsguHYQ
-
-{
-    "msnd": 3,
-    "tongTien": 150000,
-    "gioHang":[
-        {"msvt": 11,"soLuong":1,"tongGia": 12000},
-        {"msvt": 12,"soLuong":1,"tongGia": 59000}
-    ]
-}

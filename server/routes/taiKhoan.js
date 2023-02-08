@@ -15,7 +15,7 @@ router.get('/admin', verifyToken, async(req, res)=> {
     try {
         TaiKhoan.findByAdmin(req.userId, function(err, result){
             if (err || result.length ==0) {
-                return res.status(400).json({ success: false, message: 'Không tìm thấy tài khoản' })
+                return res.status(400).json({ success: false, message: 'Không tìm thấy tài khoản 2' })
             } else {
                 res.json({ success: true, taiKhoan:result[0] })
             }
@@ -27,12 +27,24 @@ router.get('/admin', verifyToken, async(req, res)=> {
 })
 router.get('/', verifyToken, async(req, res) => {
     try {
-        TaiKhoan.findById(req.userId, function(err, result){
-            if (err || result.length ==0) {
+        TaiKhoan.findByTaiKhoan(req.userId, function(err, result){
+            if (err || result.length ==0) 
                 return res.status(400).json({ success: false, message: 'Không tìm thấy tài khoản' })
-            } else {
-                res.json({ success: true, taiKhoan:result[0] })
-            }
+            
+            if (result[0].quanLy===1)
+                TaiKhoan.findByAdmin(req.userId, function(err, user){
+                    if (!err) {
+                        res.json({ success: true, taiKhoan:user[0] })
+                        return
+                    }
+                }) 
+            
+            if (result[0].quanLy ===0)
+                    TaiKhoan.findById(req.userId, function (err, user){
+                        if (!err) {
+                            res.json({ success: true, taiKhoan:user[0] })
+                        }
+                    })
         })
     } catch (error) {
         console.log(error)

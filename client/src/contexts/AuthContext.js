@@ -14,17 +14,12 @@ const AuthContextProvider = ({ children }) => {
         })
     
     //Authenticate user
-    const loadUser = async (quanLy=0) => {
+    const loadUser = async () => {
         if (localStorage[LOCAL_STORAGE_TOKEN_NAME]){
             setAuthToken(localStorage[LOCAL_STORAGE_TOKEN_NAME])
-        }
+        } 
         try {
-            let response;
-            if (!quanLy) {
-                response = await axios.get(`${apiUrl}/taikhoan`)
-            } else {
-                response = await axios.get(`${apiUrl}/taikhoan/admin`)
-            }
+            let response = await axios.get(`${apiUrl}/taikhoan`)
             if (response.data.success) {
                 dispatch({
                     type:'SET_AUTH',
@@ -41,16 +36,22 @@ const AuthContextProvider = ({ children }) => {
         }
     }
 
-    useEffect(  () =>{loadUser()},[])
+    useEffect(  () =>{
+        loadUser()
+    },[])
 
     //login
     const loginUser = async userForm => {
         try {
             const response = await axios.post(`${apiUrl}/taikhoan/dangnhap`, userForm)
-            if (response.data.success)
-            localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.accessToken)
-            let quanLy = response.data.account.quanLy;
-            await loadUser(quanLy)
+            if (response.data.success){
+                localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.accessToken)
+                dispatch({
+                    type:'SET_AUTH',
+                    payload: {isAuthenticated: true, user: response.data.account}
+                })
+                await loadUser()
+            }
             return response.data
         } catch (error) {
             if (error.response.data) return error.response.data 
@@ -81,7 +82,7 @@ const AuthContextProvider = ({ children }) => {
 		localStorage.removeItem(LOCAL_STORAGE_TOKEN_NAME)
 		dispatch({
 			type: 'SET_AUTH',
-			payload: { isAuthenticated: false, user: null}
+			payload: { isAuthenticated: false, user: null, quanLy:0}
 		})
 	}
 

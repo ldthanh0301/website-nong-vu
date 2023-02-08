@@ -5,12 +5,26 @@ import { CategoryContext } from '../../contexts/CategoryContext';
 
 function SidebarMenuUser() {
   const style = {
-    width: 320,
-    backgroundColor: '#ccc',
-    maxWidth: 320,
-    marginLeft: 25
+    backgroundColor: '#f3f3f3',
+    margin: "25px 25px",
+    padding: "25px 25px"
   }
-  
+  const h3 = {
+    color: "#00a803", 
+    textTransform: "uppercase",
+    textAlign: "center"
+  }
+  const listItem  = {
+    background: "#fff",
+    padding: "15px 15px",
+    marginBottom: "15px",
+    textColor: "black"
+  }
+  const navLink = {
+    color: "black",
+    textDecoration: "auto",
+    fontSize: "18px"
+  }
   const {
     categoryState: { categories },
     getCategories,
@@ -20,11 +34,11 @@ function SidebarMenuUser() {
   return (
     <>
       <div style={style}>
-          <h3>Danh mục vật tư</h3>
+          <h3 style={h3}>Danh mục vật tư</h3>
           <ListGroup>
           {categories.map((category) => (
-              <ListGroup.Item key={category.mslvt}>
-              <NavLink  to={"/vattu?mslvt="+category.mslvt}>{category.tenLoaiVatTu}</NavLink>
+              <ListGroup.Item key={category.mslvt} style={listItem}>
+              <NavLink style={navLink}  to={"/vattu?mslvt="+category.mslvt}>{category.tenLoaiVatTu}</NavLink>
             </ListGroup.Item>
             ))}
           </ListGroup>

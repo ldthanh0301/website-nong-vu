@@ -1,10 +1,10 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import learnItLogo from '../../assets/logo.svg'
-import logoutIcon from '../../assets/logout.svg'
+import learnItLogo from '../../../assets/logo.svg'
+import logoutIcon from '../../../assets/logout.svg'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../contexts/AuthContext'
+import { AuthContext } from '../../../contexts/AuthContext'
 import { useContext } from 'react'
 
 const NavbarMenu = () => {
@@ -41,6 +41,7 @@ const NavbarMenu = () => {
 					>
 						Đơn hàng
 					</Nav.Link>
+					
 					<Nav.Link
 						className='font-weight-bolder text-white'
 						to='vattu'

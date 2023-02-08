@@ -32,9 +32,12 @@ export const DELETE_MUAVU = 'DELETE_MUAVU'
 export const Add_PRODUCT_TO_CART = 'Add_PRODUCT_TO_CART'
 export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
 export const RESET_CART = 'RESET_CART'
+export const Tang_So_Luong = 'Tang_So_Luong'
 
 // don hang
 export const DAT_HANG = 'DAT_HANG'
 export const GET_ORDERS = 'GET_ORDERS'
+export const GET_ORDERS_BY_USER = 'GET_ORDERS_BY_USER'
+export const GET_ORDER_INFO = 'GET_ORDER_INFO'
 
 

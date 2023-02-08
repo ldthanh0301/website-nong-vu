@@ -66,6 +66,7 @@ const RegisterForm = () => {
 						onChange={onChangeRegisterForm}
 					/>
 				</Form.Group>
+				<br />
 				<Form.Group>
 					<Form.Control
 						type='password'
@@ -76,6 +77,7 @@ const RegisterForm = () => {
 						onChange={onChangeRegisterForm}
 					/>
 				</Form.Group>
+				<br />
 				<Form.Group>
 					<Form.Control
 						type='password'
@@ -86,6 +88,7 @@ const RegisterForm = () => {
 						onChange={onChangeRegisterForm}
 					/>
 				</Form.Group>
+				<br />
 				<Form.Group>
 					<Form.Control
 						type='text'
@@ -96,6 +99,7 @@ const RegisterForm = () => {
 						onChange={onChangeRegisterForm}
 					/>
 				</Form.Group>
+				<br />
 				<Form.Group>
 					<Form.Control
 						type='text'
@@ -106,6 +110,7 @@ const RegisterForm = () => {
 						onChange={onChangeRegisterForm}
 					/>
 				</Form.Group>
+				<br />
 				<Form.Group>
 					<Form.Control
 						type='text'

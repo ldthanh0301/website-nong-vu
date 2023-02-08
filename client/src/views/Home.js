@@ -1,14 +1,19 @@
-
+import Toast from "react-bootstrap/esm/Toast";
 import React, { useContext, useEffect } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Spinner from 'react-bootstrap/esm/Spinner'
 import SidebarMenuUser from '../components/layout/SidebarMenuUser'
+import Panner from '../components/layout/Panner'
+import Carousel from '../components/layout/Carousel'
 import NavbarMenu from '../components/Navbar/NavbarMenu'
 import SingleProductUser from '../components/products/SingleProductUser'
-import { AuthContext } from '../contexts/AuthContext'
 import { CartContext } from '../contexts/CartContext'
 import { ProductContext } from '../contexts/ProductContext'
+import Breadcrumb from "../components/layout/Breadcrumb"
+import Footer from "../components/layout/footer/Footer";
+
+
 function Home() {
   // context
   const {
@@ -17,6 +22,7 @@ function Home() {
     getProducts
   } = useContext(ProductContext)
   
+  const {  showToast:{show, message, type}, setShowToast} = useContext(CartContext)
   // const {authState: { user}} = useContext(AuthContext)
   // const {getCart} = useContext(CartContext)
   // useEffect(()=>{
@@ -44,7 +50,7 @@ function Home() {
           
           {products.map((product) => (
             <Col key={product.msvt} className="my-2">
-              <SingleProductUser product={product} />
+              <SingleProductUser vatTu={product} />
             </Col>
           ))}
         </Row>
@@ -53,15 +59,33 @@ function Home() {
     )
   }
   return (<>
+    {/* <Carousel></Carousel> */}
     <NavbarMenu/>
-    <Row>
-      <Col lg="3">
-        <SidebarMenuUser/>
-      </Col>
-      <Col>
-        {body}
-      </Col>
-    </Row>
+    <main>
+      <Row>
+        <Col lg="3">
+          <SidebarMenuUser/>
+        </Col>
+        <Col>
+          <Breadcrumb></Breadcrumb>
+          {body}
+        </Col>
+      </Row>
+    </main>
+    <Footer></Footer>
+    <Toast
+      show={show} 
+      className={`bg-${type} text-white`}
+      style={{ position: 'fixed', top: '20%', right: '10px' }}
+      onClose={setShowToast.bind(this,{show:false,message:'',type:null})}
+    >
+      <Toast.Header>
+        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+        <strong className="me-auto">{type}</strong>
+        <small>Now</small>
+      </Toast.Header>
+      <Toast.Body>{message}</Toast.Body>
+    </Toast>
     </>
   )
 }

@@ -11,7 +11,7 @@ const vatTuRouter = require('./routes/vatTu')
 const loaiVatTuRouter = require('./routes/loaiVatTu')
 const muaVuRouter = require('./routes/muaVu')
 const gioHangRouter = require('./routes/gioHang')
-const datHangRouter = require('./routes/datHang')
+const donHangRouter = require('./routes/donhang')
 
 const app = express()
 app.use(express.json())
@@ -24,7 +24,7 @@ app.use('/api/upload', uploadRouter)
 app.use('/api/vattu', vatTuRouter)
 app.use('/api/muavu', muaVuRouter)
 app.use('/api/loaivattu', loaiVatTuRouter)
-app.use('/api/dathang', datHangRouter)
+app.use('/api/donhang', donHangRouter)
 
 const PORT = 5000
 
