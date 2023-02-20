@@ -12,6 +12,7 @@ const loaiVatTuRouter = require('./routes/loaiVatTu')
 const muaVuRouter = require('./routes/muaVu')
 const gioHangRouter = require('./routes/gioHang')
 const donHangRouter = require('./routes/donhang')
+const khuyenMaiRouter = require('./routes/khuyenMai')
 
 const app = express()
 app.use(express.json())
@@ -19,12 +20,13 @@ app.use('/api/',express.static('uploads'))
 app.use(cors())
 app.use('/api/giohang',gioHangRouter)
 app.use('/api/taikhoan', taiKhoanRouter)
-app.use('/api/categories', loaiVatTuRouter)
+app.use('/api/loaivattu', loaiVatTuRouter)
 app.use('/api/upload', uploadRouter)
 app.use('/api/vattu', vatTuRouter)
 app.use('/api/muavu', muaVuRouter)
 app.use('/api/loaivattu', loaiVatTuRouter)
 app.use('/api/donhang', donHangRouter)
+app.use('/api/khuyenmai', khuyenMaiRouter)
 
 const PORT = 5000
 

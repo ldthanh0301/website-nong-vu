@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import SingleProductUser from "../components/products/SingleProductUser";
 import Row from "react-bootstrap/esm/Row";
@@ -10,6 +10,9 @@ import SidebarMenuUser from "../components/layout/SidebarMenuUser";
 import { CartContext } from "../contexts/CartContext";
 import Toast from "react-bootstrap/esm/Toast";
 import Breadcrumb from "../components/layout/Breadcrumb"
+import PaginationProduct from "../components/layout/pagination/Pagination";
+import ListProducts from "../components/layout/listProduct/ListProducts";
+
 function VatTu() {
   const [searchParams, setSearchParams] = useSearchParams();
   const mslvt = searchParams.get('mslvt');
@@ -21,11 +24,13 @@ function VatTu() {
     findByMslvt
   } = useContext(ProductContext)
   
+  const [currentPage, setCurrentPage] = useState(1);
   const {  showToast:{show, message, type}, setShowToast} = useContext(CartContext)
 
   
   useEffect(()=>{
-    if(mslvt){
+    setCurrentPage(1)
+    if (mslvt) {
       findByMslvt(mslvt)
     }else {
       getProducts()
@@ -33,6 +38,10 @@ function VatTu() {
   },[mslvt])
 
   let body = null;
+  const PageSize = 8;
+
+
+
   if (productsLoading) {
     body = (
       <div className="spinner-container">
@@ -41,18 +50,17 @@ function VatTu() {
       </div>
     );
   } else if (products.length>0) {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    const currentProducts  = products.slice(firstPageIndex, lastPageIndex)
     body =(
       <>
-      {
-        <Row className="row-cols-1 row-cols-md-4 g-4 mx-auto mt-3">
-          
-          {products.map((product) => (
-            <Col key={product.msvt} className="my-2">
-              <SingleProductUser vatTu={product} />
-            </Col>
-          ))}
-        </Row>
-      }
+      <PaginationProduct
+        currentPage={currentPage}
+        onPageChange={page => setCurrentPage(page)}
+        totalPage={Math.ceil(products.length/PageSize)}
+      />  
+      <ListProducts products ={ currentProducts}/>
       </>
     )
   } 

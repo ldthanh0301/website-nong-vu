@@ -39,7 +39,7 @@ const NavbarMenu = () => {
 			</Nav.Link>
 			<Nav.Link
 				className="font-weight-bolder text-white"
-				to="chiphi"
+				to="/user/chiphi"
 				as={Link}
 			>
 				Chi phí

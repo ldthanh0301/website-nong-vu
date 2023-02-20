@@ -139,3 +139,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiMTgwN
 GET http://localhost:5000/api/dathang/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oIiwiaWF0IjoxNjY4OTYwNTU2fQ.fEtX1L2LIzO9KrRXnv7V1MxWSYTfuv4_Ak6jxsguHYQ
+
+//khuyenmai
+
+###
+GET http://localhost:5000/api/khuyenmai/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY3NjczMjMwM30.Xpe79eiqQh3yMyDcjsV7Kye-yLEPVQFTwozx5wwi8eQ
+
+
+###
+POST http://localhost:5000/api/khuyenmai/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY3NjczMjMwM30.Xpe79eiqQh3yMyDcjsV7Kye-yLEPVQFTwozx5wwi8eQ
+
+{
+    "giaTriKM":20,
+    "tenKM":"Khuyến mãi 20%",
+    "ngayBD":"2023-02-25",
+    "ngayKT":"2023-03-01"
+}

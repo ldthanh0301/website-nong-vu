@@ -23,6 +23,7 @@ import ThongTinCaNhan from "./views/ThongTinCaNhan";
 import ChiTietDonHang from "./views/admin/ChiTietDonHang";
 import Order from "./views/user/Order";
 import OrderDetail from "./views/user/OrderDetail";
+import Expense from "./views/user/Expense";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                   <Route path="user" element={<ProtectedRouteUser />}>
                     <Route path="" element={<ThongTinCaNhan />}></Route>
                     <Route path="giohang" element={<Cart />}></Route>
+                    <Route path="chiphi" element={<Expense />}></Route>
                     <Route path="donhang" element={<Order />}></Route>
                     <Route path="donhang/chitietdonhang/:id" element={<OrderDetail/>}></Route>
                   </Route>

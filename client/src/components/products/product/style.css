@@ -1,0 +1,12 @@
+.product-detail {
+    display: flex;
+    padding: 25px;
+}
+
+.product-detail-img {
+    border: "1px solid"
+}
+
+.product-detail-info {
+    padding: 25px;
+}

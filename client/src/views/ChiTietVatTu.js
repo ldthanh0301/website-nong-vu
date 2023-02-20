@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react'
-import Button from 'react-bootstrap/esm/Button'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Spinner from 'react-bootstrap/esm/Spinner'
 import { useParams } from 'react-router-dom'
 import SidebarMenuUser from '../components/layout/SidebarMenuUser'
 import NavbarMenu from '../components/Navbar/NavbarMenu'
-import { apiUrl } from '../contexts/constants'
+import ProductDetail from '../components/products/product/ProductDetail'
 import { ProductContext } from '../contexts/ProductContext'
+import Breadcrumb from "../components/layout/Breadcrumb"
 
 function ChiTietVatTu() {
   const params = useParams()
@@ -33,29 +33,11 @@ function ChiTietVatTu() {
       </div>
     );
   } else {
-    body = <div style={{display:'flex', padding:25}}>
-      <img 
-        width="520px" 
-        src={apiUrl+"/"+product.diaChiHinh} 
-        alt="ảnh sản phẩm"
-        style={{border:"1px solid green"}}/>
-      <div
-        style={{padding: 25}}  
-      >
-        <h3>{product.tenVatTu}</h3>
-        <span 
-          style={{
-            color:'red',
-            fontSize:18
-          }}>{product.gia}</span>
-        <pre
-          style={{
-            fontSize:18
-          }}
-        >{product.moTa}</pre>
-        <Button>Mua ngay</Button>
-      </div>
-    </div>
+    body = (
+      <ProductDetail
+        product = {product}
+      />
+    )
   }
   return (
     <>
@@ -64,7 +46,8 @@ function ChiTietVatTu() {
         <Col lg="3">
           <SidebarMenuUser/>
         </Col>
-        <Col>
+        <Col lg="9">
+          <Breadcrumb></Breadcrumb>
           {body}
         </Col>
       </Row>

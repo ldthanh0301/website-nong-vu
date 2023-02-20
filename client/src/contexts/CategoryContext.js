@@ -18,9 +18,9 @@ const  CategoryContextProvider =  ({children})=> {
     // them danh mục
     const addCategory = async (tenLoaiVatTu) => {
        try {
-            const res = await axios.post(`${apiUrl}/categories`,{tenLoaiVatTu})
+            const res = await axios.post(`${apiUrl}/loaivattu`,{tenLoaiVatTu})
             if (res.data.success) {
-                let category = await axios.get(`${apiUrl}/categories/${res.data.insertId}`)
+                let category = await axios.get(`${apiUrl}/loaivattu/${res.data.insertId}`)
                 dispatch({type: ADD_CATEGORY, payload: category.data})
                 return res.data
             }
@@ -31,7 +31,7 @@ const  CategoryContextProvider =  ({children})=> {
     // lấy danh mục
     const getCategories = async () => {
         try {
-            const res = await axios.get(`${apiUrl}/categories`)
+            const res = await axios.get(`${apiUrl}/loaivattu`)
             if (res.data.success) {
                 dispatch({type: CATEGORIES_LOADED_SUCCESS, payload: res.data.categories})
             }
@@ -43,7 +43,7 @@ const  CategoryContextProvider =  ({children})=> {
     // xóa danh mục
     const deleteCategory = async (id) => {
         console.log('Delete',id)
-        const res = await axios.delete(`${apiUrl}/categories/${id}`)
+        const res = await axios.delete(`${apiUrl}/loaivattu/${id}`)
         if (res.data.success) {
             dispatch({type: DELETE_CATEGORY, payload: id})
         }
@@ -60,7 +60,7 @@ const  CategoryContextProvider =  ({children})=> {
     // cập nhật danh mục
     const updateCategory = async (category) => {
         try {
-            const res = await axios.put(`${apiUrl}/categories/${category.mslvt}`,category)
+            const res = await axios.put(`${apiUrl}/loaivattu/${category.mslvt}`,category)
     
             if (res.data.success) {
                 dispatch({type: UPDATE_CATEGORY, payload: res.data.category})

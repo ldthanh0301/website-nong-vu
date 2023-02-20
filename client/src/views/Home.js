@@ -1,5 +1,5 @@
 import Toast from "react-bootstrap/esm/Toast";
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Spinner from 'react-bootstrap/esm/Spinner'
@@ -12,28 +12,26 @@ import { CartContext } from '../contexts/CartContext'
 import { ProductContext } from '../contexts/ProductContext'
 import Breadcrumb from "../components/layout/Breadcrumb"
 import Footer from "../components/layout/footer/Footer";
+import PaginationProduct from "../components/layout/pagination/Pagination";
+import ListProducts from "../components/layout/listProduct/ListProducts";
 
 
 function Home() {
   // context
   const {
-    productState:{product,products,productsLoading},
-    setShowAddProductModal,
+    productState:{products,productsLoading},
     getProducts
   } = useContext(ProductContext)
   
   const {  showToast:{show, message, type}, setShowToast} = useContext(CartContext)
-  // const {authState: { user}} = useContext(AuthContext)
-  // const {getCart} = useContext(CartContext)
-  // useEffect(()=>{
-  //   getCart(user.msnd)
-  // },[])
-  //state 
-  useEffect(()=>{
-    getProducts()
-  },[])
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const PageSize = 8;
+
+  useEffect(() => {getProducts()},[])
 
   let body = null;
+
   if (productsLoading) {
     body = (
       <div className="spinner-container">
@@ -43,18 +41,17 @@ function Home() {
       </div>
     );
   } else if (products.length>0) {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    const currentProducts  = products.slice(firstPageIndex, lastPageIndex)
     body =(
       <>
-      {
-        <Row className="row-cols-1 row-cols-md-4 g-4 mx-auto mt-3">
-          
-          {products.map((product) => (
-            <Col key={product.msvt} className="my-2">
-              <SingleProductUser vatTu={product} />
-            </Col>
-          ))}
-        </Row>
-      }
+      <PaginationProduct
+        currentPage={currentPage}
+        onPageChange={page => setCurrentPage(page)}
+        totalPage={Math.ceil(products.length/PageSize)}
+      />     
+      <ListProducts products ={ currentProducts}/>
       </>
     )
   }

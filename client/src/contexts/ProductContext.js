@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { createContext, useReducer, useState } from 'react'
+import React, { createContext, useEffect, useReducer, useState } from 'react'
 import { productReducer } from '../reducers/productReducer'
 import { ADD_PRODUCT, apiUrl, DELETE_PRODUCT,FIND_PRODUCT, FIND_PRODUCT_BY_MSLVT, PRODUCTS_LOADED_FAIL, PRODUCTS_LOADED_SUCCESS, UPDATE_PRODUCT } from './constants'
 
@@ -41,13 +41,15 @@ const ProductContextProvider = ({children}) => {
     const getProducts = async () =>{
         try {
           const response = await axios.get(`${apiUrl}/vattu`)
+          console.log("lấy data")
           if (response.data.success) {
-            dispatch({type:PRODUCTS_LOADED_SUCCESS,payload:response.data.products})
+             dispatch({type:PRODUCTS_LOADED_SUCCESS,payload:response.data.products})
           }
         } catch (error) {
           dispatch({type:PRODUCTS_LOADED_FAIL})
         }
       }
+    useEffect( ()=>{ getProducts()},[])
     // xóa sản phẩm
     const deleteProduct = async (productId) => {
         try {

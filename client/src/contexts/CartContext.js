@@ -36,9 +36,9 @@ const CartContextProvider = ({ children }) => {
         let data = {...cartState.cart, msnd: user.msnd};
         console.log("user:",user)
         try {
-            let res = await  axios.post(`${apiUrl}/dathang`, data)
+            let res = await  axios.post(`${apiUrl}/donhang`, data)
             if(res.data.success){
-                setShowToast({ show: true, message:'Đạt hàng thành công', type:null})
+                setShowToast({ show: true, message:'Đặt hàng thành công', type:null})
                 resetCart()
             } 
         } catch (error) {

@@ -12,6 +12,7 @@ function Order() {
 
   body = (
     <>
+      <h3> Danh sách các đơn hàng</h3>
       <div className='row'>
 
         {orders.map(order=>(

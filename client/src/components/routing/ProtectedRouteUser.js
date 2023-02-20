@@ -3,7 +3,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import Spinner from "react-bootstrap/Spinner";
-import SidebarMenuUser from "../layout/SidebarMenuUser";
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from "react-bootstrap/esm/Col";
 import NavbarMenu from "../Navbar/NavbarMenu";
@@ -19,11 +19,13 @@ function ProtectedRouteUser({component: Component, ...props}) {
     return (isAuthenticated ? 
         <>
             <NavbarMenu/>
-            <Row>
-                <Col>
-                    <Outlet />
-                </Col>
-            </Row>
+            <Container>
+                <Row>
+                    <Col>
+                        <Outlet />
+                    </Col>
+                </Row>
+            </Container>
         </> 
         : <Navigate to='/dangnhap'/>     )
 }
