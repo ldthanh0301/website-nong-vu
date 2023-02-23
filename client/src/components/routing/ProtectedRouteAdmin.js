@@ -28,7 +28,7 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                     <Col lg="3">
                         <Sibebar></Sibebar>
                     </Col>
-                    <Col>
+                    <Col  lg="9">
                         <Outlet />
                     </Col>
                 </Row>

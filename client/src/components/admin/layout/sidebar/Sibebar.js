@@ -17,6 +17,9 @@ function Sibebar() {
             <ListGroup.Item action href="./muavu">
                 Mùa vụ
             </ListGroup.Item>
+            <ListGroup.Item action href="./khuyenmai">
+                Khuyến mãi
+            </ListGroup.Item>
         </ListGroup>
     </div>
   )

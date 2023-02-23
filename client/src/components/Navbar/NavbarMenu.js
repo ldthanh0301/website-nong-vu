@@ -32,17 +32,24 @@ const NavbarMenu = () => {
 		<>
 			<Nav.Link
 				className="font-weight-bolder text-white"
-				to="/user/donhang"
+				to="/nguoidung/donhang"
 				as={Link}
 			>
 				Đơn hàng
 			</Nav.Link>
 			<Nav.Link
 				className="font-weight-bolder text-white"
-				to="/user/chiphi"
+				to="/nguoidung/chiphi"
 				as={Link}
 			>
 				Chi phí
+			</Nav.Link>
+			<Nav.Link
+				className="font-weight-bolder text-white"
+				to="/khuyenmai"
+				as={Link}
+			>
+				Khuyến mãi
 			</Nav.Link>
 		</>
 		);
@@ -50,7 +57,7 @@ const NavbarMenu = () => {
 			<>
 			<Nav.Link
 				className='font-weight-bolder text-white'
-				to='/user/giohang'
+				to='/nguoidung/giohang'
 				as={Link}
 			>
 				Giỏ hàng
@@ -61,7 +68,7 @@ const NavbarMenu = () => {
 				</Dropdown.Toggle>
 
 				<Dropdown.Menu>
-					<Dropdown.Item href="/user">Thông tin cá nhân</Dropdown.Item>
+					<Dropdown.Item href="/nguoidung/thongtin">Thông tin cá nhân</Dropdown.Item>
 					<Dropdown.Item onClick={()=>{
 						logoutUser()
 						window.location.reload()

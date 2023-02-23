@@ -29,7 +29,6 @@ router.get("/:id", function(req,res) {
 router.post("/", function (req, res) {
     var {tenLoaiVatTu} = req.body;
     LoaiVatTu.add(tenLoaiVatTu, function(err, result){
-        console.log("result :", result)
         if (err) {
             res.json(err)
         } else {

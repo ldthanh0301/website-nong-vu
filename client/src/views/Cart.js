@@ -35,6 +35,7 @@ function Cart() {
   }else {
     body = (
       <div>
+        <h3>Giỏ hàng của bạn</h3>
         <Table striped bordered >
           <thead>
           <tr>

@@ -62,9 +62,9 @@ function ChiTietDonHang() {
         }
     
     return (
-        <div style={{width:"1200px", margin:"auto"}}>
-            {body}
-        </div>
+        <>
+          {body}
+        </>
     )
 }
 

@@ -27,7 +27,12 @@ export const GET_CART = 'GET_CART'
 export const GET_MUAVU = 'GET_MUAVU'
 export const ADD_MUAVU = 'ADD_MUAVU'
 export const DELETE_MUAVU = 'DELETE_MUAVU'
-
+//khuyen mai
+export const GET_KHUYENMAI = 'GET_KHUYENMAI'
+export const SET_KHUYENMAI = 'SET_KHUYENMAI'
+export const GET_KHUYENMAI_DETAIL = 'GET_KHUYENMAI_DETAIL'
+export const ADD_KHUYENMAI = 'ADD_KHUYENMAI'
+export const DELETE_KHUYENMAI = 'DELETE_KHUYENMAI'
 //cart 
 export const Add_PRODUCT_TO_CART = 'Add_PRODUCT_TO_CART'
 export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'

@@ -36,7 +36,7 @@ function MuaVu() {
     } else {
         body = (
             <>
-              <Table striped bordered hover style={{width:'1200px', margin: 'auto'}}>
+              <Table striped bordered hover>
                 <thead>
                   <tr>
                     <th>STT</th>

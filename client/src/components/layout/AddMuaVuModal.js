@@ -27,7 +27,7 @@ function AddMuaVuModal() {
         onHide={() => setShowAddMuaVuModal(false)}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thêm danh mục mới</Modal.Title>
+          <Modal.Title>Thêm mùa vụ mới</Modal.Title>
         </Modal.Header>
         <Form onSubmit={handlerSubmit}>
           <Modal.Body>

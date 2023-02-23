@@ -7,7 +7,6 @@ import SidebarMenuUser from '../components/layout/SidebarMenuUser'
 import NavbarMenu from '../components/Navbar/NavbarMenu'
 import ProductDetail from '../components/products/product/ProductDetail'
 import { ProductContext } from '../contexts/ProductContext'
-import Breadcrumb from "../components/layout/Breadcrumb"
 
 function ChiTietVatTu() {
   const params = useParams()
@@ -41,13 +40,11 @@ function ChiTietVatTu() {
   }
   return (
     <>
-      <NavbarMenu/>
       <Row>
         <Col lg="3">
           <SidebarMenuUser/>
         </Col>
         <Col lg="9">
-          <Breadcrumb></Breadcrumb>
           {body}
         </Col>
       </Row>

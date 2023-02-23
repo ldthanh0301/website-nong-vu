@@ -24,6 +24,9 @@ import ChiTietDonHang from "./views/admin/ChiTietDonHang";
 import Order from "./views/user/Order";
 import OrderDetail from "./views/user/OrderDetail";
 import Expense from "./views/user/Expense";
+import KhuyenMai from "./views/KhuyenMai";
+import KhuyenMaiContextProvider from "./contexts/KhuyenMaiContext";
+import PublicRoute from "./components/routing/PublicRoute";
 
 function App() {
   return (
@@ -33,37 +36,46 @@ function App() {
           <CartContextProvider>
             <MuaVuContextProvider>
               <DonHangContextProvider>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="dangnhap" element={<Auth authRoute="login" />} />
-                  <Route
-                    path="dangky"
-                    element={<Auth authRoute="register" />}
-                  />
-                  <Route path="vattu" element={<VatTu />}></Route>
-                  <Route path="vattu/:id" element={<ChiTietVatTu />}></Route>
-                  {/* User */}
-                  <Route path="user" element={<ProtectedRouteUser />}>
-                    <Route path="" element={<ThongTinCaNhan />}></Route>
-                    <Route path="giohang" element={<Cart />}></Route>
-                    <Route path="chiphi" element={<Expense />}></Route>
-                    <Route path="donhang" element={<Order />}></Route>
-                    <Route path="donhang/chitietdonhang/:id" element={<OrderDetail/>}></Route>
-                  </Route>
-                  {/* admin */}
-                  <Route path="admin" element={<ProtectedRouteAdmin />}>
-                    <Route path="" element={<Dashboard />}></Route>
-                    <Route path="donhang" element={<DonHang />}></Route>
+                <KhuyenMaiContextProvider>
+
+                  <Routes>
+                    {/* Guest */}
+                    <Route path="dangnhap" element={<Auth authRoute="login" />} />
                     <Route
-                      path="donhang/chitietdonhang/:id"
-                      element={<ChiTietDonHang />}
-                    ></Route>
-                    <Route path="doanhthu" element={<DoanhThu />}></Route>
-                    <Route path="vattu" element={<Product />}></Route>
-                    <Route path="categories" element={<Category />}></Route>
-                    <Route path="muavu" element={<MuaVu />}></Route>
-                  </Route>
-                </Routes>
+                      path="dangky"
+                      element={<Auth authRoute="register" />}
+                    />
+                    <Route path="/" element={<PublicRoute />}>
+                      <Route path="/" element={<Home />} />
+                      <Route path="vattu" element={<VatTu />}></Route>
+                      <Route path="vattu/:id" element={<ChiTietVatTu />}></Route>
+                      <Route path="khuyenmai" element={<KhuyenMai/>}></Route>
+                    </Route>
+                    {/* User */}
+                    <Route path="nguoidung" element={<ProtectedRouteUser />}>
+                      <Route path="" element={<ThongTinCaNhan />}></Route>
+                      <Route path="thongtin" element={<ThongTinCaNhan />}></Route>
+                      <Route path="giohang" element={<Cart />}></Route>
+                      <Route path="chiphi" element={<Expense />}></Route>
+                      <Route path="donhang" element={<Order />}></Route>
+                      <Route path="donhang/chitietdonhang/:id" element={<OrderDetail/>}></Route>
+                    </Route>
+                    {/* admin */}
+                    <Route path="admin" element={<ProtectedRouteAdmin />}>
+                      <Route path="" element={<Dashboard />}></Route>
+                      <Route path="donhang" element={<DonHang />}></Route>
+                      <Route
+                        path="donhang/chitietdonhang/:id"
+                        element={<ChiTietDonHang />}
+                      ></Route>
+                      <Route path="doanhthu" element={<DoanhThu />}></Route>
+                      <Route path="vattu" element={<Product />}></Route>
+                      <Route path="categories" element={<Category />}></Route>
+                      <Route path="muavu" element={<MuaVu />}></Route>
+                      <Route path="khuyenmai" element={<KhuyenMai />}></Route>
+                    </Route>
+                  </Routes>
+                </KhuyenMaiContextProvider>
               </DonHangContextProvider>
             </MuaVuContextProvider>
           </CartContextProvider>

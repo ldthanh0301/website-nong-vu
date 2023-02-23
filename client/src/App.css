@@ -1,3 +1,11 @@
+body {
+    box-sizing: border-box;
+}
+
+main {
+    min-height: 100vh;
+}
+
 .landing {
     position: relative;
     background: url('./assets/panner.jpg') no-repeat center center/cover;

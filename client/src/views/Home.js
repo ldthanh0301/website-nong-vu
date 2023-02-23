@@ -10,7 +10,7 @@ import NavbarMenu from '../components/Navbar/NavbarMenu'
 import SingleProductUser from '../components/products/SingleProductUser'
 import { CartContext } from '../contexts/CartContext'
 import { ProductContext } from '../contexts/ProductContext'
-import Breadcrumb from "../components/layout/Breadcrumb"
+import Breadcrumbs from "../components/layout/Breadcrumbs"
 import Footer from "../components/layout/footer/Footer";
 import PaginationProduct from "../components/layout/pagination/Pagination";
 import ListProducts from "../components/layout/listProduct/ListProducts";
@@ -56,20 +56,14 @@ function Home() {
     )
   }
   return (<>
-    {/* <Carousel></Carousel> */}
-    <NavbarMenu/>
-    <main>
-      <Row>
-        <Col lg="3">
-          <SidebarMenuUser/>
+    <Row>
+        <Col lg="3">    
+          <SidebarMenuUser/>  
         </Col>
-        <Col>
-          <Breadcrumb></Breadcrumb>
-          {body}
+        <Col lg="9">
+          {body}  
         </Col>
       </Row>
-    </main>
-    <Footer></Footer>
     <Toast
       show={show} 
       className={`bg-${type} text-white`}

@@ -7,33 +7,26 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from "react-bootstrap/esm/Col";
 import NavbarMenu from "../Navbar/NavbarMenu";
-import Breadcrumbs from "../layout/Breadcrumbs";
+import SidebarMenuUser from "../layout/SidebarMenuUser";
 import Footer from "../layout/footer/Footer";
+import Breadcrumbs from "../layout/Breadcrumbs";
 
-function ProtectedRouteUser({component: Component, ...props}) {
-    const {authState: {authLoading, isAuthenticated}}= useContext(AuthContext)
-    if (authLoading)
-    return (
-        <div className="spinner-container">
-            <Spinner animation="border" variant="info"/>
-        </div>
-    )
-    return (isAuthenticated ? 
+function PublicRoute({component: Component, ...props}) {
+   
+    return ( 
         <>
             <NavbarMenu/>
             <Breadcrumbs></Breadcrumbs>
             <main>
-                <Container>
-                    <Row>
-                        <Col>
-                            <Outlet />
-                        </Col>
-                    </Row>
+                <Container fluid>
+                <Outlet></Outlet>
                 </Container>
             </main>
+
             <Footer></Footer>
+
         </> 
-        : <Navigate to='/dangnhap'/>     )
+         )
 }
 
-export default ProtectedRouteUser;
+export default PublicRoute;

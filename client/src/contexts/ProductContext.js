@@ -41,7 +41,6 @@ const ProductContextProvider = ({children}) => {
     const getProducts = async () =>{
         try {
           const response = await axios.get(`${apiUrl}/vattu`)
-          console.log("lấy data")
           if (response.data.success) {
              dispatch({type:PRODUCTS_LOADED_SUCCESS,payload:response.data.products})
           }
