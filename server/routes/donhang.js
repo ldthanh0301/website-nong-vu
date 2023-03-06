@@ -6,7 +6,6 @@ const DonHang = require('../models/DonHang')
 
 router.post("/",verifyToken, (req, res)=> {
     let donhang = req.body;
-    
     DonHang.create(donhang, function (err, result){
         if (!err) {
             let msdh = result.insertId;

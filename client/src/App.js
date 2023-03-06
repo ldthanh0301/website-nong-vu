@@ -1,5 +1,6 @@
 import "./App.css";
-import {Route, Routes } from "react-router-dom";
+import "./assets/css/responsive.css";
+import { Route, Routes } from "react-router-dom";
 import Auth from "./views/Auth";
 import AuthContextProvider from "./contexts/AuthContext";
 import Dashboard from "./views/admin/Dashboard";
@@ -25,6 +26,7 @@ import Order from "./views/user/Order";
 import OrderDetail from "./views/user/OrderDetail";
 import Expense from "./views/user/Expense";
 import KhuyenMai from "./views/KhuyenMai";
+import KhuyenMaiAdmin from "./views/admin/KhuyenMai";
 import KhuyenMaiContextProvider from "./contexts/KhuyenMaiContext";
 import PublicRoute from "./components/routing/PublicRoute";
 
@@ -33,14 +35,16 @@ function App() {
     <AuthContextProvider>
       <ProductContextProvider>
         <CategoryContextProvider>
-          <CartContextProvider>
-            <MuaVuContextProvider>
-              <DonHangContextProvider>
-                <KhuyenMaiContextProvider>
-
+          <KhuyenMaiContextProvider>
+            <CartContextProvider>
+              <MuaVuContextProvider>
+                <DonHangContextProvider>
                   <Routes>
                     {/* Guest */}
-                    <Route path="dangnhap" element={<Auth authRoute="login" />} />
+                    <Route
+                      path="dangnhap"
+                      element={<Auth authRoute="login" />}
+                    />
                     <Route
                       path="dangky"
                       element={<Auth authRoute="register" />}
@@ -48,17 +52,26 @@ function App() {
                     <Route path="/" element={<PublicRoute />}>
                       <Route path="/" element={<Home />} />
                       <Route path="vattu" element={<VatTu />}></Route>
-                      <Route path="vattu/:id" element={<ChiTietVatTu />}></Route>
-                      <Route path="khuyenmai" element={<KhuyenMai/>}></Route>
+                      <Route
+                        path="vattu/:id"
+                        element={<ChiTietVatTu />}
+                      ></Route>
+                      <Route path="khuyenmai" element={<KhuyenMai />}></Route>
                     </Route>
                     {/* User */}
                     <Route path="nguoidung" element={<ProtectedRouteUser />}>
                       <Route path="" element={<ThongTinCaNhan />}></Route>
-                      <Route path="thongtin" element={<ThongTinCaNhan />}></Route>
+                      <Route
+                        path="thongtin"
+                        element={<ThongTinCaNhan />}
+                      ></Route>
                       <Route path="giohang" element={<Cart />}></Route>
                       <Route path="chiphi" element={<Expense />}></Route>
                       <Route path="donhang" element={<Order />}></Route>
-                      <Route path="donhang/chitietdonhang/:id" element={<OrderDetail/>}></Route>
+                      <Route
+                        path="donhang/chitietdonhang/:id"
+                        element={<OrderDetail />}
+                      ></Route>
                     </Route>
                     {/* admin */}
                     <Route path="admin" element={<ProtectedRouteAdmin />}>
@@ -72,13 +85,16 @@ function App() {
                       <Route path="vattu" element={<Product />}></Route>
                       <Route path="categories" element={<Category />}></Route>
                       <Route path="muavu" element={<MuaVu />}></Route>
-                      <Route path="khuyenmai" element={<KhuyenMai />}></Route>
+                      <Route
+                        path="khuyenmai"
+                        element={<KhuyenMaiAdmin />}
+                      ></Route>
                     </Route>
                   </Routes>
-                </KhuyenMaiContextProvider>
-              </DonHangContextProvider>
-            </MuaVuContextProvider>
-          </CartContextProvider>
+                </DonHangContextProvider>
+              </MuaVuContextProvider>
+            </CartContextProvider>
+          </KhuyenMaiContextProvider>
         </CategoryContextProvider>
       </ProductContextProvider>
     </AuthContextProvider>

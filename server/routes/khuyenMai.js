@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const verifyToken = require('../middlewave/auth')
 
 const KhuyenMai = require('../models/KhuyenMai')
 
@@ -8,7 +7,7 @@ const KhuyenMai = require('../models/KhuyenMai')
 // @desc GET khuyenmai
 // @access private
 
-router.get('/', verifyToken, async(req, res) => {
+router.get('/', async(req, res) => {
     KhuyenMai.getAll(function(err,result){
         if(err){
             res.json({success:false,message:err});
@@ -23,7 +22,7 @@ router.get('/', verifyToken, async(req, res) => {
 // @desc Create khuyenmai
 // @access private
 
-router.post('/', verifyToken, async(req, res) => {
+router.post('/', async(req, res) => {
     const {
         giaTriKM,
         tenKM,
@@ -84,7 +83,7 @@ router.delete('/:id', function (req, res) {
 // @desc Create khuyenmai
 // @access private
 
-router.put('/', verifyToken, async(req, res) => {
+router.put('/', async(req, res) => {
     const {
         giaTriKM,
         tenKM,

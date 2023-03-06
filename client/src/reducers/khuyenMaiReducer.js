@@ -21,11 +21,6 @@ export const khuyenMaiReducer = (state, action) => {
                 khuyenMaiLoading: false,
                 khuyenMai: payload
             }
-        // case DELETE_KHUYENMAI:
-        //     return {
-        //         ...state,
-        //         muaVu: state.muaVu.filter(vu => vu.msmv !== payload),
-        //     }
         default:
             return state
     }

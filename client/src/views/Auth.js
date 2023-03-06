@@ -24,7 +24,7 @@ const Auth = ({ authRoute }) => {
         {authRoute === "register" && <RegisterForm />}
       </>
     )
-  } else if (user.quanLy===0)
+  } else if (user.quyen===0)
     return <Navigate to='/'/>
   else  {
     return <Navigate to='/admin/'/>

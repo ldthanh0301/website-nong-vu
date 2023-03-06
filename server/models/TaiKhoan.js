@@ -11,11 +11,11 @@ const TaiKhoan = {
         con.query(sql, callback)
     },
     findByAdmin: function (taiKhoan,callback) {
-        let sql = `select * from taikhoan tk join quanly ql on ql.taiKhoan = tk.taiKhoan where tk.taiKhoan = '${taiKhoan}'`;
+        let sql = `select * from taikhoan tk join nhanvien nv on nv.taiKhoan = tk.taiKhoan where tk.taiKhoan = '${taiKhoan}'`;
         con.query(sql, callback)
     },
     findById: function (id, callback) {
-        let sql = `Select tk.taiKhoan, tk.quanLy,tk.matKhau, nd.hoTen, nd.soDienThoai, nd.diaChi, nd.msnd from taikhoan tk join nongdan nd on nd.taiKhoan = tk.taiKhoan where tk.taiKhoan = '${id}'`;
+        let sql = `Select tk.taiKhoan, tk.quyen, nd.hoTen, nd.soDienThoai, nd.diaChi, nd.msnd from taikhoan tk join nongdan nd on nd.taiKhoan = tk.taiKhoan where tk.taiKhoan = '${id}'`;
         con.query(sql, callback)
     },
     insertToNongDan: function(nongdan, callback) {

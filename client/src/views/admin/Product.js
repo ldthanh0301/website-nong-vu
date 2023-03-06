@@ -15,6 +15,7 @@ import UpdateProductModal from "../../components/products/UpdateProductModal";
 import { useSearchParams } from "react-router-dom";
 import Table from "react-bootstrap/esm/Table";
 import { apiUrl } from "../../contexts/constants";
+import { VND } from "../../utils/format";
 
 function Product() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -78,7 +79,7 @@ function Product() {
                 <td>
                   <img src={apiUrl+"/"+vatTu.diaChiHinh} width='126px' alt="" srcset="" />
                 </td>
-                <td>{vatTu.gia}</td>
+                <td>{VND.format(vatTu.gia)}</td>
                 <td>{vatTu.moTa}</td>
                 <td>{vatTu.soLuong}</td>
                 <td>

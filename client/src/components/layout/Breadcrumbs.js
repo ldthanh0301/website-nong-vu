@@ -50,7 +50,7 @@ const Breadcrumbs = () => {
       <Container fluid>
         <Breadcrumb>
           {breadcrumbs.map(({ match, breadcrumb }) => (
-            <Breadcrumb.Item key={match.pathname}>
+            <Breadcrumb.Item key={match.pathname} >
               <NavLink to={match.pathname}>{breadcrumb}</NavLink>
             </Breadcrumb.Item>
           ))}

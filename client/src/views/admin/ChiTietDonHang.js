@@ -3,6 +3,7 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 import Table from 'react-bootstrap/esm/Table';
 import { useParams } from 'react-router-dom'
 import { DonHangContext } from '../../contexts/DonHangContext';
+import { VND } from '../../utils/format';
 
 function ChiTietDonHang() {
     const params = useParams()
@@ -30,7 +31,7 @@ function ChiTietDonHang() {
                     <hr />
                     Ngày đặt hàng: <span>{orderInfo.info.ngayDH}</span>
                     <hr />
-                    Tổng tiền: <span>{orderInfo.info.tongTien}</span>
+                    Tổng tiền: <span>{VND.format(orderInfo.info.tongTien)}</span>
                     <hr />
                 </div>
                 <Table  striped bordered hover>
@@ -50,8 +51,8 @@ function ChiTietDonHang() {
                             <td>{index+1}</td>
                             <td>{vatTu.tenVatTu}</td>
                             <td>{vatTu.soLuong}</td>
-                            <td>{vatTu.gia}</td>
-                            <td>{vatTu.tongGia}</td>
+                            <td>{VND.format(vatTu.gia)}</td>
+                            <td>{VND.format(vatTu.tongGia)}</td>
                             </tr>
                         ))
                     }

@@ -19,7 +19,7 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
         </div>
     )
     return (
-        isAuthenticated && user.quanLy ===1  ? 
+        isAuthenticated && user.quyen ===1  ? 
         
         <>
             <NavbarMenu/>

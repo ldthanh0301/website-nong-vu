@@ -9,21 +9,19 @@ import { CartContext } from '../contexts/CartContext'
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import CartRow from "../components/table/CartRow"
+import { VND } from '../utils/format'
+import { KhuyenMaiContext } from '../contexts/KhuyenMaiContext'
+import ModalKhuyenMai from '../components/modals/ModalKhuyenMai'
 function Cart() {
-  const {authState: { user}} = useContext(AuthContext)
+  const {khuyenMaiState: { khuyenMai}} = useContext(KhuyenMaiContext)
   const {
     cartState: { cart,cartLoading}, 
     deleteProductInCart,
     datHang,
+    khuyenMaiInCart,
     showToast:{ show, message, type},
     setShowToast
   } = useContext(CartContext)
-
-  let {soLuong, setSoLuong} = useState()
-
-  const thayDoiSoLuong = (e) =>{
-    console.log("event:",e)
-  }
   let body= null;
 
   if (cart.products.length==0){
@@ -58,7 +56,11 @@ function Cart() {
         </Table>
         <div>
           <hr />
-          <span>Tổng tiền: {cart.tongTien}</span>
+          <ModalKhuyenMai></ModalKhuyenMai>
+          {
+            khuyenMaiInCart ? <div>Khuyến mãi:{khuyenMaiInCart.tenKM}</div>:""
+          }
+          <div>Tổng tiền: {VND.format(cart.tongTien)}</div>
           <hr />
           <Button onClick={()=>{datHang()}}>Đặt hàng</Button>
         </div>

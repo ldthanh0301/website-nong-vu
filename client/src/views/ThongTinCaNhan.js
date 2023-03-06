@@ -1,7 +1,7 @@
 import React, { useContext,  } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
-import SidebarMenuUser from '../components/layout/SidebarMenuUser'
+import SidebarMenuUser from '../components/Sidebar/SidebarMenuUser'
 import NavbarMenu from '../components/Navbar/NavbarMenu'
 import { AuthContext } from '../contexts/AuthContext'
 

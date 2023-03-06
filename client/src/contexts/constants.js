@@ -38,6 +38,7 @@ export const Add_PRODUCT_TO_CART = 'Add_PRODUCT_TO_CART'
 export const DELETE_PRODUCT_IN_CART = 'DELETE_PRODUCT_IN_CART'
 export const RESET_CART = 'RESET_CART'
 export const Tang_So_Luong = 'Tang_So_Luong'
+export const TINH_GIA_KM = 'TINH_GIA_KM'
 
 // don hang
 export const DAT_HANG = 'DAT_HANG'

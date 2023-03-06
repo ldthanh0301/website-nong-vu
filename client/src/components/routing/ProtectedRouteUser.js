@@ -11,7 +11,7 @@ import Breadcrumbs from "../layout/Breadcrumbs";
 import Footer from "../layout/footer/Footer";
 
 function ProtectedRouteUser({component: Component, ...props}) {
-    const {authState: {authLoading, isAuthenticated}}= useContext(AuthContext)
+    const {authState: {authLoading, isAuthenticated,user}}= useContext(AuthContext)
     if (authLoading)
     return (
         <div className="spinner-container">

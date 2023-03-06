@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/esm/Button'
 import { AuthContext } from '../../../contexts/AuthContext'
 import { CartContext } from '../../../contexts/CartContext'
 import { apiUrl } from '../../../contexts/constants'
+import { VND } from '../../../utils/format'
 import './style.css'
 
 function ProductDetail(props) {
@@ -28,7 +29,7 @@ function ProductDetail(props) {
                 style={{
                     color:'red',
                     fontSize:18
-                }}>{product.gia}</span>
+                }}>{VND.format(product.gia)}</span>
                 <pre
                 style={{
                     fontSize:18

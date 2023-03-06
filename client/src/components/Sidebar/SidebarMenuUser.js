@@ -2,8 +2,11 @@ import React, {useContext, useEffect} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { NavLink } from 'react-router-dom'
 import { CategoryContext } from '../../contexts/CategoryContext';
+import {  useLocation } from "react-router-dom";
 
 function SidebarMenuUser() {
+  let location = useLocation();
+
   const style = {
     backgroundColor: '#f3f3f3',
     margin: "25px 25px",
@@ -14,17 +17,7 @@ function SidebarMenuUser() {
     textTransform: "uppercase",
     textAlign: "center"
   }
-  const listItem  = {
-    background: "#fff",
-    padding: "15px 15px",
-    marginBottom: "15px",
-    textColor: "black"
-  }
-  const navLink = {
-    color: "black",
-    textDecoration: "auto",
-    fontSize: "18px"
-  }
+
   const {
     categoryState: { categories },
     getCategories,
@@ -37,8 +30,8 @@ function SidebarMenuUser() {
           <h3 style={h3}>Danh mục vật tư</h3>
           <ListGroup>
           {categories.map((category) => (
-              <ListGroup.Item key={category.mslvt} style={listItem}>
-              <NavLink style={navLink}  to={"/vattu?mslvt="+category.mslvt}>{category.tenLoaiVatTu}</NavLink>
+              <ListGroup.Item key={category.mslvt}>
+              <NavLink  className="nav-link" to={"/vattu?mslvt="+category.mslvt} end>{category.tenLoaiVatTu}</NavLink>
             </ListGroup.Item>
             ))}
           </ListGroup>

@@ -3,17 +3,12 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Spinner from 'react-bootstrap/esm/Spinner'
-import SidebarMenuUser from '../components/layout/SidebarMenuUser'
-import Panner from '../components/layout/Panner'
-import Carousel from '../components/layout/Carousel'
-import NavbarMenu from '../components/Navbar/NavbarMenu'
-import SingleProductUser from '../components/products/SingleProductUser'
+import SidebarMenuUser from '../components/Sidebar/SidebarMenuUser'
 import { CartContext } from '../contexts/CartContext'
 import { ProductContext } from '../contexts/ProductContext'
-import Breadcrumbs from "../components/layout/Breadcrumbs"
-import Footer from "../components/layout/footer/Footer";
 import PaginationProduct from "../components/layout/pagination/Pagination";
-import ListProducts from "../components/layout/listProduct/ListProducts";
+import ListProducts from "../components/products/listProduct/ListProducts";
+import HomeBanner from "../components/HomeBanner/HomeBanner";
 
 
 function Home() {
@@ -56,6 +51,8 @@ function Home() {
     )
   }
   return (<>
+    <HomeBanner/>
+    <hr />
     <Row>
         <Col lg="3">    
           <SidebarMenuUser/>  

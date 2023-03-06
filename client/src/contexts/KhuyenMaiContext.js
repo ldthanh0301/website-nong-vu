@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useReducer, useState } from "react";
 import { khuyenMaiReducer } from "../reducers/khuyenMaiReducer";
-import { ADD_KHUYENMAI, apiUrl, DELETE_MUAVU, GET_KHUYENMAI, GET_KHUYENMAI_DETAIL, SET_KHUYENMAI } from "./constants";
+import { ADD_KHUYENMAI, apiUrl, GET_KHUYENMAI, GET_KHUYENMAI_DETAIL, SET_KHUYENMAI } from "./constants";
 
 export const KhuyenMaiContext = createContext()
 
@@ -78,6 +78,10 @@ const KhuyenMaiContextProvider = ({ children }) => {
             
         }
     } 
+
+    const openModalKhuyenMai = useState(false);
+   
+
     const khuyenMaiContextData = {
         khuyenMaiState,
         setKhuyenMai,
@@ -85,6 +89,7 @@ const KhuyenMaiContextProvider = ({ children }) => {
         addKhuyenMai,
         deleteKhuyenMai,
         getById,
+        openModalKhuyenMai,
         updateKhuyenMai,
         setShowAddKhuyenMaiModal,
         showAddKhuyenMaiModal,

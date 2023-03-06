@@ -1,4 +1,4 @@
-import { Add_PRODUCT_TO_CART, DAT_HANG, DELETE_PRODUCT_IN_CART, GET_CART, RESET_CART, Tang_So_Luong } from "../contexts/constants"
+import { Add_PRODUCT_TO_CART, DAT_HANG, DELETE_PRODUCT_IN_CART, GET_CART, RESET_CART, Tang_So_Luong, TINH_GIA_KM } from "../contexts/constants"
 
 export const cartReducer = (state, action) => {
     const { type, payload }= action
@@ -20,6 +20,11 @@ export const cartReducer = (state, action) => {
                 cart: payload
             }
         case Tang_So_Luong:
+            return {
+                ...state,
+                cart: payload
+            }
+        case TINH_GIA_KM:
             return {
                 ...state,
                 cart: payload

@@ -5,6 +5,7 @@ import { Link, Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { CartContext } from "../../contexts/CartContext";
 import { apiUrl } from "../../contexts/constants";
+import { VND } from "../../utils/format";
 
 const SingleProductUser = ({ vatTu}) => {
   const {addProductToCart,setShowToast} = useContext(CartContext)
@@ -18,7 +19,7 @@ const SingleProductUser = ({ vatTu}) => {
           <Link to={"/vattu/"+vatTu.msvt}>{vatTu.tenVatTu}</Link>  
         </Card.Title>
         <Card.Text>
-        {vatTu.gia}
+        {VND.format(vatTu.gia)}
         </Card.Text>
         <Button variant="primary" onClick={()=>{
           if (isAuthenticated) {

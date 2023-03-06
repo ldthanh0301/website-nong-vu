@@ -6,12 +6,12 @@ import Col from "react-bootstrap/esm/Col";
 import Spinner from "react-bootstrap/esm/Spinner";
 import { useSearchParams } from "react-router-dom";
 import NavbarMenu from "../components/Navbar/NavbarMenu";
-import SidebarMenuUser from "../components/layout/SidebarMenuUser";
+import SidebarMenuUser from "../components/Sidebar/SidebarMenuUser";
 import { CartContext } from "../contexts/CartContext";
 import Toast from "react-bootstrap/esm/Toast";
 import Breadcrumbs from "../components/layout/Breadcrumbs";
 import PaginationProduct from "../components/layout/pagination/Pagination";
-import ListProducts from "../components/layout/listProduct/ListProducts";
+import ListProducts from "../components/products/listProduct/ListProducts";
 
 function VatTu() {
   const [searchParams, setSearchParams] = useSearchParams();

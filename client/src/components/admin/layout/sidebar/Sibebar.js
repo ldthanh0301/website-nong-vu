@@ -1,24 +1,25 @@
 import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup';
+import { NavLink } from 'react-router-dom';
 
 function Sibebar() {
   return (
     <div>
         <ListGroup as="ul">
-            <ListGroup.Item action href="./donhang">
-               Đơn hàng
+            <ListGroup.Item>
+                <NavLink to="./donhang" className="list-group-item">Đơn hàng</NavLink> 
             </ListGroup.Item>
-            <ListGroup.Item action href="./vattu">
-                Vật tư
+            <ListGroup.Item>
+                <NavLink to="./vattu" className="list-group-item">Vật tư</NavLink> 
             </ListGroup.Item>
-            <ListGroup.Item action href="./categories" >
-                Danh mục
+            <ListGroup.Item>
+                <NavLink to="./categories" className="list-group-item">Danh mục</NavLink> 
             </ListGroup.Item>
-            <ListGroup.Item action href="./muavu">
-                Mùa vụ
+            <ListGroup.Item>
+                <NavLink to="./muavu" className="list-group-item">Mùa vụ</NavLink> 
             </ListGroup.Item>
-            <ListGroup.Item action href="./khuyenmai">
-                Khuyến mãi
+            <ListGroup.Item>
+                <NavLink to="./khuyenmai" className="list-group-item">Khuyến mãi</NavLink> 
             </ListGroup.Item>
         </ListGroup>
     </div>

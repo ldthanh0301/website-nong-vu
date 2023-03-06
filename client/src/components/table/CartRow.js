@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import { CartContext } from '../../contexts/CartContext'
+import { VND } from '../../utils/format'
 
 function CartRow({product, index, deleteProductInCart}) {
   const {tangSoLuong} = useContext(CartContext)
@@ -19,11 +20,11 @@ function CartRow({product, index, deleteProductInCart}) {
         <tr >
             <td>{index + 1 }</td>
             <td>{product.tenVatTu}</td>
-            <td>{product.gia}</td>
+            <td>{VND.format(product.gia)}</td>
             <td>
               <input type="number" value={state} onChange={handleChange}/>
             </td>
-            <td>{product.tongGia}</td>
+            <td>{VND.format(product.tongGia)}</td>
             <td>
               <Button onClick={()=> {deleteProductInCart(product)}}>Xóa</Button>  
             </td>

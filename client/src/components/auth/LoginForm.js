@@ -30,10 +30,10 @@ const LoginForm = () => {
       const loginData = await loginUser(loginForm)
       if (loginData.success) {
         // navigate('/dashboard')
-        if (loginData.account.quanLy) {
-          navigate('/admin/');
-        } else {
+        if (loginData.account.quyen===0) {
           navigate("/")
+        } else {
+          navigate('/admin/');
         }
       }else {
         setAlert({type:'danger', message: loginData.message})

@@ -31,7 +31,7 @@ router.get('/', verifyToken, async(req, res) => {
             if (err || result.length ==0) 
                 return res.status(400).json({ success: false, message: 'Không tìm thấy tài khoản' })
             
-            if (result[0].quanLy===1)
+            if (result[0].quyen===1)
                 TaiKhoan.findByAdmin(req.userId, function(err, user){
                     if (!err) {
                         res.json({ success: true, taiKhoan:user[0] })
@@ -39,7 +39,7 @@ router.get('/', verifyToken, async(req, res) => {
                     }
                 }) 
             
-            if (result[0].quanLy ===0)
+            if (result[0].quyen ===0)
                     TaiKhoan.findById(req.userId, function (err, user){
                         if (!err) {
                             res.json({ success: true, taiKhoan:user[0] })
