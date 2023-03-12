@@ -1,13 +1,9 @@
-import { useState } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
-function PaginationProduct(props) {
+function PaginationItem(props) {
     const {onPageChange,totalPage,currentPage} = props
     let items = [];
-    
-    // const chosePage = (event) => {
-    //     setActive(Number(event.target.id));
-    // }
+  
     for (let number = 1; number <= totalPage; number++) {
       items.push(
         <Pagination.Item key={number} active={number === currentPage} onClick={()=>{onPageChange(number)}}>
@@ -23,4 +19,4 @@ function PaginationProduct(props) {
 }
 
 
-export default PaginationProduct;
+export default PaginationItem;

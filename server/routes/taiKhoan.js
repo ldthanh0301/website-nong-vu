@@ -4,7 +4,6 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const verifyToken = require('../middlewave/auth')
 
-const User = require('../models/User')
 const TaiKhoan = require('../models/TaiKhoan')
 const GioHang = require('../models/GioHang')
 

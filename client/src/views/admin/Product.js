@@ -1,122 +1,86 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
-import addIcon from "../../assets/plus-circle-fill.svg"
-import editIcon from "../../assets/pencil.svg"
-import deleteIcon from "../../assets/trash.svg"
-
+import addIcon from "../../assets/plus-circle-fill.svg";
 import Tooltip from "react-bootstrap/esm/Tooltip";
-import AddProductModal from "../../components/products/AddProductModal"
+import AddProductModal from "../../components/products/AddProductModal";
 import { ProductContext } from "../../contexts/ProductContext";
-import SingleProductUser from "../../components/products/SingleProductUser";
-import Col from "react-bootstrap/esm/Col";
 import Spinner from "react-bootstrap/esm/Spinner";
 import UpdateProductModal from "../../components/products/UpdateProductModal";
 import { useSearchParams } from "react-router-dom";
-import Table from "react-bootstrap/esm/Table";
-import { apiUrl } from "../../contexts/constants";
-import { VND } from "../../utils/format";
+import TableProduct from "../../components/admin/product/TableProduct";
+import Pagination from "../../components/layout/pagination/Pagination";
 
 function Product() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const mslvt = searchParams.get('mslvt');
+  const mslvt = searchParams.get("mslvt");
+  const [currentPage, setCurrentPage] = useState(1);
 
   // context
   const {
-    productState:{product,products,productsLoading},
+    productState: { product, products, productsLoading },
     setShowAddProductModal,
     getProducts,
     findByMslvt,
     deleteProduct,
     findProduct,
-    setShowUpdateProductModal
-  } = useContext(ProductContext)
-  
-  const handlerUpdate = (_id) => {
-    findProduct(_id)
-    setShowUpdateProductModal(true)
-  }
+    setShowUpdateProductModal,
+  } = useContext(ProductContext);
 
-  
-  useEffect(()=>{
-    if(mslvt){
-      findByMslvt(mslvt)
-    }else {
-      getProducts()
+  useEffect(() => {
+    if (mslvt) {
+      findByMslvt(mslvt);
+    } else {
+      getProducts();
     }
-  },[mslvt])
+  }, [mslvt]);
 
   let body = null;
   if (productsLoading) {
     body = (
       <div className="spinner-container">
-        <Spinner animation="border" varient="info">
-          
-        </Spinner>
+        <Spinner animation="border" varient="info"></Spinner>
       </div>
     );
-  } else if (products.length>0) {
-    body =(
+  } else {
+
+    const PageSize = 10;
+
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    const currentProducts = products.slice(firstPageIndex, lastPageIndex);
+    body = (
       <>
-      {
-        <Table striped bordered hover style={{width:'1200px', margin: 'auto'}}>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên vật tư</th>
-              <th>Ảnh</th>
-              <th>Giá</th>
-              <th>Mô tả</th>
-              <th>Số lượng</th>
-              <th>Tùy chọn</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((vatTu,index) => (
-              <tr key={vatTu.msvt}>
-                <td>{index + 1}</td>
-                <td>{vatTu.tenVatTu}</td>
-                <td>
-                  <img src={apiUrl+"/"+vatTu.diaChiHinh} width='126px' alt="" srcset="" />
-                </td>
-                <td>{VND.format(vatTu.gia)}</td>
-                <td>{vatTu.moTa}</td>
-                <td>{vatTu.soLuong}</td>
-                <td>
-                  <Button className="post-button" onClick={handlerUpdate.bind(this,vatTu.msvt)}>
-                  <img src={editIcon} alt="edit" width="24" height="24" />
-                  </Button>{" "}
-                  <Button style={{float:'right'}} onClick={deleteProduct.bind(this,vatTu.msvt)}>
-                      <img src={deleteIcon} alt="delete" width="24" height="24" />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      }
-        {/* open add product modal */}
-        <OverlayTrigger placement='left' overlay={<Tooltip>Add new product!!</Tooltip>}>
-            <Button className="btn-floating" onClick={setShowAddProductModal.bind(this,true)}>
-              <img src={addIcon} alt="add post" width='60' height='60' />
-            </Button>
-        </OverlayTrigger>
-      </>
-    )
+        <Pagination
+          currentPage={currentPage}
+          onPageChange={(page) => setCurrentPage(page)}
+          totalPage={Math.ceil(products.length / PageSize)}
+        ></Pagination>
+        <TableProduct 
+          products={currentProducts}
+          findProduct={findProduct}
+          setShowUpdateProductModal={setShowUpdateProductModal}
+          deleteProduct={deleteProduct}
+        ></TableProduct>
+      </>)      
   } 
-  else {
-    body = (<>
-      {/* open add product modal */}
-      <OverlayTrigger placement='left' overlay={<Tooltip>Add new product!!</Tooltip>}>
-            <Button className="btn-floating" onClick={setShowAddProductModal.bind(this,true)}>
-              <img src={addIcon} alt="add post" width='60' height='60' />
-            </Button>
-        </OverlayTrigger>
-    </>)
-  }
   return (
     <>
       {body}
+      <>
+        {/* open add product modal */}
+        <OverlayTrigger
+          placement="left"
+          overlay={<Tooltip>Thêm sản phẩm mới!!</Tooltip>}
+        >
+          <Button
+            className="btn-floating"
+            onClick={setShowAddProductModal.bind(this, true)}
+          >
+            <img src={addIcon} alt="add post" width="60" height="60" />
+          </Button>
+        </OverlayTrigger>
+      </>
       <AddProductModal></AddProductModal>
       {product !== null && <UpdateProductModal></UpdateProductModal>}
     </>

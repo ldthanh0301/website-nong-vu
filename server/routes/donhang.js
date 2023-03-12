@@ -29,12 +29,21 @@ router.get("/", verifyToken, (req, res) => {
 // đơn hàng user
 router.get("/user/:msnd", verifyToken, (req, res) => {
     let msnd  = req.params.msnd
-
-    DonHang.getByUser(msnd,function (err, result) {
-        if (!err) {
-            res.status(200).json({success:true, message:"Thành công", orders: result})
-        }
-    })
+    if (req.query.status) 
+    {   
+        let status = req.query.status;
+        DonHang.getByUserAndStatus({msnd,status},function (err, result) {
+            if (!err) {
+                res.status(200).json({success:true, message:"Thành công", orders: result})
+            }
+        })
+    } else {
+        DonHang.getByUser(msnd,function (err, result) {
+            if (!err) {
+                res.status(200).json({success:true, message:"Thành công", orders: result})
+            }
+        })
+    }
 })
 router.get("/chitietdonhang/:msdh", verifyToken, (req, res) => {
     let msdh  = req.params.msdh

@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 var mysql = require('mysql');
 
-const authRouter = require('./routes/auth')
 const taiKhoanRouter = require('./routes/taiKhoan')
 const uploadRouter = require('./routes/upload')
 const vatTuRouter = require('./routes/vatTu')

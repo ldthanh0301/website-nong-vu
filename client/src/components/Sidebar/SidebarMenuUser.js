@@ -2,10 +2,8 @@ import React, {useContext, useEffect} from 'react'
 import ListGroup from 'react-bootstrap/ListGroup'
 import { NavLink } from 'react-router-dom'
 import { CategoryContext } from '../../contexts/CategoryContext';
-import {  useLocation } from "react-router-dom";
 
 function SidebarMenuUser() {
-  let location = useLocation();
 
   const style = {
     backgroundColor: '#f3f3f3',

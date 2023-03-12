@@ -61,8 +61,8 @@ const CartContextProvider = ({ children }) => {
     dispatch({ type: RESET_CART, payload: { products: [], tongTien: 0 } });
   };
   // đặt hàng
-  const datHang = async () => {
-    let data = { ...cartState.cart, msnd: user.msnd,mskm:null};
+  const datHang = async ({address,phone}) => {
+    let data = { ...cartState.cart, msnd: user.msnd,mskm:null,diaChi:address,soDienThoai:phone};
     if (khuyenMaiInCart) {
         data = {...data, mskm:khuyenMaiInCart.mskm}
     }

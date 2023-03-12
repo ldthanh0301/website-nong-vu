@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import Spinner from "react-bootstrap/Spinner";
@@ -12,9 +12,14 @@ import Footer from "../layout/footer/Footer";
 import Breadcrumbs from "../layout/Breadcrumbs";
 
 function PublicRoute({component: Component, ...props}) {
-   
+    const {authState: {authLoading, isAuthenticated, user}}= useContext(AuthContext)
+    const navigate = useNavigate()
+
     return ( 
         <>
+            {
+                isAuthenticated && user.quyen ===1 ? navigate("/admin"): null
+            }
             <NavbarMenu/>
             <Breadcrumbs></Breadcrumbs>
             <main>

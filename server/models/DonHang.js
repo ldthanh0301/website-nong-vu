@@ -2,7 +2,7 @@ const con = require('./db')
 
 const DonHang = {
     create: function(donhang, callback) {
-        let sql = `INSERT INTO donhang(tongTien,msnd,mskm) VALUES (${donhang.tongTien}, ${donhang.msnd},${donhang.mskm})`
+        let sql = `INSERT INTO donhang(tongTien,msnd,mskm,diaChiGiaoHang,soDienThoai) VALUES (${donhang.tongTien}, ${donhang.msnd},${donhang.mskm},"${donhang.diaChi}","${donhang.soDienThoai}")`
         con.query(sql, callback)
     },
     insertToCTDH: function(donhang, callback) {
@@ -10,7 +10,7 @@ const DonHang = {
         con.query(sql, callback)
     },
     getAll: function(callback) {
-        let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd`;
+        let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where Date(dh.ngayDH) order by dh.ngayDH desc`;
         con.query(sql, callback)
     },
     getByStatus: function(status,callback) {
@@ -18,7 +18,11 @@ const DonHang = {
         con.query(sql, callback)
     },
     getByUser: function(msnd, callback) {
-        let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.msnd = ${msnd}`;
+        let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.msnd = ${msnd} order by dh.ngayDH desc`;
+        con.query(sql, callback)
+    },
+    getByUserAndStatus: function({msnd,status}, callback) {
+        let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.msnd = ${msnd} and dh.trangThai =${status} order by dh.ngayDH desc`;
         con.query(sql, callback)
     },
     updateState: function ({msdh,state}, callback) {

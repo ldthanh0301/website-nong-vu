@@ -26,7 +26,7 @@ function OrderDetail() {
                     <hr />
                     Số điện thoại: <span>{orderInfo.info.soDienThoai}</span>
                     <hr />
-                    Địa chỉ: <span>{orderInfo.info.diaChi}</span>
+                    Địa chỉ: <span>{orderInfo.info.diaChiGiaoHang}</span>
                     <hr />
                     Ngày đặt hàng: <span>{orderInfo.info.ngayDH}</span>
                     <hr />

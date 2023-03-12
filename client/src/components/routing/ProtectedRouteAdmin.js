@@ -28,7 +28,7 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                     <Col lg="3">
                         <Sibebar></Sibebar>
                     </Col>
-                    <Col  lg="9">
+                    <Col  lg="9" style={{padding:"25px 25px"}}>
                         <Outlet />
                     </Col>
                 </Row>

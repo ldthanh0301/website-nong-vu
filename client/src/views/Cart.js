@@ -12,8 +12,9 @@ import CartRow from "../components/table/CartRow"
 import { VND } from '../utils/format'
 import { KhuyenMaiContext } from '../contexts/KhuyenMaiContext'
 import ModalKhuyenMai from '../components/modals/ModalKhuyenMai'
+import FormInfoOrder from '../components/form/FormInfoOrder'
+import SidebarMenuUser from '../components/Sidebar/SidebarMenuUser'
 function Cart() {
-  const {khuyenMaiState: { khuyenMai}} = useContext(KhuyenMaiContext)
   const {
     cartState: { cart,cartLoading}, 
     deleteProductInCart,
@@ -62,7 +63,6 @@ function Cart() {
           }
           <div>Tổng tiền: {VND.format(cart.tongTien)}</div>
           <hr />
-          <Button onClick={()=>{datHang()}}>Đặt hàng</Button>
         </div>
       </div>
     )
@@ -71,7 +71,14 @@ function Cart() {
   return (
     <>
       <div style={{padding: "30px 30px"}}>
-        {body}
+        <Row>
+        <Col lg="8">    
+          {body}  
+        </Col>
+        <Col lg="4">
+          <FormInfoOrder datHang={datHang}></FormInfoOrder>
+        </Col>
+        </Row>
       </div>
       <ToastContainer   className="p-3" position={'middle-center'}>
           <Toast show={show} onClose={setShowToast.bind(this,{show:false,message:'',type:null})}>
@@ -81,8 +88,8 @@ function Cart() {
                 className="rounded me-2"
                 alt=""
               />
-              <strong className="me-auto">Bootstrap</strong>
-              <small>11 mins ago</small>
+              <strong className="me-auto">Thông báo</strong>
+              <small>Ngay bây giời</small>
             </Toast.Header>
             <Toast.Body>{message}</Toast.Body>
           </Toast>

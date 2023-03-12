@@ -3,7 +3,6 @@ const router = express.Router()
 const verifyToken = require('../middlewave/auth')
 
 const GioHang = require('../models/GioHang')
-const { route } = require('./auth')
 
 // them chi tiết giỏ hàng
 router.post("/",verifyToken, (req, res)=> {

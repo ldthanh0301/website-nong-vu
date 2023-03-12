@@ -1,10 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/esm/Table";
 import { DonHangContext } from "../../contexts/DonHangContext";
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { NavLink, useSearchParams } from "react-router-dom";
+import Pagination from "../../components/layout/pagination/Pagination";
+import TableOrder from "../../components/admin/order/TableOrder";
 
 
 function DonHang() {
@@ -13,64 +15,32 @@ function DonHang() {
   
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get('status');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(()=> {
     getOrders(status)
+    setCurrentPage(1)
   },[status])
 
-  const handleChange = (msdh,e) => {
-    let state = e.target.value;
-    changeState(state, msdh)
-
-  }
+ 
   let body = null;
 
-
+  const PageSize = 10;
+  const firstPageIndex = (currentPage - 1) * PageSize;
+  const lastPageIndex = firstPageIndex + PageSize;
+  const currentOrders = orders.slice(firstPageIndex, lastPageIndex);
   body = (
       <>
-       <Table striped bordered hover>
-        <thead>
-            <tr>
-            <th>STT</th>
-            <th>Họ tên</th>
-            <th>Địa chỉ</th>
-            <th>Ngày đặt hàng</th>
-            <th>Trạng thái</th>
-            <th>Chi tiết đơn hàng</th>
-            </tr>
-        </thead>
-        <tbody>
-            {
-                orders.map((order, index) => (
-                    <tr key={index}>
-                    <td>{index+1}</td>
-                    <td>{order.hoTen}</td>
-                    <td>{order.diaChi}</td>
-                    <td>{order.ngayDH}</td>
-                    <td>
-                    <Form.Select aria-label="Default select example"
-                        onChange={(e) => handleChange(order.msdh,e)}
-                        defaultValue={order.trangThai}
-                    >
-                      <option value="0">Chưa duyệt</option>
-                      <option value="1" >Đã duyệt</option>
-                      <option value="2" >Đã giao</option>
-                    </Form.Select>
-                    </td>
-                    <td>
-                      <NavLink to={`./chitietdonhang/${order.msdh}`}>
-                        Chi Tiết
-                      </NavLink>
-                    </td>
-                    </tr>
-                ))
-            }
-        </tbody>
-        </Table>
+        <Pagination
+           currentPage={currentPage}
+           onPageChange={(page) => setCurrentPage(page)}
+           totalPage={Math.ceil(orders.length / PageSize)}
+        ></Pagination>
+        <TableOrder orders={currentOrders} changStatus={changeState}></TableOrder>
       </>
     );
   return (
-    <div style={{padding:"25px 25px"}}>
+    <div >
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           Hiển thị theo
