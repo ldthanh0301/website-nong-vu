@@ -8,6 +8,8 @@ import Sibebar from "../admin/layout/sidebar/Sibebar";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
+import Footer from "../layout/footer/Footer";
+import AdminPanner from "../admin/layout/panner/AdminPanner";
 
 
 function ProtectedRouteAdmin({component: Component, ...props}) {
@@ -23,7 +25,8 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
         
         <>
             <NavbarMenu/>
-            <Container fluid>
+            <AdminPanner/>
+            <Container fluid style={{minHeight: '80vh'}}>
                 <Row>
                     <Col lg="3">
                         <Sibebar></Sibebar>
@@ -33,6 +36,7 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                     </Col>
                 </Row>
             </Container>
+            <Footer></Footer>
         </> 
         : <Navigate to='../dangnhap'/>    
     )
