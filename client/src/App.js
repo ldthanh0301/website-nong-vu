@@ -29,6 +29,7 @@ import KhuyenMai from "./views/KhuyenMai";
 import KhuyenMaiAdmin from "./views/admin/KhuyenMai";
 import KhuyenMaiContextProvider from "./contexts/KhuyenMaiContext";
 import PublicRoute from "./components/routing/PublicRoute";
+import NhaCungCap from "./views/admin/NhaCungCap";
 
 function App() {
   return (
@@ -88,6 +89,10 @@ function App() {
                       <Route
                         path="khuyenmai"
                         element={<KhuyenMaiAdmin />}
+                      ></Route>
+                      <Route
+                        path="nhacungcap"
+                        element={<NhaCungCap />}
                       ></Route>
                     </Route>
                   </Routes>

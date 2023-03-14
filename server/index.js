@@ -12,6 +12,7 @@ const muaVuRouter = require('./routes/muaVu')
 const gioHangRouter = require('./routes/gioHang')
 const donHangRouter = require('./routes/donhang')
 const khuyenMaiRouter = require('./routes/khuyenMai')
+const nhaCungCapRouter = require('./routes/nhaCungCap')
 
 const app = express()
 app.use(express.json())
@@ -26,6 +27,7 @@ app.use('/api/muavu', muaVuRouter)
 app.use('/api/loaivattu', loaiVatTuRouter)
 app.use('/api/donhang', donHangRouter)
 app.use('/api/khuyenmai', khuyenMaiRouter)
+app.use('/api/nhacungcap', nhaCungCapRouter)
 
 const PORT = 5000
 

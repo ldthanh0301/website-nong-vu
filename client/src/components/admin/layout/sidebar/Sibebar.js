@@ -21,6 +21,9 @@ function Sibebar() {
             <ListGroup.Item>
                 <NavLink to="./khuyenmai" className="list-group-item">Khuyến mãi</NavLink> 
             </ListGroup.Item>
+            <ListGroup.Item>
+                <NavLink to="./nhacungcap" className="list-group-item">Nhà cung cấp</NavLink> 
+            </ListGroup.Item>
         </ListGroup>
     </div>
   )

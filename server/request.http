@@ -159,3 +159,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoY
     "ngayBD":"2023-02-25",
     "ngayKT":"2023-03-01"
 }
+
+###
+POST http://localhost:5000/api/nhacungcap/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY3NjczMjMwM30.Xpe79eiqQh3yMyDcjsV7Kye-yLEPVQFTwozx5wwi8eQ
+
+{
+    "tenNCC":"Phú Mỹ",
+    "diaChi":"Cà Mau",
+    "soDienThoai":"0333618825"
+}
+
+###
+GET http://localhost:5000/api/nhacungcap/
+###
+GET http://localhost:5000/api/nhacungcap/3
+###
+PUT http://localhost:5000/api/nhacungcap/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJsZHRoYW5oOSIsImlhdCI6MTY3NjczMjMwM30.Xpe79eiqQh3yMyDcjsV7Kye-yLEPVQFTwozx5wwi8eQ
+
+{
+    "tenNCC":"ADC",
+    "diaChi":"An Giang",
+    "soDienThoai":"0333618825"
+}
