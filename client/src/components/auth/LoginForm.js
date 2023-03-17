@@ -70,17 +70,17 @@ const LoginForm = () => {
           />
         </Form.Group>
         <Button variant="primary" type="submit">
-          Đăng nhập{" "}
-        </Button>{" "}
-      </Form>{" "}
-      <p>
+          Đăng nhập
+        </Button>
+      </Form>
+      <p style={{margin: '1rem 0'}}>
         Bạn chưa có tài khoản ?
         <Link to="/dangky">
           <Button variant="info" size="sm" className="ml-2">
-            Đăng ký{" "}
-          </Button>{" "}
-        </Link>{" "}
-      </p>{" "}
+            Đăng ký
+          </Button>
+        </Link>
+      </p>
     </>
   );
 };

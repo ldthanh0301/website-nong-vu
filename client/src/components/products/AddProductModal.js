@@ -12,14 +12,21 @@ const AddProductModal = () => {
   // Contexts
   const { showAddProductModal, setShowAddProductModal, addProduct } =
     useContext(ProductContext);
+  const [distributorList, setDistributorList] = useState([]);
 
   const {
     categoryState: { categories },
     getCategories,
   } = useContext(CategoryContext);
 
+  const getDistributorList = () => {
+    axios.get(apiUrl + "/nhacungcap").then((res) => {
+      setDistributorList(res.data.distributorList);
+    });
+  };
   useEffect(() => {
     getCategories();
+    getDistributorList();
   }, []);
   // State
   const [newProduct, setNewProduct] = useState({
@@ -29,11 +36,10 @@ const AddProductModal = () => {
     mslvt: 1,
     soLuong: 0,
     maHinh: "",
-    msncc:1
+    msncc: 1,
   });
 
   const [maHinh, setMaHinh] = useState("");
-  
 
   const { tenVatTu, moTa, gia, mslvt, soLuong, msncc } = newProduct;
   const uploadFileHandler = (event) => {
@@ -47,7 +53,7 @@ const AddProductModal = () => {
         },
       })
       .then((res) => {
-        console.log("ảnh: ",res.data)
+        console.log("ảnh: ", res.data);
         setMaHinh(res.data.maHinh);
       });
   };
@@ -78,15 +84,17 @@ const AddProductModal = () => {
       gia: 0,
       mslvt: "",
       soLuong: 0,
-      msncc
+      msncc:'',
     });
     setShowAddProductModal(false);
   };
 
   const handlerCategory = (e) => {
-    setNewProduct({...newProduct, mslvt: e.target.value})
-  }
-
+    setNewProduct({ ...newProduct, mslvt: e.target.value });
+  };
+  const handlerDistributor = (e) => {
+    setNewProduct({ ...newProduct, msncc: e.target.value });
+  };
   return (
     <Modal show={showAddProductModal} onHide={closeDialog}>
       <Modal.Header closeButton>
@@ -140,7 +148,11 @@ const AddProductModal = () => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>Ảnh sản phẩm</Form.Label>
-            <Form.Control type="file" name="maHinh" onChange={uploadFileHandler} />
+            <Form.Control
+              type="file"
+              name="maHinh"
+              onChange={uploadFileHandler}
+            />
           </Form.Group>
           <Form.Select
             aria-label="Default select example"
@@ -151,6 +163,19 @@ const AddProductModal = () => {
             {categories.map((category) => (
               <option key={category.mslvt} value={category.mslvt}>
                 {category.tenLoaiVatTu}
+              </option>
+            ))}
+          </Form.Select>
+          <hr />
+          <Form.Select
+            aria-label="Default select example"
+            onChange={handlerDistributor}
+            required
+          >
+            <option>Chọn nhà cung cấp</option>
+            {distributorList.map((distributor) => (
+              <option key={distributor.msncc} value={distributor.msncc}>
+                {distributor.tenNCC}
               </option>
             ))}
           </Form.Select>

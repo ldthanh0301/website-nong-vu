@@ -33,7 +33,7 @@ function Category() {
   } else if (categories.length > 0) {
     body = (
       <>
-        <Table striped bordered hover style={{width:'1200px', margin: 'auto'}}>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>STT</th>

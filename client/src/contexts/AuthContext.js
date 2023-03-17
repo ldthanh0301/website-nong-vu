@@ -21,7 +21,6 @@ const AuthContextProvider = ({ children }) => {
         try {
             let response = await axios.get(`${apiUrl}/taikhoan`)
             if (response.data.success) {
-                console.log("vào ", response.data)
                 dispatch({
                     type:'SET_AUTH',
                     payload: {isAuthenticated: true, user: response.data.taiKhoan}

@@ -10,6 +10,7 @@ import NavbarMenu from "../Navbar/NavbarMenu";
 import SidebarMenuUser from "../Sidebar/SidebarMenuUser";
 import Footer from "../layout/footer/Footer";
 import Breadcrumbs from "../layout/Breadcrumbs";
+import Chat from "../chat/Chat";
 
 function PublicRoute({component: Component, ...props}) {
     const {authState: {authLoading, isAuthenticated, user}}= useContext(AuthContext)
@@ -29,6 +30,7 @@ function PublicRoute({component: Component, ...props}) {
             </main>
 
             <Footer></Footer>
+            <Chat userType={"User"}></Chat>
 
         </> 
          )

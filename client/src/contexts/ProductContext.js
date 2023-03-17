@@ -19,7 +19,6 @@ const ProductContextProvider = ({children}) => {
     // Post add new product
     const addProduct = async (newProduct) => {
         try {
-            console.log("new vat tu : ", newProduct)
             const response = await axios.post(
                 `${apiUrl}/vattu`,
                 newProduct,
