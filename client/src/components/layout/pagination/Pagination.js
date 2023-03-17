@@ -14,7 +14,7 @@ function PaginationItem(props) {
 
 
     return (
-        <Pagination>{items}</Pagination>
+        <Pagination >{items}</Pagination>
     )
 }
 

@@ -31,11 +31,14 @@ function DonHang() {
   const currentOrders = orders.slice(firstPageIndex, lastPageIndex);
   body = (
       <>
-        <Pagination
-           currentPage={currentPage}
-           onPageChange={(page) => setCurrentPage(page)}
-           totalPage={Math.ceil(orders.length / PageSize)}
-        ></Pagination>
+        <div>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={(page) => setCurrentPage(page)}
+            totalPage={Math.ceil(orders.length / PageSize)}
+          ></Pagination>
+          <div>Tổng số lượng: {orders.length}</div>
+        </div>
         <TableOrder orders={currentOrders} changStatus={changeState}></TableOrder>
       </>
     );

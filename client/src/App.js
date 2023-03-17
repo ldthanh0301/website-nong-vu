@@ -24,6 +24,7 @@ import KhuyenMaiAdmin from "./views/admin/KhuyenMai";
 import PublicRoute from "./components/routing/PublicRoute";
 import NhaCungCap from "./views/admin/NhaCungCap";
 import { ContextProvider } from "./contexts";
+import "./fontawesome"
 
 function App() {
   return (

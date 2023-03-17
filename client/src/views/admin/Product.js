@@ -10,6 +10,7 @@ import UpdateProductModal from "../../components/products/UpdateProductModal";
 import { useSearchParams } from "react-router-dom";
 import TableProduct from "../../components/admin/product/TableProduct";
 import Pagination from "../../components/layout/pagination/Pagination";
+import SearchAdmin from "../../components/admin/layout/search/SearchAdmin";
 
 function Product() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,19 +22,15 @@ function Product() {
     productState: { product, products, productsLoading },
     setShowAddProductModal,
     getProducts,
-    findByMslvt,
     deleteProduct,
     findProduct,
     setShowUpdateProductModal,
+    filterProduct,
   } = useContext(ProductContext);
-
+  const [listProduct, setListProduct] = useState(products);
   useEffect(() => {
-    if (mslvt) {
-      findByMslvt(mslvt);
-    } else {
-      getProducts();
-    }
-  }, [mslvt]);
+    getProducts().then(data=>setListProduct(data))
+  }, []);
 
   let body = null;
   if (productsLoading) {
@@ -43,27 +40,35 @@ function Product() {
       </div>
     );
   } else {
-
     const PageSize = 10;
 
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    const currentProducts = products.slice(firstPageIndex, lastPageIndex);
+    const currentProducts = listProduct.slice(firstPageIndex, lastPageIndex);
     body = (
       <>
-        <Pagination
-          currentPage={currentPage}
-          onPageChange={(page) => setCurrentPage(page)}
-          totalPage={Math.ceil(products.length / PageSize)}
-        ></Pagination>
-        <TableProduct 
+        
+        <div style={{ display: "flex"}}>
+          <Pagination
+            currentPage={currentPage}
+            onPageChange={(page) => setCurrentPage(page)}
+            totalPage={Math.ceil(listProduct.length / PageSize)}
+          ></Pagination>
+          <div style={{flex:'1 1 0'}}>Tổng số lượng: {listProduct.length}</div>
+          <SearchAdmin
+            filterFunc={filterProduct}
+            onChangeData={(data) => setListProduct(data)}
+          ></SearchAdmin>
+        </div>
+        <TableProduct
           products={currentProducts}
           findProduct={findProduct}
           setShowUpdateProductModal={setShowUpdateProductModal}
           deleteProduct={deleteProduct}
         ></TableProduct>
-      </>)      
-  } 
+      </>
+    );
+  }
   return (
     <>
       {body}
