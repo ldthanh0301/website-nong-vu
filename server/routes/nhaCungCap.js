@@ -27,15 +27,16 @@ router.post('/', async(req, res) => {
         tenNCC,
         diaChi,
         soDienThoai,
+        moTa
     } = req.body
         //simple validation
-    if (!tenNCC || !diaChi || !soDienThoai)
+    if (!tenNCC || !diaChi || !soDienThoai ||!moTa)
         return res.status(400).json({
             success: false,
             message: 'Thiếu một trong số các trường dữ liệu!!'
         })
     try {
-            NhaCungCap.add({tenNCC, diaChi, soDienThoai,}, function(err, result){
+            NhaCungCap.add({tenNCC, diaChi, soDienThoai,moTa}, function(err, result){
                 if (err) {
                     res.json({success:false,message: err})
                 } else {
@@ -57,7 +58,7 @@ router.get("/:id", function(req,res) {
     var msncc = req.params.id;
     NhaCungCap.getById(msncc,function(err,result){
         if(err){
-            res.json({success:false,message:err});
+            res.status(500).json({success:false,message:"Lỗi!!!!"});
         } else {
             res.json({success:true ,distributor:result[0]});
         }
@@ -71,7 +72,7 @@ router.delete('/:id', function (req, res) {
     var msncc = req.params.id;
     NhaCungCap.deleteById(msncc, function(err, result) {
         if (err) {
-            res.json({success:false,message:err});
+            res.status(500).json({success:false,message:"Lỗi khi xóa!!!!"});
         } else {
             res.json({success: true, message:"Xóa thành công"})
         }
@@ -88,18 +89,19 @@ router.put('/:id', async(req, res) => {
     const {
         tenNCC,
         diaChi,
-        soDienThoai
+        soDienThoai,
+        moTa
     } = req.body
 
  
         //simple validation
-    if (!msncc || !tenNCC || !diaChi || !soDienThoai)
+    if (!msncc || !tenNCC || !diaChi || !soDienThoai ||  !moTa)
         return res.status(400).json({
             success: false,
             message: 'Thiếu một trong số các trường dữ liệu!!'
         })
     try {
-            NhaCungCap.updateById({tenNCC, diaChi, soDienThoai,msncc}, function(err, result){
+            NhaCungCap.updateById({tenNCC, diaChi, soDienThoai,msncc,moTa}, function(err, result){
                 if (err) {
                     res.json({success:false,message: err})
                 } else {

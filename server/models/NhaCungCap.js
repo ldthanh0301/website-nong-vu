@@ -2,7 +2,7 @@ const con = require('./db')
 
 const NhaCungCap = {
     add: function (nhaCungCap, callback) {
-        let sql = `INSERT INTO nhacungcap (tenNCC, diaChi, soDienThoai) VALUES ('${nhaCungCap.tenNCC}','${nhaCungCap.diaChi}','${nhaCungCap.soDienThoai}')`;
+        let sql = `INSERT INTO nhacungcap (tenNCC, diaChi, soDienThoai, moTa) VALUES ('${nhaCungCap.tenNCC}','${nhaCungCap.diaChi}','${nhaCungCap.soDienThoai}', '${nhaCungCap.moTa}')`;
         con.query(sql, callback)
     },
     getAll: function(callback) {
@@ -10,7 +10,7 @@ const NhaCungCap = {
         con.query(sql, callback)
     },
     updateById: function(nhaCungCap, callback) {
-        let sql = `UPDATE nhacungcap SET tenNCC='${nhaCungCap.tenNCC}', diaChi='${nhaCungCap.diaChi}', soDienThoai='${nhaCungCap.soDienThoai}' WHERE msncc =${nhaCungCap.msncc}`
+        let sql = `UPDATE nhacungcap SET tenNCC='${nhaCungCap.tenNCC}', diaChi='${nhaCungCap.diaChi}', soDienThoai='${nhaCungCap.soDienThoai}', moTa='${nhaCungCap.moTa}' WHERE msncc =${nhaCungCap.msncc}`
         let result = con.query(sql, callback)
     },
     deleteById: function (id, callback) {
