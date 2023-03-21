@@ -14,7 +14,7 @@ import MuaVu from "./views/admin/MuaVu";
 import VatTu from "./views/VatTu";
 import DonHang from "./views/admin/DonHang";
 import DoanhThu from "./views/admin/DoanhThu";
-import ThongTinCaNhan from "./views/ThongTinCaNhan";
+import ThongTinCaNhan from "./views/user/ThongTinCaNhan";
 import ChiTietDonHang from "./views/admin/ChiTietDonHang";
 import Order from "./views/user/Order";
 import OrderDetail from "./views/user/OrderDetail";
@@ -25,6 +25,8 @@ import PublicRoute from "./components/routing/PublicRoute";
 import NhaCungCap from "./views/admin/NhaCungCap";
 import { ContextProvider } from "./contexts";
 import "./fontawesome"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -67,6 +69,7 @@ function App() {
           <Route path="nhacungcap" element={<NhaCungCap />}></Route>
         </Route>
       </Routes>
+      <ToastContainer />
     </ContextProvider>
   );
 }

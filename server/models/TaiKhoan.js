@@ -21,6 +21,10 @@ const TaiKhoan = {
     insertToNongDan: function(nongdan, callback) {
         let sql= `INSERT INTO nongdan( soDienThoai, hoTen,diaChi, taiKhoan) VALUES ('${nongdan.soDienThoai}','${nongdan.hoTen}','${nongdan.diaChi}','${nongdan.taiKhoan}')`
         con.query(sql, callback)
+    },
+    updateProfileNongDan: function(info, callback) {
+        let sql= `UPDATE nongdan SET soDienThoai='${info.soDienThoai}',hoTen='${info.hoTen}',diaChi='${info.diaChi}' where taiKhoan='${info.taiKhoan}'`
+        con.query(sql, callback)
     }
 }
 module.exports = TaiKhoan

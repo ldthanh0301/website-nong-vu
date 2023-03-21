@@ -1,16 +1,12 @@
 import React from "react";
-import { Outlet, Navigate, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import Spinner from "react-bootstrap/Spinner";
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from "react-bootstrap/esm/Col";
 import NavbarMenu from "../Navbar/NavbarMenu";
-import SidebarMenuUser from "../Sidebar/SidebarMenuUser";
 import Footer from "../layout/footer/Footer";
 import Breadcrumbs from "../layout/Breadcrumbs";
-import Chat from "../chat/Chat";
+import ChatUser from "../chat/ChatUser";
 
 function PublicRoute({component: Component, ...props}) {
     const {authState: {authLoading, isAuthenticated, user}}= useContext(AuthContext)
@@ -28,10 +24,8 @@ function PublicRoute({component: Component, ...props}) {
                 <Outlet></Outlet>
                 </Container>
             </main>
-
+            {isAuthenticated ? <ChatUser/> : null}
             <Footer></Footer>
-            <Chat userType={"User"}></Chat>
-
         </> 
          )
 }

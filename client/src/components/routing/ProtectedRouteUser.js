@@ -9,7 +9,7 @@ import Col from "react-bootstrap/esm/Col";
 import NavbarMenu from "../Navbar/NavbarMenu";
 import Breadcrumbs from "../layout/Breadcrumbs";
 import Footer from "../layout/footer/Footer";
-import Chat from "../chat/Chat";
+import ChatAdmin from "../chat/ChatAdmin";
 
 function ProtectedRouteUser({component: Component, ...props}) {
     const {authState: {authLoading, isAuthenticated,user}}= useContext(AuthContext)
@@ -33,7 +33,7 @@ function ProtectedRouteUser({component: Component, ...props}) {
                 </Container>
             </main>
             <Footer></Footer>
-            <Chat userType={"User"}></Chat>
+            <ChatAdmin></ChatAdmin>
         </> 
         : <Navigate to='/dangnhap'/>     )
 }

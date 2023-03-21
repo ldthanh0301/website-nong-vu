@@ -2,25 +2,24 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { apiUrl } from "../../../contexts/constants";
-import ToastMessage from "../../layout/toast/Toast";
+import { toast } from 'react-toastify';
 
 function UpdateDistributorModal(props) {
-  const { closeModal, distributor } = props;
+  const { closeModal, distributor, getDistributorList } = props;
 
   const [tenNCC, setTenNCC] = useState(distributor.tenNCC);
   const [diaChi, setDiaChi] = useState(distributor.diaChi);
+  const [moTa, setMoTa] = useState(distributor.moTa);
   const [soDienThoai, setSoDienThoai] = useState(distributor.soDienThoai);
 
-  const [msg, setMsg] = useState("");
-  const [showToast, setShowToast] = useState(false);
 
   const handleSubmit = (e)=> {
     e.preventDefault();
 
-    axios.put(apiUrl+"/nhacungcap/"+distributor.msncc,{tenNCC,diaChi,soDienThoai})
+    axios.put(apiUrl+"/nhacungcap/"+distributor.msncc,{tenNCC,diaChi,soDienThoai,moTa})
       .then(res=> {
-        setShowToast(true)
-        setMsg("thành công")
+        toast.success("Thành công")
+        getDistributorList()
         closeModal()
       })
     }
@@ -62,6 +61,20 @@ function UpdateDistributorModal(props) {
             </Form.Group>
             <Form.Group>
               <Form.Control
+                type="text"
+                placeholder="Mô tả"
+                name="moTa"
+                required
+                aria-describedby="title-help"
+                value={moTa}
+                onChange={(e)=>setMoTa(e.target.value)}
+              />
+              <Form.Text id="title-help" muted>
+                Required
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
                 type="tel"
                 placeholder="Số điện thoại"
                 name="soDienThoai"
@@ -80,12 +93,11 @@ function UpdateDistributorModal(props) {
               Hủy
             </Button>
             <Button variant="primary" type="submit">
-              Thêm
+              Cập nhật
             </Button>
           </Modal.Footer>
         </Form>
       </Modal>
-      <ToastMessage show={showToast} closeToast={()=>setShowToast(false)} msg={msg}></ToastMessage>
     </>
   );
 }

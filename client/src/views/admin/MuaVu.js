@@ -36,6 +36,8 @@ function MuaVu() {
     } else {
         body = (
             <>
+              <h3>Mùa vụ</h3>
+              <div>Tổng số lượng: {muaVu.length}</div>
               <Table striped bordered hover>
                 <thead>
                   <tr>

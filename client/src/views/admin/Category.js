@@ -33,6 +33,8 @@ function Category() {
   } else if (categories.length > 0) {
     body = (
       <>
+        <h3>Danh mục sản phẩm</h3>
+        <div>Tổng số lượng: {categories.length}</div>
         <Table striped bordered hover>
           <thead>
             <tr>

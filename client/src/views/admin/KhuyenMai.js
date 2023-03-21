@@ -38,6 +38,7 @@ function KhuyenMai() {
   } else {
     body = (
         <>
+            <div>Tổng số lượng: {danhSachKhuyenMai.length}</div>
             <Table striped bordered hover>
                 <thead>
                   <tr>

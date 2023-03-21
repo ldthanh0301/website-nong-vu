@@ -1,21 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import io from "socket.io-client";
 import { chatServerURL } from "../../contexts/constants";
 import "./style.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AuthContext } from "../../contexts/AuthContext";
 
-function Chat({ userType }) {
+function ChatAdmin() {
+  const userType ="Admin";
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const {authState:{user,isAuthenticated, authLoading }} = useContext(AuthContext)
 
   useEffect(() => {
-    const newSocket = io(chatServerURL);
-    newSocket.emit("join",  userType);
-
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, []);
+    if (!authLoading && isAuthenticated) {
+      const newSocket = io(chatServerURL);
+      newSocket.emit("join",  {userType, username: user.taiKhoan});
+      console.log("socket:",newSocket)
+      
+      setSocket(newSocket);
+      return () => newSocket.close();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (socket) {
@@ -27,7 +33,8 @@ function Chat({ userType }) {
 
   const handleSend = () => {
     if (message) {
-      socket.emit("message", { userType, message });
+      let TinNhan = {nguoiGui: user.taiKhoan, nguoiNhan:'admin',tinNhan:message};
+      socket.emit("message", { userType,  TinNhan});
       setMessages((messages) => [...messages, { userType, message }]);
       setMessage("");
     }
@@ -78,4 +85,4 @@ function Chat({ userType }) {
   );
 }
 
-export default Chat;
+export default ChatAdmin;

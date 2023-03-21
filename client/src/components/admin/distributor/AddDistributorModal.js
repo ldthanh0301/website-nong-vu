@@ -2,20 +2,24 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { apiUrl } from "../../../contexts/constants";
+import { toast } from 'react-toastify';
 
 function AddDistributorModal(props) {
-  const { closeModal } = props;
+  const { closeModal,getDistributorList } = props;
 
   const [tenNCC, setTenNCC] = useState("");
   const [diaChi, setDiaChi] = useState("");
+  const [moTa, setMoTa] = useState("");
   const [soDienThoai, setSoDienThoai] = useState("");
 
   const handleSubmit = (e)=> {
     e.preventDefault();
 
-    axios.post(apiUrl+"/nhacungcap",{tenNCC,diaChi,soDienThoai})
+    axios.post(apiUrl+"/nhacungcap",{tenNCC,diaChi,soDienThoai,moTa})
       .then(res=> {
-        console.log(res)
+        toast.success("Thành công")
+        getDistributorList()
+        closeModal()
       })
     }
   return (
@@ -54,6 +58,21 @@ function AddDistributorModal(props) {
                 Required
               </Form.Text>
             </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Mô tả"
+                name="moTa"
+                required
+                aria-describedby="title-help"
+                value={moTa}
+                onChange={(e)=>setMoTa(e.target.value)}
+              />
+              <Form.Text id="title-help" muted>
+                Required
+              </Form.Text>
+            </Form.Group>
+            
             <Form.Group>
               <Form.Control
                 type="tel"

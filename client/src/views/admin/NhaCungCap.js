@@ -1,12 +1,12 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { Alert, Button, Table } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 import { apiUrl } from "../../contexts/constants";
 import editIcon from "../../assets/pencil.svg";
 import deleteIcon from "../../assets/trash.svg";
 import AddDistributorModal from "../../components/admin/distributor/AddDistributorModal";
 import UpdateDistributorModal from "../../components/admin/distributor/UpdateDistributorModal";
-import ToastMessage from "../../components/layout/toast/Toast";
+import { Button, Table } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 function NhaCungCap() {
   const [distributorList, setDistributorList] = useState([]);
@@ -31,47 +31,58 @@ function NhaCungCap() {
   };
   const handleDelete = (msncc) => {
     axios.delete(apiUrl + "/nhacungcap/" + msncc).then((res) => {
-      getDistributorList()
-    });
+      if (res.data.success) {
+        getDistributorList()
+        toast.success("Xóa thành công")
+      } else {
+        toast.error("Lỗi khi xóa")
+      }
+    }).catch((error)=> {
+      toast.error("Lỗi khi xóa")
+    })
   };
   let body = null;
 
-  body = (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Tên nhà cung cấp</th>
-          <th>Địa chỉ</th>
-          <th>Số điện thoai</th>
-          <th>Tùy chọn</th>
-        </tr>
-      </thead>
-      <tbody>
-        {distributorList.map((distributor, index) => (
-          <tr key={distributor.msncc}>
-            <td>{index + 1}</td>
-            <td>{distributor.tenNCC}</td>
-            <td>{distributor.diaChi}</td>
-            <td>{distributor.soDienThoai}</td>
-            <td>
-              <Button
-                className="post-button"
-                onClick={() => handleUpdate(distributor.msncc)}
-              >
-                <img src={editIcon} alt="edit" width="24" height="24" />
-              </Button>
-              <Button
-                style={{ float: "right" }}
-                onClick={() => handleDelete(distributor.msncc)}
-              >
-                <img src={deleteIcon} alt="delete" width="24" height="24" />
-              </Button>
-            </td>
+  body = (<>
+      <div>Tổng số lượng: {distributorList.length}</div>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên nhà cung cấp</th>
+            <th>Mô tả</th>
+            <th>Địa chỉ</th>
+            <th>Số điện thoai</th>
+            <th>Tùy chọn</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {distributorList.map((distributor, index) => (
+            <tr key={distributor.msncc}>
+              <td>{index + 1}</td>
+              <td>{distributor.tenNCC}</td>
+              <td>{distributor.moTa}</td>
+              <td>{distributor.diaChi}</td>
+              <td>{distributor.soDienThoai}</td>
+              <td>
+                <Button
+                  className="post-button"
+                  onClick={() => handleUpdate(distributor.msncc)}
+                >
+                  <img src={editIcon} alt="edit" width="24" height="24" />
+                </Button>
+                <Button
+                  style={{ float: "right" }}
+                  onClick={() => handleDelete(distributor.msncc)}
+                >
+                  <img src={deleteIcon} alt="delete" width="24" height="24" />
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </>
   );
   return (
     <div>
@@ -81,6 +92,7 @@ function NhaCungCap() {
 
       {showAddDistributorModal && (
         <AddDistributorModal
+          getDistributorList={getDistributorList}
           closeModal={() => {
             setShowAddDistributorModal(false);
           }}
@@ -92,6 +104,7 @@ function NhaCungCap() {
           closeModal={() => {
             setShowUpdateDistributorModal(false);
           }}
+          getDistributorList={getDistributorList}
         />
       )}
     </div>

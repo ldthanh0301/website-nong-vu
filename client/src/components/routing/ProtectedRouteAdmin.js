@@ -10,7 +10,7 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Footer from "../layout/footer/Footer";
 import AdminPanner from "../admin/layout/panner/AdminPanner";
-import Chat from "../chat/Chat";
+import ChatAdmin from "../chat/ChatAdmin";
 
 
 function ProtectedRouteAdmin({component: Component, ...props}) {
@@ -38,7 +38,7 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                 </Row>
             </Container>
             <Footer></Footer>
-            <Chat userType={"Admin"}></Chat>
+            <ChatAdmin></ChatAdmin>
 
         </> 
         : <Navigate to='../dangnhap'/>    
