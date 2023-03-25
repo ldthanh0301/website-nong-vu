@@ -1,19 +1,20 @@
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import learnItLogo from "../../assets/logo.svg";
+import logoQLNV from "../../assets/logo/logo.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Button, Form } from "react-bootstrap";
 import Search from "../search/Search";
+import "./style.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "react-bootstrap";
 
 const NavbarMenu = () => {
   const {
     authState: { authLoading, isAuthenticated, user },
     logoutUser,
   } = useContext(AuthContext);
-  let navbar = null;
   let body = (
     <>
       <Nav.Link
@@ -36,16 +37,16 @@ const NavbarMenu = () => {
     body = (
       <>
         <Nav.Link
-          className="font-weight-bolder text-white"
+          className="font-weight-bolder text-white mx-3 "
           to="/nguoidung/giohang"
           as={Link}
         >
-          Giỏ hàng
+         <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="xl" />
         </Nav.Link>
-        <Dropdown>
-          <Dropdown.Toggle variant="success">Tài khoản</Dropdown.Toggle>
+        <Dropdown className="dropdown-box">
+          <Dropdown.Toggle type="button" className="btn btn-secondary dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  >Tài khoản</Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu className="dropdown-menu dropdown-menu-list">
             <Dropdown.Item>
               <Nav.Link
                 to="/nguoidung/thongtin"
@@ -80,8 +81,10 @@ const NavbarMenu = () => {
                 logoutUser();
                 window.location.reload();
               }}
-            >
-              Đăng xuất
+            > 
+              <Button variant="danger">
+                <FontAwesomeIcon icon="fa-solid fa-right-from-bracket" />Đăng xuất
+              </Button>
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
@@ -93,19 +96,18 @@ const NavbarMenu = () => {
       expand="lg"
       bg="primary"
       variant="dark"
-      className="shadow"
+      className="navbar shadow"
     >
       <Navbar.Brand className="font-weight-bolder text-white">
         <Nav>
           <Nav.Link to="/" as={Link}>
             <img
-              src={learnItLogo}
-              alt="learnItLogo"
-              width="32"
-              height="32"
-              className="mr-2"
+              src={logoQLNV}
+              alt="Quản lý nông vụ"
+              width="64"
+              height="64"
+              className="mx-5"
             />
-            Quản lý nông vụ
           </Nav.Link>
         </Nav>
       </Navbar.Brand>
@@ -130,7 +132,7 @@ const NavbarMenu = () => {
           </Nav.Link>
         </Nav>
         <Search></Search>
-        <Nav className="ms-auto">{body}</Nav>
+        <Nav className="ms-auto align-items-center">{body}</Nav>
       </Navbar.Collapse>
     </Navbar>
   );

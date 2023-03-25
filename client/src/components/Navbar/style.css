@@ -1,0 +1,16 @@
+.navbar-brand {
+    padding: 0;
+}
+
+.nav-link {
+    padding: 0;
+}
+
+.dropdown-box {
+    margin-right: 2.5rem;
+}
+
+.dropdown-menu.dropdown-menu-list {
+    right: 0!important;
+    left: inherit !important;
+}

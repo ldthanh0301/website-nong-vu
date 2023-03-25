@@ -6,6 +6,7 @@ import {
   useReducer,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 import { cartReducer } from "../reducers/cartReducer";
 import { AuthContext } from "./AuthContext";
 import {
@@ -69,11 +70,7 @@ const CartContextProvider = ({ children }) => {
     try {
       let res = await axios.post(`${apiUrl}/donhang`, data);
       if (res.data.success) {
-        setShowToast({
-          show: true,
-          message: "Đặt hàng thành công",
-          type: null,
-        });
+        toast.success('Đặt hàng thành công')
         resetCart();
       }
     } catch (error) {
@@ -102,12 +99,7 @@ const CartContextProvider = ({ children }) => {
     let cart = { products, tongTien };
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    setShowToast({
-      show: true,
-      message: "Đã thêm sản phẩm vào giỏ hàng",
-      type: "success",
-    });
-
+    toast.success('Đã thêm sản phẩm vào giỏ hàng')
     // kiểm tra giảm giá
     if (khuyenMaiInCart) {
         tongTien = tongTien - (tongTien * khuyenMaiInCart.giaTriKM) / 100;

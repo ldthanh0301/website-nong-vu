@@ -37,7 +37,26 @@ router.get("/user/:msnd", verifyToken, (req, res) => {
                 res.status(200).json({success:true, message:"Thành công", orders: result})
             }
         })
-    } else {
+        return
+    } 
+    if (req.query.mslvt) {
+        let mslvt = req.query.mslvt;
+        if (mslvt ==='all') {
+            DonHang.getByUserAndMSLVTAll({msnd},function (err, result) {
+                if (!err) {
+                    res.status(200).json({success:true, message:"Thành công", orders: result})
+                }
+            })
+            return;
+        }
+        DonHang.getByUserAndMSLVT({msnd,mslvt},function (err, result) {
+            if (!err) {
+                res.status(200).json({success:true, message:"Thành công", orders: result})
+            }
+        })
+        return
+    } else
+    {
         DonHang.getByUser(msnd,function (err, result) {
             if (!err) {
                 res.status(200).json({success:true, message:"Thành công", orders: result})

@@ -18,6 +18,10 @@ const VatTu = {
         VALUES ('${vatTu.tenVatTu}','${vatTu.moTa}',${vatTu.gia},${vatTu.soLuong},${vatTu.mslvt},${vatTu.msncc},'${vatTu.maHinh}')`;
         con.query(sql,callback)
     },
+    updateByMSVT: function (vatTu, callback) {
+        let sql = `UPDATE vattu SET tenVatTu='${vatTu.tenVatTu}',moTa='${vatTu.moTa}',gia=${vatTu.gia},soLuong=${vatTu.soLuong},mslvt=${vatTu.mslvt},msncc=${vatTu.msncc},maHinh='${vatTu.maHinh}' WHERE msvt = ${vatTu.msvt}`;
+        con.query(sql,callback)
+    },
     deleteById: function (msvt, callback) {
         let sql = `Delete from vattu where  msvt = ${msvt}`;
         con.query(sql, callback)

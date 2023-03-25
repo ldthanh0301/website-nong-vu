@@ -7,6 +7,7 @@ import axios from "axios";
 import { apiUrl } from "../../contexts/constants";
 import SelectCategory from "./SelectCategory";
 import { CategoryContext } from "../../contexts/CategoryContext";
+import { toast } from "react-toastify";
 
 const UpdateProductModal = () => {
   // Contexts
@@ -14,7 +15,8 @@ const UpdateProductModal = () => {
     productState: {product},
     showUpdateProductModal, 
     setShowUpdateProductModal, 
-    updateProduct 
+    updateProduct ,
+    getProducts
   } = useContext(ProductContext);
 
   const {
@@ -60,12 +62,20 @@ const UpdateProductModal = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    console.log("submit : ", updatedProduct)
     const { success, message } = await updateProduct({
       ...updatedProduct,
-      maHinh: img ? img : updatedProduct.srcImg
+      maHinh: img.maHinh ? img.maHinh : updatedProduct.maHinh
     });
+    if (success) {
+      toast.success(message)
+      getProducts()
+    } else {
+      toast.error(message)
+
+    }
+    setImg('')
     closeDialog()
-    // setShowToast({ show: true, message, type: success ? 'success' : 'danger' })
   };
 
   const handlerCategory = (e) => {

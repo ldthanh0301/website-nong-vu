@@ -35,7 +35,7 @@ function TableProduct(props) {
                   src={apiUrl + "/" + vatTu.diaChiHinh}
                   width="126px"
                   alt=""
-                  srcset=""
+                  srcSet=""
                 />
               </td>
               <td>{VND.format(vatTu.gia)}</td>

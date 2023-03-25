@@ -1,0 +1,13 @@
+.card {
+    height: 380px;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1.5rem;
+    height: 3rem;
+}

@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import ListProduct from "./ListProduct";
@@ -20,9 +21,11 @@ function Search() {
           onChange={onChangeSearchInput}
           value={searchInput}
           aria-label="Search"
-          autocomplete="off"
+          autoComplete="off"
         />
-        <Button variant="success">Tìm kiếm</Button>
+        <Button variant="success">
+          <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+        </Button>
       </Form>
       <ListProduct input={searchInput.toLowerCase()}></ListProduct>
     </div>

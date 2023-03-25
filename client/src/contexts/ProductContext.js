@@ -117,12 +117,12 @@ const ProductContextProvider = ({ children }) => {
   const updateProduct = async (updateProduct) => {
     try {
       const res = await axios.put(
-        `${apiUrl}/vattu/${updateProduct._id}`,
+        `${apiUrl}/vattu/${updateProduct.msvt}`,
         updateProduct
       );
       if (res.data.success) {
-        dispatch({ type: UPDATE_PRODUCT, payload: res.data.product });
-        return res.data;
+        getProducts()
+        return res.data
       }
     } catch (error) {
       return error.response.data

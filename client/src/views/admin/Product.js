@@ -30,7 +30,7 @@ function Product() {
   const [listProduct, setListProduct] = useState(products);
   useEffect(() => {
     getProducts().then(data=>setListProduct(data))
-  }, []);
+  }, [products]);
 
   let body = null;
   if (productsLoading) {

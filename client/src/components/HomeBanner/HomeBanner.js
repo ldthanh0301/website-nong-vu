@@ -1,15 +1,10 @@
-/*
- ** Author: Santosh Kumar Dash
- ** Author URL: http://santoshdash.epizy.com/
- ** Github URL: https://github.com/quintuslabs/fashion-cube
- */
-
  import React from "react";
 
  import BackgroundImage1 from "../../assets/images/slider05.jpg";
  import BackgroundImage2 from "../../assets/images/slider02.jpg";
  import BackgroundImage3 from "../../assets/images/slider03.jpg";
  import { Carousel } from "react-bootstrap";
+ import "./style.css"
  
  function HomeBanner(props) {
    return (

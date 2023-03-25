@@ -49,7 +49,7 @@ function App() {
           <Route path="chiphi" element={<Expense />}></Route>
           <Route path="donhang" element={<Order />}></Route>
           <Route
-            path="donhang/chitietdonhang/:id"
+            path="donhang/:id"
             element={<OrderDetail />}
           ></Route>
         </Route>
@@ -63,7 +63,7 @@ function App() {
           ></Route>
           <Route path="doanhthu" element={<DoanhThu />}></Route>
           <Route path="vattu" element={<Product />}></Route>
-          <Route path="categories" element={<Category />}></Route>
+          <Route path="danhmuc" element={<Category />}></Route>
           <Route path="muavu" element={<MuaVu />}></Route>
           <Route path="khuyenmai" element={<KhuyenMaiAdmin />}></Route>
           <Route path="nhacungcap" element={<NhaCungCap />}></Route>

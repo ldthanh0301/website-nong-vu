@@ -9,7 +9,7 @@ function Dashboard() {
 
   body = (
       <>
-        <Card className="text-center mx-5 my-5">
+        <Card className="text-center m-2">
           <Card.Header as="h1"> Dashboard</Card.Header>
           <Card.Body>
             <Card.Title> </Card.Title>

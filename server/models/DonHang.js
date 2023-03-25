@@ -6,7 +6,7 @@ const DonHang = {
         con.query(sql, callback)
     },
     insertToCTDH: function(donhang, callback) {
-        let sql = `INSERT INTO chitietdonhang(soLuong, tongGia, msvt, msdh) VALUES (${donhang.soLuong},${donhang.tongGia},${donhang.msvt},${donhang.msdh})`;
+        let sql = `INSERT INTO chitietdonhang(soLuong,gia, tongGia, msvt, msdh) VALUES (${donhang.soLuong},${donhang.gia},${donhang.tongGia},${donhang.msvt},${donhang.msdh})`;
         con.query(sql, callback)
     },
     getAll: function(callback) {
@@ -23,6 +23,14 @@ const DonHang = {
     },
     getByUserAndStatus: function({msnd,status}, callback) {
         let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.msnd = ${msnd} and dh.trangThai =${status} order by dh.ngayDH desc`;
+        con.query(sql, callback)
+    },
+    getByUserAndMSLVT: function({msnd,mslvt}, callback) {
+        let sql = `select *,ctdh.soLuong,ctdh.gia,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd join chitietdonhang ctdh on ctdh.msdh = dh.msdh join vattu vt on vt.msvt = ctdh.msvt where dh.msnd = ${msnd} and mslvt = ${mslvt} order by dh.ngayDH desc`;
+        con.query(sql, callback)
+    },
+    getByUserAndMSLVTAll: function({msnd}, callback) {
+        let sql = `select *,ctdh.soLuong,ctdh.gia,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd join chitietdonhang ctdh on ctdh.msdh = dh.msdh join vattu vt on vt.msvt = ctdh.msvt where dh.msnd = ${msnd} order by dh.ngayDH desc`;
         con.query(sql, callback)
     },
     updateState: function ({msdh,state}, callback) {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { ProductContext } from "../contexts/ProductContext";
-import SingleProductUser from "../components/products/SingleProductUser";
+import SingleProductUser from "../components/products/product/productCart/SingleProductUser";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Spinner from "react-bootstrap/esm/Spinner";
@@ -9,7 +9,7 @@ import NavbarMenu from "../components/Navbar/NavbarMenu";
 import SidebarMenuUser from "../components/Sidebar/SidebarMenuUser";
 import { CartContext } from "../contexts/CartContext";
 import Toast from "react-bootstrap/esm/Toast";
-import Breadcrumbs from "../components/layout/Breadcrumbs";
+import Breadcrumbs from "../components/layout/breadcrumbs/Breadcrumbs";
 import PaginationProduct from "../components/layout/pagination/Pagination";
 import ListProducts from "../components/products/listProduct/ListProducts";
 

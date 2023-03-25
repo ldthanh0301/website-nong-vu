@@ -1,10 +1,10 @@
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import learnItLogo from '../../../assets/logo.svg'
-import logoutIcon from '../../../assets/logout.svg'
+import logo from '../../../../assets/logo/logo.png'
+import logoutIcon from '../../../../assets/logout.svg'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
-import { AuthContext } from '../../../contexts/AuthContext'
+import { AuthContext } from '../../../../contexts/AuthContext'
 import { useContext } from 'react'
 
 const NavbarMenu = () => {
@@ -26,11 +26,11 @@ const NavbarMenu = () => {
 						as={Link}
 					>
 						<img
-							src={learnItLogo}
-							alt='learnItLogo'
-							width='32'
-							height='32'
-							className='mr-2'
+							src={logo}
+							alt='Quản lý nông vụ'
+							width='64'
+							height='64'
+							className='mx-4'
 						/>
 						Quản lý nông vụ
 					</Nav.Link>
@@ -41,9 +41,9 @@ const NavbarMenu = () => {
 			<Navbar.Toggle aria-controls='basic-navbar-nav' />
 
 			<Navbar.Collapse id='basic-navbar-nav'>
-				<Nav className='ms-auto'>
+				<Nav className='ms-auto align-items-center'>
 					<Nav.Link className='font-weight-bolder text-white ' disabled>
-						Welcome {username}
+						Xin chào {username}
 					</Nav.Link>
 					<Button
 						variant='secondary'

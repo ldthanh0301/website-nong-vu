@@ -76,6 +76,22 @@ const DonHangContextProvider = ({ children }) => {
         : { success: false, message: "server error" };
     }
   };
+  
+  // filter order user by category
+  const filterOrderUserByCategory = async (mslvt) => {
+    try {
+      let res = await axios.get(
+        `${apiUrl}/donhang/user/${user.msnd}?mslvt=${mslvt}`
+      );
+      dispatch({ type: GET_ORDERS_BY_USER, payload: res.data.orders });
+      console.log("order:", res.data.orders)
+
+    } catch (error) {
+      return error.response.data
+        ? error.response.data
+        : { success: false, message: "server error" };
+    }
+  };
   const changeState = async (state, msdh) => {
     try {
       let res = await axios.patch(`${apiUrl}/donhang`, { msdh, state });
@@ -112,6 +128,7 @@ const DonHangContextProvider = ({ children }) => {
     chiTietDonHang,
     getOrderByUser,
     filterOrderUserByStatus,
+    filterOrderUserByCategory
   };
   return (
     <DonHangContext.Provider value={donHangContextData}>

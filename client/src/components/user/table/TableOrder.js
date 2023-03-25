@@ -38,7 +38,7 @@ function TableOrder(props) {
               </td>
               <td>{VND.format(order.tongTien)}</td>
               <td>
-                <NavLink to={`./chitietdonhang/${order.msdh}`}>
+                <NavLink to={`./${order.msdh}`}>
                   Chi Tiết
                 </NavLink>
               </td>

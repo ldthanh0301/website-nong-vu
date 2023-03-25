@@ -54,6 +54,21 @@ router.post("/", verifyToken, upload.single("maHinh"),function(req, res){
         }
     })
 })
+router.put("/:id", verifyToken,function(req, res){
+    var vatTu = req.body;
+    if (!vatTu.msvt || !vatTu.mslvt || !vatTu.tenVatTu || !vatTu.maHinh ) {
+        res.status(400).json({success:false, message: " Thiếu các trường dữ liệu"})
+        return
+    }
+    VatTu.updateByMSVT(vatTu, function (error, result){
+        if (error) {
+            console.log("Lỗi khi cập nhật vật tư ", error)
+            res.status(400).json({success:false, message:'Lỗi khi cập nhật vật tư'});
+        } else {
+            res.status(200).json({success:true, message:'Cập nhật vật tư thành công'});
+        }
+    })
+})
 
 router.delete("/:id", verifyToken, function(req, res){
     let msvt = req.params.id;

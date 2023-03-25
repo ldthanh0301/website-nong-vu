@@ -20,14 +20,7 @@ export const productReducer = (state, action) => {
                 ...state,
                 products: payload,
             }
-        case UPDATE_PRODUCT:
-            const newProducts = state.products.map(product =>
-                product._id === payload._id ? payload : product
-            )
-            return {
-                ...state,
-                products: newProducts,
-            }
+ 
         case FIND_PRODUCT:
             return {
                 ...state,

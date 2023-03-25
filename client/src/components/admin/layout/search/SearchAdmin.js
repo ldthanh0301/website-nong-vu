@@ -24,7 +24,7 @@ function SearchAdmin(props) {
             onChange={onChangeSearchInput}
             value={searchInput}
             aria-label="Search"
-            autocomplete="off"
+            autoComplete="off"
           />
           <Button variant="success">
             <FontAwesomeIcon icon={['fas', 'fa-magnifying-glass']} />

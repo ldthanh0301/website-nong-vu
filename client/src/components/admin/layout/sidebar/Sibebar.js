@@ -13,7 +13,7 @@ function Sibebar() {
                 <NavLink to="./vattu" className="list-group-item">Vật tư</NavLink> 
             </ListGroup.Item>
             <ListGroup.Item>
-                <NavLink to="./categories" className="list-group-item">Danh mục</NavLink> 
+                <NavLink to="./danhmuc" className="list-group-item">Danh mục</NavLink> 
             </ListGroup.Item>
             <ListGroup.Item>
                 <NavLink to="./muavu" className="list-group-item">Mùa vụ</NavLink> 

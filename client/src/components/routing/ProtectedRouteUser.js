@@ -7,7 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from "react-bootstrap/esm/Col";
 import NavbarMenu from "../Navbar/NavbarMenu";
-import Breadcrumbs from "../layout/Breadcrumbs";
+import Breadcrumbs from "../layout/breadcrumbs/Breadcrumbs";
 import Footer from "../layout/footer/Footer";
 import ChatAdmin from "../chat/ChatAdmin";
 
@@ -21,10 +21,12 @@ function ProtectedRouteUser({component: Component, ...props}) {
     )
     return (isAuthenticated ? 
         <>
-            <NavbarMenu/>
-            <Breadcrumbs></Breadcrumbs>
+            <header>
+                <NavbarMenu/>
+                <Breadcrumbs type="user"></Breadcrumbs>
+            </header>
             <main>
-                <Container>
+                <Container fluid>
                     <Row>
                         <Col>
                             <Outlet />
