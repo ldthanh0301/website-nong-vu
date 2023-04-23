@@ -2,7 +2,7 @@ const con = require('./db')
 
 const DonHang = {
     create: function(donhang, callback) {
-        let sql = `INSERT INTO donhang(tongTien,msnd,mskm,diaChiGiaoHang,soDienThoai) VALUES (${donhang.tongTien}, ${donhang.msnd},${donhang.mskm},"${donhang.diaChi}","${donhang.soDienThoai}")`
+        let sql = `INSERT INTO donhang(tongTien,msnd,mskm,msmv,diaChiGiaoHang,soDienThoai) VALUES (${donhang.tongTien}, ${donhang.msnd},${donhang.mskm},${donhang.msmv},"${donhang.diaChi}","${donhang.soDienThoai}")`
         con.query(sql, callback)
     },
     insertToCTDH: function(donhang, callback) {
@@ -15,6 +15,10 @@ const DonHang = {
     },
     getByStatus: function(status,callback) {
         let sql = `select *,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.trangThai = ${status}`;
+        con.query(sql, callback)
+    },
+    getOrderByUserWithMonth: function (callback) {
+        let sql = `select dh.msnd,YEAR(ngayDH) as nam,MONTH(ngayDH) as thang,SUM(dh.tongTien)as thanhTien,nd.taiKhoan,nd.diaChi ,nd.hoTen from donhang dh join nongdan nd on nd.msnd = dh.msnd where dh.trangThai = 2 group by dh.msnd,nam, thang ORDER by thanhTien DESC`;
         con.query(sql, callback)
     },
     getByUser: function(msnd, callback) {
@@ -31,6 +35,14 @@ const DonHang = {
     },
     getByUserAndMSLVTAll: function({msnd}, callback) {
         let sql = `select *,ctdh.soLuong,ctdh.gia,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd join chitietdonhang ctdh on ctdh.msdh = dh.msdh join vattu vt on vt.msvt = ctdh.msvt where dh.msnd = ${msnd} order by dh.ngayDH desc`;
+        con.query(sql, callback)
+    },
+    getByUserAndMsmvAndMSLVTAll: function({msmv,msnd}, callback) {
+        let sql = `select *,ctdh.soLuong,ctdh.gia,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd join chitietdonhang ctdh on ctdh.msdh = dh.msdh join vattu vt on vt.msvt = ctdh.msvt where dh.msnd = ${msnd} and dh.msmv =${msmv} order by dh.ngayDH desc`;
+        con.query(sql, callback)
+    },
+    getByUserAndMSLVTAndMsmv: function({mslvt,msmv,msnd}, callback) {
+        let sql = `select *,ctdh.soLuong,ctdh.gia,DATE_FORMAT(ngayDH,'%d/%m/%Y') as ngayDH from donhang dh join nongdan nd on nd.msnd = dh.msnd join chitietdonhang ctdh on ctdh.msdh = dh.msdh join vattu vt on vt.msvt = ctdh.msvt where dh.msnd = ${msnd} and dh.msmv =${msmv} and mslvt = ${mslvt}  order by dh.ngayDH desc`;
         con.query(sql, callback)
     },
     updateState: function ({msdh,state}, callback) {

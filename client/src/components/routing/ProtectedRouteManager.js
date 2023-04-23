@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import Spinner from "react-bootstrap/Spinner";
 import NavbarMenu from "../admin/layout/navbar/NavbarMenu"
-import Sibebar from "../admin/layout/sidebar/SibebarAdmin";
+import Sibebar from "../admin/layout/sidebar/SibebarManager";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
@@ -14,7 +14,7 @@ import ChatAdmin from "../chat/ChatAdmin";
 import Breadcrumbs from "../layout/breadcrumbs/Breadcrumbs";
 
 
-function ProtectedRouteAdmin({component: Component, ...props}) {
+function ProtectedRouteManager({component: Component, ...props}) {
     const {authState: {authLoading, isAuthenticated, user}}= useContext(AuthContext)
     if (authLoading)
     return (
@@ -23,12 +23,12 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
         </div>
     )
     return (
-        isAuthenticated && user.quyen ===2  ? 
+        isAuthenticated && user.quyen ===1  ? 
         
         <>  
             <header>
                 <NavbarMenu/>
-                <Breadcrumbs type="admin"></Breadcrumbs>
+                <Breadcrumbs type="manager"></Breadcrumbs>
             </header>
             <main>
                 <AdminPanner/>
@@ -44,11 +44,10 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                 </Container>
             </main>
             <Footer></Footer>
-            <ChatAdmin nguoiNhan="ldthanh"></ChatAdmin>
 
         </> 
         : <Navigate to='../dangnhap'/>    
     )
 }
 
-export default ProtectedRouteAdmin;
+export default ProtectedRouteManager;

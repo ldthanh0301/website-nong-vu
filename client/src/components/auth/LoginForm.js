@@ -29,10 +29,11 @@ const LoginForm = () => {
     try {
       const loginData = await loginUser(loginForm)
       if (loginData.success) {
-        // navigate('/dashboard')
         if (loginData.account.quyen===0) {
           navigate("/")
-        } else {
+        } else if (loginData.account.quyen ===1){
+          navigate('/manager/');
+        } else if (loginData.account.quyen ===2) {
           navigate('/admin/');
         }
       }else {

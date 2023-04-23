@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useReducer, useState } from "react";
 import { khuyenMaiReducer } from "../reducers/khuyenMaiReducer";
 import { ADD_KHUYENMAI, apiUrl, GET_KHUYENMAI, GET_KHUYENMAI_DETAIL, SET_KHUYENMAI } from "./constants";
+import { toast } from "react-toastify";
 
 export const KhuyenMaiContext = createContext()
 
@@ -36,6 +37,7 @@ const KhuyenMaiContextProvider = ({ children }) => {
             const response = await axios.delete(`${apiUrl}/khuyenmai/${mskm}`)
             if (response.data.success) {
                 getDSKhuyenMai()
+                toast.success("Xóa thành công")
             }
         } catch (error) {
             return error.response.data ? error.response.data : {success:false, message: 'server error'}
@@ -57,6 +59,7 @@ const KhuyenMaiContextProvider = ({ children }) => {
             const res = await axios.post(`${apiUrl}/khuyenmai`,newKhuyenMai);
             if (res.data.success) {
                 getDSKhuyenMai()
+                toast.success("Thêm thành công")
             } else {
                 return  {success:false, message: 'Lỗi khi thêm khuyến mãi!!!'}
             }
@@ -70,6 +73,8 @@ const KhuyenMaiContextProvider = ({ children }) => {
             const res = await axios.put(`${apiUrl}/khuyenmai`,updateData);
             if (res.data.success) {
                 getDSKhuyenMai()
+                toast.success("Cập nhật thành công")    
+
             } else {
                 return  {success:false, message: 'Lỗi khi cập nhật khuyến mãi!!!'}
             }

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import io from "socket.io-client";
-import { chatServerURL } from "../../contexts/constants";
+import { apiUrl, chatServerURL } from "../../contexts/constants";
 import "./style.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
 function ChatUser() {
   const userType = "User";
@@ -12,6 +13,16 @@ function ChatUser() {
   const [messages, setMessages] = useState([]);
   const {authState:{user,isAuthenticated, authLoading }} = useContext(AuthContext)
 
+  // lấy tin nhấn cũ
+  useEffect(()=>{
+    if (user.taiKhoan){
+      axios.get(apiUrl+"/tinnhan/nguoigui/"+user.taiKhoan)
+        .then(res=>{
+          console.log("mes: ", res.data.messages)
+          setMessages(res.data.messages)
+        })
+    }
+  },[user])
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
       const newSocket = io(chatServerURL);
@@ -25,6 +36,7 @@ function ChatUser() {
     if (socket) {
       socket.on("message", (message) => {
         setMessages((messages) => [...messages, message]);
+        
       });
     }
   }, [socket]);
@@ -33,7 +45,7 @@ function ChatUser() {
     if (message) {
       let TinNhan = {nguoiGui: user.taiKhoan, nguoiNhan:'admin',tinNhan:message};
       socket.emit("message", { userType,  TinNhan});
-      setMessages((messages) => [...messages, { userType, message }]);
+      setMessages((messages) => [...messages, { userType, tinNhan:message }]);
       setMessage("");
     }
   };
@@ -56,15 +68,15 @@ function ChatUser() {
         </button> 
         <div className={`chatbox ${showBoxChat ? "visible":"hidden"}`}>
           <div className="chaxbox-header">
-            <span>{"Tài khoản "+userType}</span>
+            <span>{"Gửi tin nhấn đến admin "}</span>
             <button className="btn " onClick={handleChatBox}>
               <FontAwesomeIcon className="icon" icon={['fas', 'fa-x']} />
             </button>
           </div>
           <ul className="box-messages">
             {messages.map((message, index) => (
-              <li key={index} className={`message-line ${userType===message.userType ? "myself" : ""}`}>
-                <span className="message">{message.message}</span>
+              <li key={index} className={`message-line ${userType===message.userType||message.nguoiGui === user.taiKhoan  ? "myself" : ""}`}>
+                <span className="message">{message.tinNhan}</span>
               </li>
             ))}
           </ul>

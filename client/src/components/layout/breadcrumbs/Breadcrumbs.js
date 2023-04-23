@@ -36,15 +36,22 @@ const routesUser = [
     breadcrumb: "Khuyến mãi",
   },
 ];
+const routesManager = [
+  { path: "/", breadcrumb: "Trang chủ" },
+  { path: "/manager", breadcrumb: "Trang quản lý" },
+  { path: "/manager/donhang", breadcrumb: "Đơn hàng" },
+  { path: "/manager/vattu", breadcrumb: "Vật tư" },
+  { path: "/manager/muavu", breadcrumb: "Mùa vụ" },
+  { path: "/manager/khuyenmai", breadcrumb: "Khuyến mãi" },
+  { path: "/manager/nhacungcap", breadcrumb: "Nhà cung cấp" },
+  { path: "/manager/danhmuc", breadcrumb: "Danh mục" },
+];
+
 const routesAdmin = [
   { path: "/", breadcrumb: "Trang chủ" },
-  { path: "/admin", breadcrumb: "Trang chủ" },
-  { path: "/admin/donhang", breadcrumb: "Đơn hàng" },
-  { path: "/admin/vattu", breadcrumb: "Vật tư" },
-  { path: "/admin/muavu", breadcrumb: "Mùa vụ" },
-  { path: "/admin/khuyenmai", breadcrumb: "Khuyến mãi" },
-  { path: "/admin/nhacungcap", breadcrumb: "Nhà cung cấp" },
-  { path: "/admin/danhmuc", breadcrumb: "Danh mmucj" },
+  { path: "/admin", breadcrumb: "Trang quản trị" },
+  { path: "/admin/doanhthu", breadcrumb: "Doanh thu" },
+  { path: "/admin/taikhoan", breadcrumb: "Tài khoản" },
 ];
 // map & render your breadcrumb components however you want.
 const Breadcrumbs = (props) => {
@@ -53,11 +60,11 @@ const Breadcrumbs = (props) => {
     productState: { products },
   } = useContext(ProductContext);
   listProducts = products;
-  let routes = null;
+  let routes = routesUser;
   if (type ==="admin") {
     routes = routesAdmin;
-  } else {
-    routes = routesUser;
+  } else  if (type ==="manager"){
+    routes = routesManager;
   }
   let breadcrumbs=useBreadcrumbs(routes); ;
 

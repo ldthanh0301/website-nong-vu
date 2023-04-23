@@ -11,6 +11,7 @@ import {
   PRODUCTS_LOADED_SUCCESS,
   UPDATE_PRODUCT,
 } from "./constants";
+import { toast } from "react-toastify";
 
 export const ProductContext = createContext();
 
@@ -34,6 +35,7 @@ const ProductContextProvider = ({ children }) => {
       });
       if (response.data.success) {
         dispatch({ type: ADD_PRODUCT, payload: response.data.products });
+        toast.success("Thêm thành công")
         return response.data;
       }
     } catch (error) {
@@ -75,6 +77,7 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.delete(`${apiUrl}/vattu/${productId}`);
       if (response.data.success) {
         dispatch({ type: DELETE_PRODUCT, payload: productId });
+        toast.success("Xóa thành công")
         return productId;
       }
     } catch (error) {
@@ -122,6 +125,8 @@ const ProductContextProvider = ({ children }) => {
       );
       if (res.data.success) {
         getProducts()
+        toast.success("Cập nhật thành công")
+        
         return res.data
       }
     } catch (error) {

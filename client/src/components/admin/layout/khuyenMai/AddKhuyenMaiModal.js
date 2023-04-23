@@ -15,11 +15,12 @@ function AddKhuyenMaiModal() {
   const [giaTriKM, setGiaTriKM] = useState("");
   const [ngayBD,setNgayBD] = useState("");
   const [ngayKT,setNgayKT] = useState("");
+  const [dieuKien,setDieuKien] = useState(0);
 
 
   const handlerSubmit = async (e) => {
     e.preventDefault()
-    addKhuyenMai({tenKM,giaTriKM,ngayBD,ngayKT});
+    addKhuyenMai({tenKM,giaTriKM,ngayBD,ngayKT, dieuKien});
     setShowAddKhuyenMaiModal(false)
   }
 
@@ -57,6 +58,20 @@ function AddKhuyenMaiModal() {
                 aria-describedby="title-help"
                 value={giaTriKM}
                 onChange={(e) => setGiaTriKM(e.target.value)}
+              />
+              <Form.Text id="title-help" muted>
+                Bất buộc
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Điều kiện được khuyến mãi"
+                name="dieuKien"
+                required
+                aria-describedby="title-help"
+                value={dieuKien}
+                onChange={(e) => setDieuKien(e.target.value)}
               />
               <Form.Text id="title-help" muted>
                 Bất buộc

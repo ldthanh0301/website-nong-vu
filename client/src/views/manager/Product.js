@@ -29,7 +29,7 @@ function Product() {
   } = useContext(ProductContext);
   const [listProduct, setListProduct] = useState(products);
   useEffect(() => {
-    getProducts().then(data=>setListProduct(data))
+    getProducts().then((data) => setListProduct(data));
   }, [products]);
 
   let body = null;
@@ -47,14 +47,15 @@ function Product() {
     const currentProducts = listProduct.slice(firstPageIndex, lastPageIndex);
     body = (
       <>
-        
-        <div style={{ display: "flex"}}>
+        <div style={{ display: "flex" }}>
           <Pagination
             currentPage={currentPage}
             onPageChange={(page) => setCurrentPage(page)}
             totalPage={Math.ceil(listProduct.length / PageSize)}
           ></Pagination>
-          <div style={{flex:'1 1 0'}}>Tổng số lượng: {listProduct.length}</div>
+          <div style={{ flex: "1 1 0" }}>
+            Tổng số lượng: {listProduct.length}
+          </div>
           <SearchAdmin
             filterFunc={filterProduct}
             onChangeData={(data) => setListProduct(data)}
@@ -71,21 +72,14 @@ function Product() {
   }
   return (
     <>
+      <Button
+        className="btn "
+        onClick={setShowAddProductModal.bind(this, true)}
+      >
+        Thêm mới
+      </Button>
+      <hr />
       {body}
-      <>
-        {/* open add product modal */}
-        <OverlayTrigger
-          placement="left"
-          overlay={<Tooltip>Thêm sản phẩm mới!!</Tooltip>}
-        >
-          <Button
-            className="btn-floating"
-            onClick={setShowAddProductModal.bind(this, true)}
-          >
-            <img src={addIcon} alt="add post" width="60" height="60" />
-          </Button>
-        </OverlayTrigger>
-      </>
       <AddProductModal></AddProductModal>
       {product !== null && <UpdateProductModal></UpdateProductModal>}
     </>

@@ -1,22 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
 import io from "socket.io-client";
-import { chatServerURL } from "../../contexts/constants";
+import { apiUrl, chatServerURL } from "../../contexts/constants";
 import "./style.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from "../../contexts/AuthContext";
+import axios from "axios";
 
-function ChatAdmin() {
+function ChatAdmin(props) {
+  const {nguoiNhan}  = props;// là nông dân
   const userType ="Admin";
   const [socket, setSocket] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const {authState:{user,isAuthenticated, authLoading }} = useContext(AuthContext)
+  // lấy tin nhấn cũ
+  useEffect(()=>{
+    if (nguoiNhan){
+      axios.get(apiUrl+"/tinnhan/nguoigui/"+nguoiNhan.taiKhoan)
+        .then(res=>{
+          console.log("mes: ", res.data.messages)
+          setMessages(res.data.messages)
+        })
+    } else {
+      handleChatBox()
+    }
+  },[nguoiNhan])
 
   useEffect(() => {
     if (!authLoading && isAuthenticated) {
       const newSocket = io(chatServerURL);
       newSocket.emit("join",  {userType, username: user.taiKhoan});
-      console.log("socket:",newSocket)
       
       setSocket(newSocket);
       return () => newSocket.close();
@@ -33,9 +46,9 @@ function ChatAdmin() {
 
   const handleSend = () => {
     if (message) {
-      let TinNhan = {nguoiGui: user.taiKhoan, nguoiNhan:'admin',tinNhan:message};
+      let TinNhan = {nguoiGui: user.taiKhoan, nguoiNhan:nguoiNhan.taiKhoan,tinNhan:message};
       socket.emit("message", { userType,  TinNhan});
-      setMessages((messages) => [...messages, { userType, message }]);
+      setMessages((messages) => [...messages, { userType, tinNhan:message }]);
       setMessage("");
     }
   };
@@ -51,22 +64,21 @@ function ChatAdmin() {
     setShowBoxChat(!showBoxChat)
     setButtonChat(!showButtonChat)
   }
-  return (
-    <div>
-        <button className={`btn-chat ${showButtonChat ? "visible": "hidden"}`} onClick={handleChatBox}>
-          <FontAwesomeIcon className="icon" icon={['fas', 'fa-message']} />
-        </button> 
-        <div className={`chatbox ${showBoxChat ? "visible":"hidden"}`}>
+  
+  let body = null;
+  if (nguoiNhan) {
+    body = (
+      <div className={`chatbox ${showBoxChat ? "visible":"hidden"}`}>
           <div className="chaxbox-header">
-            <span>{"Tài khoản "+userType}</span>
+            <span>{"Gửi tin nhấn đến "+ nguoiNhan.hoTen}</span>
             <button className="btn " onClick={handleChatBox}>
               <FontAwesomeIcon className="icon" icon={['fas', 'fa-x']} />
             </button>
           </div>
           <ul className="box-messages">
             {messages.map((message, index) => (
-              <li key={index} className={`message-line ${userType===message.userType ? "myself" : ""}`}>
-                <span className="message">{message.message}</span>
+              <li key={index} className={`message-line ${userType===message.userType || message.nguoiGui === 'admin' ? "myself" : ""}`}>
+                <span className="message">{message.tinNhan}</span>
               </li>
             ))}
           </ul>
@@ -81,6 +93,14 @@ function ChatAdmin() {
             <button onClick={handleSend} >Send</button>
           </div>
         </div>
+    )
+  }
+  return (
+    <div>
+        <button className={`btn-chat ${showButtonChat ? "visible": "hidden"}`} onClick={handleChatBox}>
+          <FontAwesomeIcon className="icon" icon={['fas', 'fa-message']} />
+        </button> 
+        {body}
     </div>
   );
 }

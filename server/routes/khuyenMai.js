@@ -27,16 +27,18 @@ router.post('/', async(req, res) => {
         giaTriKM,
         tenKM,
         ngayBD,
-        ngayKT
+        ngayKT,
+        dieuKien
     } = req.body
         //simple validation
-    if (!giaTriKM || !tenKM || !ngayBD || !ngayKT)
+        dieuKien
+    if (!giaTriKM || !tenKM || !ngayBD || !ngayKT ||!dieuKien)
         return res.status(400).json({
             success: false,
             message: 'Thiếu một trong số các trường dữ liệu!!'
         })
     try {
-            KhuyenMai.add({giaTriKM,tenKM,ngayBD,ngayKT}, function(err, result){
+            KhuyenMai.add({giaTriKM,tenKM,ngayBD,ngayKT,dieuKien}, function(err, result){
                 if (err) {
                     res.json({success:false,message: err})
                 } else {
@@ -89,18 +91,19 @@ router.put('/', async(req, res) => {
         tenKM,
         ngayBD,
         ngayKT,
-        mskm
+        mskm,
+        dieuKien
     } = req.body
 
  
         //simple validation
-    if (!giaTriKM || !tenKM || !ngayBD || !ngayKT ||!mskm)
+    if (!giaTriKM || !tenKM || !ngayBD || !ngayKT ||!mskm || !dieuKien)
         return res.status(400).json({
             success: false,
             message: 'Thiếu một trong số các trường dữ liệu!!'
         })
     try {
-            KhuyenMai.updateById({giaTriKM,tenKM,ngayBD,ngayKT,mskm}, function(err, result){
+            KhuyenMai.updateById({giaTriKM,tenKM,ngayBD,ngayKT,mskm, dieuKien}, function(err, result){
                 if (err) {
                     res.json({success:false,message: err})
                 } else {

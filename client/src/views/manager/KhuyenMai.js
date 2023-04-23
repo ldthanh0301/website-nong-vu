@@ -7,6 +7,7 @@ import deleteIcon from '../../assets/trash.svg'
 import Button from "react-bootstrap/esm/Button";
 import AddKhuyenMaiModal from "../../components/admin/layout/khuyenMai/AddKhuyenMaiModal";
 import UpdateKhuyenMai from "../../components/admin/layout/khuyenMai/UpdateKhuyenMai";
+import { VND } from "../../utils/format";
 
 function KhuyenMai() {
   let {
@@ -45,6 +46,7 @@ function KhuyenMai() {
                     <th>STT</th>
                     <th>Tên khuyến mãi</th>
                     <th>Giá trị khuyến mãi</th>
+                    <th>Điều kiện khuyến mãi</th>
                     <th>Ngày bất đầu</th>
                     <th>Ngày kết thúc</th>
                     <th>Tùy chọn</th>
@@ -56,6 +58,7 @@ function KhuyenMai() {
                       <td>{index + 1}</td>
                       <td>{khuyenMai.tenKM}</td>
                       <td>{khuyenMai.giaTriKM}</td>
+                      <td>{VND.format(khuyenMai.dieuKien)}</td>
                       <td>{khuyenMai.ngayBD}</td>
                       <td>{khuyenMai.ngayKT}</td>
                       <td>

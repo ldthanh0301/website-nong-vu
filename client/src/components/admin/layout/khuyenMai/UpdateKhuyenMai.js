@@ -13,7 +13,7 @@ function UpdateKhuyenMai() {
     updateKhuyenMai,
   } = useContext(KhuyenMaiContext);
   const [updateData, setUpdateData] = useState(khuyenMai);
-  const { tenKM, giaTriKM, ngayBD, ngayKT } = updateData;
+  const { tenKM, giaTriKM, ngayBD, ngayKT, dieuKien } = updateData;
 
   const onChangeUpdateCategoryForm = (e) => {
     setUpdateData({ ...updateData, [e.target.name]: e.target.value });
@@ -39,6 +39,7 @@ function UpdateKhuyenMai() {
         </Modal.Header>
         <Form onSubmit={handlerSubmit}>
           <Modal.Body>
+            <Form.Label>Tên khuyến mãi</Form.Label>
             <Form.Group>
               <Form.Control
                 type="text"
@@ -54,6 +55,7 @@ function UpdateKhuyenMai() {
               </Form.Text>
             </Form.Group>
             <Form.Group>
+              <Form.Label>Giá trị khuyến mãi</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Giá trị khuyến mãi"
@@ -68,6 +70,22 @@ function UpdateKhuyenMai() {
               </Form.Text>
             </Form.Group>
             <Form.Group>
+              <Form.Label>Điều kiện khuyến mãi</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Điều kiện được khuyến mãi"
+                name="dieuKien"
+                required
+                aria-describedby="title-help"
+                value={dieuKien}
+                onChange={onChangeUpdateCategoryForm}
+              />
+              <Form.Text id="title-help" muted>
+                Bất buộc
+              </Form.Text>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Ngày bất đầu khuyến mãi</Form.Label>
               <Form.Control
                 type="date"
                 placeholder="Ngày bất đầu"
@@ -81,7 +99,9 @@ function UpdateKhuyenMai() {
                 MM/DD/YYYY
               </Form.Text>
             </Form.Group>
+            
             <Form.Group>
+              <Form.Label>Ngày kết thúc khuyến mãi</Form.Label>
               <Form.Control
                 type="date"
                 placeholder="Ngày kết thúc"

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import Spinner from "react-bootstrap/esm/Spinner";
 import { CategoryContext } from "../../contexts/CategoryContext";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 import Button from "react-bootstrap/esm/Button";
-import addIcon from '../../assets/plus-circle-fill.svg'
+import addIcon from "../../assets/plus-circle-fill.svg";
 import Tooltip from "react-bootstrap/esm/Tooltip";
 import AddCategoryModal from "../../components/categories/AddCategoryModal";
 import Actionbuttons from "../../components/categories/Actionbuttons";
@@ -17,10 +17,12 @@ function Category() {
     getCategories,
     setShowAddCategoryModal,
     setShowToast,
-    showToast:{show,message,type}
+    showToast: { show, message, type },
   } = useContext(CategoryContext);
 
-  useEffect(() => {getCategories()}, []);
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   let body = null;
 
@@ -44,46 +46,36 @@ function Category() {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category,index) => (
+            {categories.map((category, index) => (
               <tr key={category.mslvt}>
                 <td>{index + 1}</td>
                 <td>{category.tenLoaiVatTu}</td>
-                <td><Actionbuttons _id={category.mslvt}></Actionbuttons></td>
+                <td>
+                  <Actionbuttons _id={category.mslvt}></Actionbuttons>
+                </td>
               </tr>
             ))}
-            
           </tbody>
         </Table>
-
-        {/* open add post modal */}
-        <OverlayTrigger placement='left' overlay={<Tooltip>Thêm danh mục mới</Tooltip>}>
-            <Button className="btn-floating" onClick={setShowAddCategoryModal.bind(this,true)}>
-              <img src={addIcon} alt="add post" width='60' height='60' />
-            </Button>
-        </OverlayTrigger>
       </>
     );
   } else {
     body = <span>Danh mục trống</span>;
   }
-  return <>
-    {body}
-    <AddCategoryModal></AddCategoryModal> 
-    {category !== null && <UpdateCategoryModal/>}
-    <Toast
-      show={show} 
-      className={`bg-${type} text-white`}
-      style={{ position: 'fixed', top: '20%', right: '10px' }}
-      onClose={setShowToast.bind(this,{show:false,message:'',type:null})}
-    >
-      <Toast.Header>
-        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-        <strong className="me-auto">{type}</strong>
-        <small>Now</small>
-      </Toast.Header>
-      <Toast.Body>{message}</Toast.Body>
-    </Toast>
-  </>;
+  return (
+    <>
+      <Button
+        className="btn"
+        onClick={setShowAddCategoryModal.bind(this, true)}
+      >
+        Thêm mới
+      </Button>
+      <hr />
+      {body}
+      <AddCategoryModal></AddCategoryModal>
+      {category !== null && <UpdateCategoryModal />}
+    </>
+  );
 }
 
 export default Category;

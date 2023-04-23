@@ -8,6 +8,7 @@ import {
   GET_ORDERS_BY_USER,
   GET_ORDER_INFO,
 } from "./constants";
+import { toast } from "react-toastify";
 
 export const DonHangContext = createContext();
 
@@ -24,17 +25,6 @@ const DonHangContextProvider = ({ children }) => {
   const {
     authState: { user },
   } = useContext(AuthContext);
-  const datHang = async () => {
-    let data;
-
-    try {
-      let res = await axios.post(`${apiUrl}/donhang`, data);
-    } catch (error) {
-      return error.response.data
-        ? error.response.data
-        : { success: false, message: "server error" };
-    }
-  };
   const getOrders = async function (status) {
     try {
       let res;
@@ -44,6 +34,33 @@ const DonHangContextProvider = ({ children }) => {
         res = await axios.get(`${apiUrl}/donhang/${status}`);
       }
       dispatch({ type: GET_ORDERS, payload: res.data.orders });
+    } catch (error) {
+      return error.response.data
+        ? error.response.data
+        : { success: false, message: "server error" };
+    }
+  };
+  // Get order đã giao
+  const getOrdersChecked = async function () {
+    try {
+      let res = await axios.get(`${apiUrl}/donhang/2`);
+      dispatch({ type: GET_ORDERS, payload: res.data.orders });
+    } catch (error) {
+      return error.response.data
+        ? error.response.data
+        : { success: false, message: "server error" };
+    }
+  };
+  // Get order đã giao theo user và tháng
+  const getOrderGroupByUserAndMonth = async function () {
+    try {
+      let res = await axios.get(`${apiUrl}/donhang/donhangnguoidungtheothang`);
+      // dispatch({ type: GET_ORDERS, payload: res.data.orders });
+      if (res.data.success) {
+        console.log("prne: ", res.data.orders)
+        return res.data.orders;
+      }
+      else return []
     } catch (error) {
       return error.response.data
         ? error.response.data
@@ -76,16 +93,14 @@ const DonHangContextProvider = ({ children }) => {
         : { success: false, message: "server error" };
     }
   };
-  
+
   // filter order user by category
-  const filterOrderUserByCategory = async (mslvt) => {
+  const filterOrderUserByCategoryAndMuaVu = async (mslvt, msmv) => {
     try {
       let res = await axios.get(
-        `${apiUrl}/donhang/user/${user.msnd}?mslvt=${mslvt}`
+        `${apiUrl}/donhang/user/${user.msnd}?mslvt=${mslvt}&msmv=${msmv}`
       );
       dispatch({ type: GET_ORDERS_BY_USER, payload: res.data.orders });
-      console.log("order:", res.data.orders)
-
     } catch (error) {
       return error.response.data
         ? error.response.data
@@ -95,6 +110,11 @@ const DonHangContextProvider = ({ children }) => {
   const changeState = async (state, msdh) => {
     try {
       let res = await axios.patch(`${apiUrl}/donhang`, { msdh, state });
+      if (res.data.success) {
+        toast.success("Đổi trạng thái thành công");
+      } else {
+        toast.error("Đổi trạng thái thất bại");
+      }
       getOrders();
     } catch (error) {
       return error.response.data
@@ -121,14 +141,15 @@ const DonHangContextProvider = ({ children }) => {
     }
   };
   const donHangContextData = {
-    datHang,
     orderState,
     getOrders,
+    getOrdersChecked,
     changeState,
     chiTietDonHang,
     getOrderByUser,
     filterOrderUserByStatus,
-    filterOrderUserByCategory
+    filterOrderUserByCategoryAndMuaVu,
+    getOrderGroupByUserAndMonth,
   };
   return (
     <DonHangContext.Provider value={donHangContextData}>

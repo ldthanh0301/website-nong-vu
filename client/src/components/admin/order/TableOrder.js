@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 function ListOrder(props) {
     let {orders,changeState} = props;
     const handleChange = (msdh,e) => {
+      console.log("msdh : ", msdh)
         let state = e.target.value;
         changeState(state, msdh)
       }
@@ -32,11 +33,11 @@ function ListOrder(props) {
                     <td>
                     <Form.Select aria-label="Default select example"
                         onChange={(e) => handleChange(order.msdh,e)}
-                        defaultValue={order.trangThai}
+                        // defaultValue={order.trangThai}
                     >
-                      <option value="0">Chưa duyệt</option>
-                      <option value="1" >Đã duyệt</option>
-                      <option value="2" >Đã giao</option>
+                      <option value="0" selected={0==order.trangThai}>Chưa duyệt</option>
+                      <option value="1" selected={1==order.trangThai}>Đã duyệt</option>
+                      <option value="2" selected={2==order.trangThai}>Đã giao</option>
                     </Form.Select>
                     </td>
                     <td>

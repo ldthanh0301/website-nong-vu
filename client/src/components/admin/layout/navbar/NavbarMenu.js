@@ -10,7 +10,7 @@ import { useContext } from 'react'
 const NavbarMenu = () => {
 	const {
 		authState: {
-			user: { username }
+			user: { hoTen }
 		},
 		logoutUser
 	} = useContext(AuthContext)
@@ -43,7 +43,7 @@ const NavbarMenu = () => {
 			<Navbar.Collapse id='basic-navbar-nav'>
 				<Nav className='ms-auto align-items-center'>
 					<Nav.Link className='font-weight-bolder text-white ' disabled>
-						Xin chào {username}
+						Xin chào {hoTen}
 					</Nav.Link>
 					<Button
 						variant='secondary'

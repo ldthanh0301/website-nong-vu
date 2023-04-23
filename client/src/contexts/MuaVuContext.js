@@ -2,13 +2,14 @@ import axios from "axios";
 import { createContext, useReducer, useState } from "react";
 import { muaVuReducer } from "../reducers/muaVuReducer";
 import { ADD_MUAVU, apiUrl, DELETE_MUAVU, GET_MUAVU } from "./constants";
+import { toast } from "react-toastify";
 
 export const MuaVuContext = createContext()
 
 const MuaVuContextProvider = ({ children }) => {
     
     const [muaVuState, dispatch] = useReducer(muaVuReducer, {
-        muaVu: null,
+        muaVu: [],
         muaVuLoading: true,
     })
 
@@ -30,6 +31,7 @@ const MuaVuContextProvider = ({ children }) => {
             const response = await axios.delete(`${apiUrl}/muavu/${msmv}`)
             if (response.data.success) {
                 dispatch({type: DELETE_MUAVU,payload:msmv})
+                toast.success("Xóa thành công")
             }
         } catch (error) {
             return error.response.data ? error.response.data : {success:false, message: 'server error'}
@@ -42,6 +44,7 @@ const MuaVuContextProvider = ({ children }) => {
                 const id = res.data.insertId;
                 const muaVu = await axios.get(`${apiUrl}/muavu/${id}`)
                 dispatch({type: ADD_MUAVU,payload: muaVu.data})
+                toast.success("Thêm thành công")
                 return res.data
             }
         } catch (error) {

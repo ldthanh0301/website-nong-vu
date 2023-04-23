@@ -13,15 +13,12 @@ import { VND } from '../utils/format'
 import { KhuyenMaiContext } from '../contexts/KhuyenMaiContext'
 import ModalKhuyenMai from '../components/modals/ModalKhuyenMai'
 import FormInfoOrder from '../components/form/FormInfoOrder'
-import SidebarMenuUser from '../components/Sidebar/SidebarMenuUser'
 function Cart() {
   const {
-    cartState: { cart,cartLoading}, 
+    cartState: { cart}, 
     deleteProductInCart,
     datHang,
     khuyenMaiInCart,
-    showToast:{ show, message, type},
-    setShowToast
   } = useContext(CartContext)
   let body= null;
 
@@ -57,7 +54,6 @@ function Cart() {
         </Table>
         <div>
           <hr />
-          <ModalKhuyenMai></ModalKhuyenMai>
           {
             khuyenMaiInCart ? <div>Khuyến mãi:{khuyenMaiInCart.tenKM}</div>:""
           }
@@ -80,22 +76,7 @@ function Cart() {
         </Col>
         </Row>
       </div>
-      <ToastContainer   className="p-3" position={'middle-center'}>
-          <Toast show={show} onClose={setShowToast.bind(this,{show:false,message:'',type:null})}>
-            <Toast.Header closeButton={true}>
-              <img
-                src="holder.js/20x20?text=%20"
-                className="rounded me-2"
-                alt=""
-              />
-              <strong className="me-auto">Thông báo</strong>
-              <small>Ngay bây giời</small>
-            </Toast.Header>
-            <Toast.Body>{message}</Toast.Body>
-          </Toast>
-        </ToastContainer>
     </>
-    
   )
 }
 

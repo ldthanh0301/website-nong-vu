@@ -2,7 +2,8 @@ import React from 'react'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { NavLink } from 'react-router-dom';
 
-function Sibebar() {
+function SibebarManager
+() {
   return (
     <div>
         <ListGroup as="ul">
@@ -24,9 +25,12 @@ function Sibebar() {
             <ListGroup.Item>
                 <NavLink to="./nhacungcap" className="list-group-item">Nhà cung cấp</NavLink> 
             </ListGroup.Item>
+            <ListGroup.Item>
+                <NavLink to="./tinnhan" className="list-group-item">Tin nhấn</NavLink> 
+            </ListGroup.Item>
         </ListGroup>
     </div>
   )
 }
 
-export default Sibebar
+export default SibebarManager

@@ -10,6 +10,10 @@ const MuaVu = {
         let sql = `Select * from muavu`;
         con.query(sql, callback)
     },
+    getCurrentMuaVu: function (callback) {
+        let sql = 'SELECT max(msmv) as msmv FROM muavu';
+        con.query(sql, callback)
+    },
     getById: function (id,callback) {
         let sql = `select * from muavu where msmv= ${id}`
         con.query(sql, callback)

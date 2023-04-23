@@ -16,7 +16,6 @@ import {
   GET_CART,
   RESET_CART,
   Tang_So_Luong,
-  TINH_GIA_KM,
 } from "./constants";
 import { KhuyenMaiContext } from "./KhuyenMaiContext";
 
@@ -26,7 +25,7 @@ const CartContextProvider = ({ children }) => {
   const {
     authState: { user },
   } = useContext(AuthContext);
-
+  const {khuyenMaiState:{danhSachKhuyenMai}} = useContext(KhuyenMaiContext)
   const [cartState, dispatch] = useReducer(cartReducer, {
     cart: {
       products: [],
@@ -44,18 +43,16 @@ const CartContextProvider = ({ children }) => {
         tongTien: 0,
       };
     } else {
-      // kiểm tra giảm giá
-      if (khuyenMaiInCart) {
-        cart.tongTien =
-          cart.tongTien - (cart.tongTien * khuyenMaiInCart.giaTriKM) / 100;
-      }
+    //  tính tổng tiền của giỏ hàng
+      let tongTien = cart.products.reduce((tongTien, e) => e.tongGia + tongTien, 0);
+      cart = tinhGiaKM({...cart, tongTien});
     }
 
     dispatch({ type: GET_CART, payload: cart });
   };
   useEffect(() => {
     getCart();
-  }, []);
+  }, [danhSachKhuyenMai,khuyenMaiInCart]);
   // làm mới giỏ hàng
   const resetCart = async () => {
     localStorage.removeItem("cart")
@@ -100,11 +97,8 @@ const CartContextProvider = ({ children }) => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     toast.success('Đã thêm sản phẩm vào giỏ hàng')
-    // kiểm tra giảm giá
-    if (khuyenMaiInCart) {
-        tongTien = tongTien - (tongTien * khuyenMaiInCart.giaTriKM) / 100;
-        cart = { products, tongTien };
-      }
+    cart = tinhGiaKM({ products, tongTien });
+
     dispatch({ type: Add_PRODUCT_TO_CART, payload: cart });
   };
   const deleteProductInCart = async (vatTu) => {
@@ -113,12 +107,11 @@ const CartContextProvider = ({ children }) => {
 
     let cart = { products, tongTien };
     localStorage.setItem("cart", JSON.stringify(cart));
-    // kiểm tra giảm giá
-    if (khuyenMaiInCart) {
-      tongTien = tongTien - (tongTien * khuyenMaiInCart.giaTriKM) / 100;
-      cart = { products, tongTien };
-    }
+    
+    cart = tinhGiaKM({ products, tongTien });
+
     dispatch({ type: DELETE_PRODUCT_IN_CART, payload: cart });
+    toast.success("Đã xoá sản phẩm khỏi giỏ hàng")
   };
   const tangSoLuong = (soLuong, viTri) => {
     cartState.cart.products[viTri].soLuong = soLuong;
@@ -130,12 +123,12 @@ const CartContextProvider = ({ children }) => {
       (tongTien, product) => tongTien + product.tongGia,
       0
     );
-    // kiểm tra giảm giá
-    if (khuyenMaiInCart) {
-      tongTien = tongTien - (tongTien * khuyenMaiInCart.giaTriKM) / 100;
-    }
-    let cart = { products, tongTien };
+    
+    let cart = tinhGiaKM({ products, tongTien });
+    
     dispatch({ type: Tang_So_Luong, payload: cart });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
   };
   const [showToast, setShowToast] = useState({
     show: false,
@@ -143,16 +136,37 @@ const CartContextProvider = ({ children }) => {
     type: null,
   });
 
-  const tinhGiaKM = (km) => {
-    setKhuyenMaiInCart(km);
-    let tongTien = cartState.cart.products.reduce(
-      (tongTien, product) => tongTien + product.tongGia,
-      0
-    );
-    tongTien = tongTien - (tongTien * km.giaTriKM) / 100;
-    let cart = { products: cartState.cart.products, tongTien };
+  const tinhGiaKM = (cart) => {
+    // tính tổng tiền trước khi áp dụng khuyến mãi
+    let tongTien = cart.tongTien;
+    let km =null;
+    // chọn khuyến mãi phù hợp
+    danhSachKhuyenMai.map(khuyenMai=>{
 
-    dispatch({ type: TINH_GIA_KM, payload: cart });
+      if (km && km.giaTriKM > khuyenMai.giaTriKM){
+        return;
+      }
+
+      if (tongTien >= khuyenMai.dieuKien ) {
+        km= khuyenMai;
+        setKhuyenMaiInCart(khuyenMai);
+      }
+      
+    });
+
+    if (khuyenMaiInCart && tongTien < khuyenMaiInCart.dieuKien){
+      km = null;
+      setKhuyenMaiInCart(null)
+    }
+
+    // tính tiên được khuyến mãi
+    if (km){
+      tongTien = tongTien - (tongTien * km.giaTriKM) / 100;
+    }
+    //gán tiền đã tính vào cart
+    cart = { ...cart, tongTien };
+    return cart;
+
   };
   const cartContextData = {
     cartState,

@@ -10,41 +10,43 @@ const createChatServer = (app) => {
   });
 
   const users = {
-    User: null,
-    Admin: null,
+    User: [],
+    Admin: [],
   }; 
-
+  // user['User']
   let usersOnline = {};
   io.on('connection', (socket) => {
     socket.on('join', ({userType, username}) => {
-      users[userType] = socket;
+      users[userType].push({[username]:socket});
       console.log("username: ", username)
       usersOnline= {...usersOnline,[username]:socket};
     });
 
     socket.on('message', ({ userType, TinNhan }) => {
-      const targetUserType = userType === 'User' ? 'Admin' : 'User';
-      const query = `INSERT INTO tinnhan (nguoiGui, nguoiNhan, tinNhan) VALUES ('${TinNhan.nguoiGui}', '${TinNhan.nguoiNhan}', '${TinNhan.tinNhan}')`;
-      db.query(query, (error, results, fields) => {
-        if (error) throw error;
-        // Phát tin nhắn đến tất cả các người dùng trong phòng riêng tư
-        usersOnline[`${TinNhan.nguoiNhan}`].emit('message', { userType, message: TinNhan.tinNhan });
+      let sql="";
+      if (userType ==="Admin") {
+        sql = `INSERT INTO tinnhan (nguoiGui, nguoiNhan, tinNhan) VALUES ('admin', '${TinNhan.nguoiNhan}', '${TinNhan.tinNhan}')`;
+      } else {
+        sql = `INSERT INTO tinnhan (nguoiGui, nguoiNhan, tinNhan) VALUES ('${TinNhan.nguoiGui}', 'admin', '${TinNhan.tinNhan}')`;
+      }
+      db.query(sql, (error, results, fields) => {
+        if (error) {
+          throw error;
+          return
+        }
+        //
+        if (userType ==="Admin"){
+          // let socketUser = users['User'].find(user=>user[`${TinNhan.nguoiNhan}`])[`${TinNhan.nguoiNhan}`];
+          let socketUser = users['User'].find(user=>{if (user[`${TinNhan.nguoiNhan}`]) return user})[`${TinNhan.nguoiNhan}`];
+          if (socketUser) {
+            socketUser.emit('message', { userType, tinNhan: TinNhan.tinNhan });
+          }
+        } else {
+          let listSocketAdmin = users['Admin'].map(admin=> admin[Object.keys(admin)]);
+          listSocketAdmin.map(socketAdmin => socketAdmin.emit("message", { userType, tinNhan: TinNhan.tinNhan }))
+        }
       });
-      // users[targetUserType].emit('message', { userType, message: TinNhan.tinNhan });
     });
-
-
-    socket.on('privateMessage', (message) => {
-      // Lưu tin nhắn vào cơ sở dữ liệu MySQL
-      const query = `INSERT INTO messages (nguoiGui, nguoiNhan, tinNhan) VALUES ('${message.nguoiGui}', '${message.nguoiNhan}', '${message.tinNhan}')`;
-      connection.query(query, (error, results, fields) => {
-        if (error) throw error;
-        // Phát tin nhắn đến tất cả các người dùng trong phòng riêng tư
-        io.to(usersOnline.message.nguoiNhan).emit('privateMessage', message);
-      });
-    });
-
-
 
     socket.on('disconnect', () => {
       Object.keys(users).forEach((userType) => {

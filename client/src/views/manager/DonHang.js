@@ -39,7 +39,7 @@ function DonHang() {
           ></Pagination>
           <div>Tổng số lượng: {orders.length}</div>
         </div>
-        <TableOrder orders={currentOrders} changStatus={changeState}></TableOrder>
+        <TableOrder orders={currentOrders} changeState={changeState}></TableOrder>
       </>
     );
   return (

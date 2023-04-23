@@ -2,7 +2,7 @@ const con = require('./db')
 
 const KhuyenMai = {
     add: function (khuyenMai, callback) {
-        let sql = `INSERT INTO khuyenmai (giaTriKM, tenKM, ngayBD, ngayKT) VALUES (${khuyenMai.giaTriKM},'${khuyenMai.tenKM}','${khuyenMai.ngayBD}','${khuyenMai.ngayKT}')`;
+        let sql = `INSERT INTO khuyenmai (giaTriKM, tenKM, ngayBD, ngayKT, dieuKien) VALUES (${khuyenMai.giaTriKM},'${khuyenMai.tenKM}','${khuyenMai.ngayBD}','${khuyenMai.ngayKT}', ${khuyenMai.dieuKien})`;
         con.query(sql, callback)
     },
     getAll: function(callback) {
@@ -10,7 +10,7 @@ const KhuyenMai = {
         con.query(sql, callback)
     },
     updateById: function(khuyenMai, callback) {
-        let sql = `UPDATE khuyenmai SET tenKM='${khuyenMai.tenKM}', giaTriKM='${khuyenMai.giaTriKM}', ngayBD='${khuyenMai.ngayBD}',ngayKT='${khuyenMai.ngayKT}'  WHERE mskm =${khuyenMai.mskm}`
+        let sql = `UPDATE khuyenmai SET tenKM='${khuyenMai.tenKM}', giaTriKM='${khuyenMai.giaTriKM}', ngayBD='${khuyenMai.ngayBD}',ngayKT='${khuyenMai.ngayKT}', dieuKien= ${khuyenMai.dieuKien} WHERE mskm =${khuyenMai.mskm}`
         let result = con.query(sql, callback)
     },
     deleteById: function (id, callback) {

@@ -1,0 +1,166 @@
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import { apiUrl } from "../../../contexts/constants";
+import { toast } from "react-toastify";
+
+function UpdateAccountModal(props) {
+  const {accountInfo,getAccounts,showUpdateModal,setShowUpdateModal} = props
+  console.log("accountInfo: ", accountInfo)
+  const [alert, setAlert] = useState(null);
+  const [registerForm, setRegisterForm] = useState({
+    username: accountInfo.taiKhoan,
+    password: '',
+    confirmPassword: "",
+    soDienThoai: accountInfo.soDienThoai,
+    hoTen: accountInfo.hoTen,
+    diaChi: accountInfo.diaChi,
+  });
+  const { username, password, confirmPassword, soDienThoai, hoTen, diaChi } = registerForm;
+    console.log("registerForm: ", registerForm)
+
+  const onChangeRegisterForm = (event) =>
+    setRegisterForm({
+      ...registerForm,
+      [event.target.name]: event.target.value,
+    });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setAlert("Mật khẩu xác nhận sai");
+    }
+
+    try {
+        // goi api create account
+        const res = await axios.post(apiUrl+"/taikhoan/captaikhoan",registerForm)
+        console.log("tạo tài khoản: ",res)
+        if (res.data.success) {
+            toast.success("Tạo tài khoản thành công")
+            getAccounts()
+            setShowUpdateModal(false)
+        } else {
+            toast.error("Lỗi khi tạo tài khoản")
+        }
+    } catch (error) {
+      setAlert(error.response.data.message)
+      toast.error("Lỗi khi tạo tài khoản")
+      console.log(error);
+    }
+  };
+  useEffect(()=> {
+    setRegisterForm({
+      username: accountInfo.taiKhoan,
+      password: '',
+      confirmPassword: "",
+      soDienThoai: accountInfo.soDienThoai,
+      hoTen: accountInfo.hoTen,
+      diaChi: accountInfo.diaChi,
+    });
+  },[accountInfo])
+  const resetData = () => {
+    setAlert(null)
+    setRegisterForm({
+      username: "",
+      password: "",
+      confirmPassword: "",
+      soDienThoai: "",
+      hoTen: "",
+      diaChi: "",
+    });
+  };
+  return (
+    <div>
+      <Modal
+        show={showUpdateModal}
+        onHide={() => {
+          setShowUpdateModal(false);
+          resetData()
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Cập nhật tài khoản</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {
+            alert ? <p style={{ color: "#f3969a" }}>{alert}</p>:null
+          }
+          <Form className="my-4" onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Tài khoản"
+                name="username"
+                disabled
+                value={username}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Control
+                type="password"
+                placeholder="Mật khẩu"
+                name="password"
+                required
+                value={password}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Control
+                type="password"
+                placeholder="Xác nhận mật khẩu"
+                name="confirmPassword"
+                required
+                value={confirmPassword}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Số điện thoai"
+                name="soDienThoai"
+                required
+                value={soDienThoai}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Họ và tên"
+                name="hoTen"
+                required
+                value={hoTen}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <br />
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Địa chỉ"
+                name="diaChi"
+                required
+                value={diaChi}
+                onChange={onChangeRegisterForm}
+              />
+            </Form.Group>
+            <hr />
+            <Button variant="success" type="submit">
+              Cập nhật tài khoản
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+}
+
+export default UpdateAccountModal;

@@ -5,7 +5,7 @@
     border-radius: 10px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: #fff;
-    z-index: 100;
+    z-index: 999999;
 }
 
 .chatbox.visible {
@@ -31,7 +31,7 @@
     margin: 0;
     padding: 15px;
     overflow: scroll;
-    z-index: 100;
+    z-index: 999999;
 }
 
 .message-line {
