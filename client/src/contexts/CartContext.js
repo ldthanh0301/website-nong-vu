@@ -25,7 +25,7 @@ const CartContextProvider = ({ children }) => {
   const {
     authState: { user },
   } = useContext(AuthContext);
-  const {khuyenMaiState:{danhSachKhuyenMai}} = useContext(KhuyenMaiContext)
+  const {khuyenMaiState:{danhSachKhuyenMai},getDSKhuyenMai} = useContext(KhuyenMaiContext)
   const [cartState, dispatch] = useReducer(cartReducer, {
     cart: {
       products: [],
@@ -53,6 +53,10 @@ const CartContextProvider = ({ children }) => {
   useEffect(() => {
     getCart();
   }, [danhSachKhuyenMai,khuyenMaiInCart]);
+
+  useEffect(()=>{
+    getDSKhuyenMai()
+  },[])
   // làm mới giỏ hàng
   const resetCart = async () => {
     localStorage.removeItem("cart")
@@ -137,6 +141,7 @@ const CartContextProvider = ({ children }) => {
   });
 
   const tinhGiaKM = (cart) => {
+
     // tính tổng tiền trước khi áp dụng khuyến mãi
     let tongTien = cart.tongTien;
     let km =null;
@@ -149,11 +154,11 @@ const CartContextProvider = ({ children }) => {
 
       if (tongTien >= khuyenMai.dieuKien ) {
         km= khuyenMai;
+
         setKhuyenMaiInCart(khuyenMai);
       }
       
     });
-
     if (khuyenMaiInCart && tongTien < khuyenMaiInCart.dieuKien){
       km = null;
       setKhuyenMaiInCart(null)

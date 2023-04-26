@@ -26,7 +26,7 @@ function CartRow({product, index, deleteProductInCart}) {
             </td>
             <td>{VND.format(product.tongGia)}</td>
             <td>
-              <Button onClick={()=> {deleteProductInCart(product)}}>Xóa</Button>  
+              <Button className='bg-danger' onClick={()=> {deleteProductInCart(product)}}>Xóa</Button>  
             </td>
           </tr>
     </>

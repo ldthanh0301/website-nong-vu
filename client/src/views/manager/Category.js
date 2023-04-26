@@ -35,7 +35,6 @@ function Category() {
   } else if (categories.length > 0) {
     body = (
       <>
-        <h3>Danh mục sản phẩm</h3>
         <div>Tổng số lượng: {categories.length}</div>
         <Table striped bordered hover>
           <thead>
@@ -64,13 +63,15 @@ function Category() {
   }
   return (
     <>
+      <h3>Danh mục sản phẩm</h3>
+      <hr />
+
       <Button
         className="btn"
         onClick={setShowAddCategoryModal.bind(this, true)}
       >
         Thêm mới
       </Button>
-      <hr />
       {body}
       <AddCategoryModal></AddCategoryModal>
       {category !== null && <UpdateCategoryModal />}

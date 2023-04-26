@@ -5,6 +5,7 @@ import "./style.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
 function ChatAdmin(props) {
   const {nguoiNhan}  = props;// là nông dân
@@ -90,7 +91,7 @@ function ChatAdmin(props) {
               onChange={(event) => setMessage(event.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <button onClick={handleSend} >Send</button>
+            <Button onClick={handleSend} >Gửi tin</Button>
           </div>
         </div>
     )

@@ -5,6 +5,7 @@ import "./style.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AuthContext } from "../../contexts/AuthContext";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
 function ChatUser() {
   const userType = "User";
@@ -88,7 +89,7 @@ function ChatUser() {
               onChange={(event) => setMessage(event.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <button onClick={handleSend} >Send</button>
+            <Button onClick={handleSend} >Gửi tin</Button>
           </div>
         </div>
     </div>

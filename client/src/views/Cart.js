@@ -3,16 +3,11 @@ import Button from 'react-bootstrap/esm/Button'
 import Col from 'react-bootstrap/esm/Col'
 import Row from 'react-bootstrap/esm/Row'
 import Table from 'react-bootstrap/esm/Table'
-import Spinner from 'react-bootstrap/Spinner'
-import { AuthContext } from '../contexts/AuthContext'
 import { CartContext } from '../contexts/CartContext'
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
 import CartRow from "../components/table/CartRow"
 import { VND } from '../utils/format'
-import { KhuyenMaiContext } from '../contexts/KhuyenMaiContext'
-import ModalKhuyenMai from '../components/modals/ModalKhuyenMai'
 import FormInfoOrder from '../components/form/FormInfoOrder'
+
 function Cart() {
   const {
     cartState: { cart}, 
@@ -21,7 +16,6 @@ function Cart() {
     khuyenMaiInCart,
   } = useContext(CartContext)
   let body= null;
-
   if (cart.products.length==0){
       body= (
         <div>
@@ -55,9 +49,9 @@ function Cart() {
         <div>
           <hr />
           {
-            khuyenMaiInCart ? <div>Khuyến mãi:{khuyenMaiInCart.tenKM}</div>:""
+            khuyenMaiInCart ? <div>Khuyến mãi: <span style={{color:"#ed6363"}}>{khuyenMaiInCart.tenKM}</span></div>:""
           }
-          <div>Tổng tiền: {VND.format(cart.tongTien)}</div>
+          <div>Tổng tiền: <span style={{color:"#ed6363"}}>{VND.format(cart.tongTien)}</span> </div>
           <hr />
         </div>
       </div>

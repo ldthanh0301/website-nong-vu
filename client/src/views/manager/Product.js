@@ -72,6 +72,8 @@ function Product() {
   }
   return (
     <>
+      <h3>Quản lý vật tư</h3>
+      <hr />
       <Button
         className="btn "
         onClick={setShowAddProductModal.bind(this, true)}

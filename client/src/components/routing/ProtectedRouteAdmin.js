@@ -44,8 +44,6 @@ function ProtectedRouteAdmin({component: Component, ...props}) {
                 </Container>
             </main>
             <Footer></Footer>
-            <ChatAdmin nguoiNhan="ldthanh"></ChatAdmin>
-
         </> 
         : <Navigate to='../dangnhap'/>    
     )
