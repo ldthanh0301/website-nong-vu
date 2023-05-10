@@ -42,6 +42,7 @@ function OrderDetail() {
             <hr />
           </Col>
           <Col lg="8">
+            <h4>Danh sách các sản phẩm</h4>
             <Table striped bordered hover>
                 <thead>
                 <tr>

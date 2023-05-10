@@ -33,7 +33,7 @@ function Expense() {
   return (
     <div>
       <center>
-        <h2>Chi phí nông vụ</h2>
+        <h3>Thống kê chi phí</h3>
       </center>
       <h4>Mùa vụ</h4>
       <div>

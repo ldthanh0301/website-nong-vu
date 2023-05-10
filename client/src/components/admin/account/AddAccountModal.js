@@ -1,12 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { apiUrl } from "../../../contexts/constants";
 import { toast } from "react-toastify";
 
 function AddAccountModal(props) {
-  const {getAccounts} = props
-
+  const {getAccounts,type='nhanvien'} = props
+  const [typeAccount, setTypeAccount] = useState("nhanvien")
+  useEffect(()=>{
+    setTypeAccount(type)
+  },[type])
   const [showModal, setShowModal] = useState(false);
   const [alert, setAlert] = useState(null);
   const [registerForm, setRegisterForm] = useState({
@@ -35,7 +38,7 @@ function AddAccountModal(props) {
 
     try {
         // goi api create account
-        const res = await axios.post(apiUrl+"/taikhoan/captaikhoan",registerForm)
+        const res = await axios.post(apiUrl+`/taikhoan/${typeAccount}/captaikhoan`,registerForm)
         console.log("tạo tài khoản: ",res)
         if (res.data.success) {
             toast.success("Tạo tài khoản thành công")

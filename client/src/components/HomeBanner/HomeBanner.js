@@ -24,7 +24,7 @@
                    <h6>Ưu đãi hot</h6>
                    <h1>Các sản phẩm đang được giảm giá</h1>
                    <div className="red_button shop_now_button">
-                     <a href="#">Xem thêm</a>
+                     <a href="/vattu">Xem thêm</a>
                    </div>
                  </div>
                </div>
@@ -43,10 +43,10 @@
              <div className="row align-items-center fill_height">
                <div className="col">
                  <div className="main_slider_content" data-aos="fade-right">
-                   <h6>Spring / Summer Collection 2017</h6>
-                   <h1>Get up to 30% Off New Arrivals</h1>
+                   <h6>Vụ Đông Xuân 2023</h6>
+                   <h1>Các chương trình khuyến mãi tháng 5</h1>
                    <div className="red_button shop_now_button">
-                     <a href="#">shop now</a>
+                     <a href="/khuyenmai">Tìm kiểu ngay</a>
                    </div>
                  </div>
                </div>
@@ -65,10 +65,10 @@
              <div className="row align-items-center fill_height">
                <div className="col">
                  <div className="main_slider_content" data-aos="fade-right">
-                   <h6>Spring / Summer Collection 2017</h6>
-                   <h1>Get up to 30% Off New Arrivals</h1>
+                   <h6>Vụ Thu Đông 2023</h6>
+                   <h1>Các sản phẩm mới hiệu quả nhất hiện nay</h1>
                    <div className="red_button shop_now_button">
-                     <a href="#">shop now</a>
+                     <a href="/vattu">Tìm hiểu ngay</a>
                    </div>
                  </div>
                </div>

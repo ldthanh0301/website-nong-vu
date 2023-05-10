@@ -57,6 +57,18 @@ router.get("/nhanvien",  verifyToken, (req, res) => {
     }
   })
 })
+// @route GET api/taikhoan/nongdan
+// @desc get all account nongdan
+// @access Public
+router.get("/nongdan",  verifyToken, (req, res) => {
+  TaiKhoan.getAllNongDan((err,result)=>{
+    if (err) {
+      res.status(500).json({success:false,message:"lỗi khi truy vấn"});
+    }else {
+      res.json({success:true,message:"lấy dữ liệu thành công",accounts:result})
+    }
+  })
+})
 // @route POST api/taikhoan/register
 // @desc Register user
 // @access Public
@@ -124,10 +136,10 @@ router.post("/dangky", async (req, res) => {
 });
 
 
-// @route POST api/taikhoan/captaikhoan
+// @route POST api/taikhoan/nhanvien/captaikhoan
 // @desc Register nhanvien
 // @access Public
-router.post("/captaikhoan", async (req, res) => {
+router.post("/nhanvien/captaikhoan", async (req, res) => {
   const { username, password } = req.body;
   // simple validation
   if (!username || !password)
@@ -190,6 +202,71 @@ router.post("/captaikhoan", async (req, res) => {
   }
 });
 
+// @route POST api/taikhoan/nongdan/captaikhoan
+// @desc Register nongdan
+// @access Public
+router.post("/nongdan/captaikhoan", async (req, res) => {
+  const { username, password } = req.body;
+  // simple validation
+  if (!username || !password)
+    return res
+      .status(400)
+      .json({ success: false, message: "Thiếu tên tài khoản hoặc mật khẩu" });
+  try {
+    TaiKhoan.findById(username, async (error, result) => {
+      if (error) {
+        return res.status(400).json("Lỗi khi tìm tài khoản");
+      }
+      if (result.length > 0)
+        return res
+          .status(400)
+          .json({ success: false, message: "Tên tài khoản không khả dụng" });
+
+      // all good
+      const hanshedPassword = await argon2.hash(password);
+      TaiKhoan.create(
+        { username, password: hanshedPassword },
+        function (error, result) {
+          if (error) {
+            console.log(error);
+            res
+              .status(400)
+              .json({ success: false, message: "Lỗi khi tạo tài khoản" });
+            return;
+          } else {
+            TaiKhoan.insertToNongDan(
+              { ...req.body, taiKhoan: username },
+              function (error, result) {
+                if (error) {
+                  console.log(error);
+                  res.status(400).json({
+                    success: false,
+                    message: "Lỗi khi thêm vào nông dân",
+                  });
+                  return;
+                }
+
+                // return token
+                const accessToken = jwt.sign(
+                  { userId: username },
+                  process.env.ACCESS_TOKEN_SECRET
+                );
+                res.json({
+                  success: true,
+                  message: "Tạo tài khoản thành công",
+                  accessToken,
+                });
+              }
+            );
+          }
+        }
+      );
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
 // @route POST api/taikhoan/login
 // @desc login user
 // @access Public
@@ -256,12 +333,113 @@ router.put("/capnhat", async (req, res) => {
           console.log(error);
           res
             .status(400)
-            .json({ success: false, message: "Lỗi khi tạo tài khoản" });
+            .json({ success: false, message: "Lỗi khi cập nhật tài khoản" });
           return;
         } else {
           res
             .status(200)
             .json({ success: true, message: "Cập nhật thành công" });
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+// Update api/taikhoan/nhanvien/capnhat
+// Update tài khoản nhân viên
+
+router.put("/nhanvien/capnhat", async (req, res) => {
+  
+  const { hoTen, diaChi, soDienThoai, username,password,confirmPassword } = req.body;
+  console.log("body: ", req.body);
+  // simple validation
+  if (!username || !password||!hoTen || !diaChi || !soDienThoai)
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Thiếu một trong số các trường dữ liệu",
+      });
+  try {
+     // all good
+     const hanshedPassword = await argon2.hash(password);
+    TaiKhoan.updateProfileNhanVien(
+      { hoTen, diaChi, soDienThoai, username },
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          res
+            .status(400)
+            .json({ success: false, message: "Lỗi khi cập nhật tài khoản" });
+          return;
+        } else {
+          TaiKhoan.updatePassword({ password:hanshedPassword,username},(err, result)=> {
+            if (err) {
+              console.log(err);
+              res
+                .status(400)
+                .json({ success: false, message: "Lỗi khi cập nhật tài khoản" });
+              return;
+            } else {
+              console.log("ok: ", result)
+              res
+              .status(200)
+              .json({ success: true, message: "Cập nhật thành công" });
+            }
+          })
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+// Update api/taikhoan/nongdan/capnhat
+// Update tài khoản nhân viên
+
+router.put("/nongdan/capnhat", async (req, res) => {
+  
+  const { hoTen, diaChi, soDienThoai, username,password,confirmPassword } = req.body;
+  console.log("body: ", req.body);
+  // simple validation
+  if (!username || !password||!hoTen || !diaChi || !soDienThoai)
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Thiếu một trong số các trường dữ liệu",
+      });
+  try {
+     // all good
+     const hanshedPassword = await argon2.hash(password);
+    TaiKhoan.updateProfileNongDan(
+      { hoTen, diaChi, soDienThoai, taiKhoan: username },
+      (error, result) => {
+        if (error) {
+          console.log(error);
+          res
+            .status(400)
+            .json({ success: false, message: "Lỗi khi cập nhật tài khoản" });
+          return;
+        } else {
+          TaiKhoan.updatePassword({ password:hanshedPassword,username},(err, result)=> {
+            if (err) {
+              console.log(err);
+              res
+                .status(400)
+                .json({ success: false, message: "Lỗi khi cập nhật tài khoản" });
+              return;
+            } else {
+              console.log("ok: ", result)
+              res
+              .status(200)
+              .json({ success: true, message: "Cập nhật thành công" });
+            }
+          })
         }
       }
     );
@@ -289,6 +467,25 @@ router.delete("/nhanvien/:taiKhoan", verifyToken, (req, res)=>{
     }
   })
 })
+
+// DELETE nongdan taikhoan/nongdan/:taiKhoan
+//  Private
+router.delete("/nongdan/:taiKhoan", verifyToken, (req, res)=>{
+  let taiKhoan =req.params.taiKhoan;
+  TaiKhoan.deleteNongDan(taiKhoan,function(err,result){
+    if (err) {
+      res.status(500).json({success:false,message:"Lỗi khi xóa"})
+    } else {
+      TaiKhoan.deleteTaiKhoan(taiKhoan,function(err,result){
+        if (err) {
+          res.status(500).json({success:false,message:"Lỗi khi xóa"})
+        } else {
+          res.json({success:true,message:"Xóa thành công"})
+        }
+      })
+    }
+  })
+})
 // GET INFO nhanvien taikhoan/nhanvien/:taiKhoan
 //  Private
 router.get("/nhanvien/:taiKhoan", verifyToken, (req, res)=>{
@@ -301,7 +498,18 @@ router.get("/nhanvien/:taiKhoan", verifyToken, (req, res)=>{
     }
   })
 })
-
+// GET INFO nhanvien taikhoan/nhanvien/:taiKhoan
+//  Private
+router.get("/nongdan/:taiKhoan", verifyToken, (req, res)=>{
+  let taiKhoan =req.params.taiKhoan;
+  TaiKhoan.getInfoNongDan(taiKhoan,function(err,result){
+    if (err) {
+      res.status(500).json({success:false,message:"Lỗi khi lấy thông tin"})
+    } else {
+      res.json({success:true,message:"Thành công", account:result[0]})
+    }
+  })
+})
 
 
 

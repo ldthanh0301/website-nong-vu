@@ -5,10 +5,10 @@ import { apiUrl } from "../../../contexts/constants";
 import { toast } from "react-toastify";
 
 function UpdateAccountModal(props) {
-  const {accountInfo,getAccounts,showUpdateModal,setShowUpdateModal} = props
+  const {accountInfo,getAccounts,showUpdateModal,setShowUpdateModal,type} = props
   console.log("accountInfo: ", accountInfo)
   const [alert, setAlert] = useState(null);
-  const [registerForm, setRegisterForm] = useState({
+  const [updateForm, setUpdateForm] = useState({
     username: accountInfo.taiKhoan,
     password: '',
     confirmPassword: "",
@@ -16,12 +16,12 @@ function UpdateAccountModal(props) {
     hoTen: accountInfo.hoTen,
     diaChi: accountInfo.diaChi,
   });
-  const { username, password, confirmPassword, soDienThoai, hoTen, diaChi } = registerForm;
-    console.log("registerForm: ", registerForm)
+  const { username, password, confirmPassword, soDienThoai, hoTen, diaChi } = updateForm;
+    // console.log("updateForm: ", updateForm)
 
-  const onChangeRegisterForm = (event) =>
-    setRegisterForm({
-      ...registerForm,
+  const onChangeUpdateForm = (event) =>
+    setUpdateForm({
+      ...updateForm,
       [event.target.name]: event.target.value,
     });
 
@@ -34,23 +34,21 @@ function UpdateAccountModal(props) {
 
     try {
         // goi api create account
-        const res = await axios.post(apiUrl+"/taikhoan/captaikhoan",registerForm)
-        console.log("tạo tài khoản: ",res)
+        const res = await axios.put(apiUrl+`/taikhoan/${type}/capnhat`,updateForm)
         if (res.data.success) {
-            toast.success("Tạo tài khoản thành công")
+            toast.success("Cập nhật tài khoản thành công")
             getAccounts()
             setShowUpdateModal(false)
         } else {
-            toast.error("Lỗi khi tạo tài khoản")
+            toast.error("Lỗi khi cập nhật tài khoản!!!")
         }
     } catch (error) {
-      setAlert(error.response.data.message)
-      toast.error("Lỗi khi tạo tài khoản")
+      toast.error("Lỗi khi cập nhật tài khoản!")
       console.log(error);
     }
   };
   useEffect(()=> {
-    setRegisterForm({
+    setUpdateForm({
       username: accountInfo.taiKhoan,
       password: '',
       confirmPassword: "",
@@ -61,7 +59,7 @@ function UpdateAccountModal(props) {
   },[accountInfo])
   const resetData = () => {
     setAlert(null)
-    setRegisterForm({
+    setUpdateForm({
       username: "",
       password: "",
       confirmPassword: "",
@@ -94,7 +92,7 @@ function UpdateAccountModal(props) {
                 name="username"
                 disabled
                 value={username}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <br />
@@ -105,7 +103,7 @@ function UpdateAccountModal(props) {
                 name="password"
                 required
                 value={password}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <br />
@@ -116,7 +114,7 @@ function UpdateAccountModal(props) {
                 name="confirmPassword"
                 required
                 value={confirmPassword}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <br />
@@ -127,7 +125,7 @@ function UpdateAccountModal(props) {
                 name="soDienThoai"
                 required
                 value={soDienThoai}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <br />
@@ -138,7 +136,7 @@ function UpdateAccountModal(props) {
                 name="hoTen"
                 required
                 value={hoTen}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <br />
@@ -149,7 +147,7 @@ function UpdateAccountModal(props) {
                 name="diaChi"
                 required
                 value={diaChi}
-                onChange={onChangeRegisterForm}
+                onChange={onChangeUpdateForm}
               />
             </Form.Group>
             <hr />

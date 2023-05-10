@@ -26,7 +26,7 @@ function ProtectedRouteUser({component: Component, ...props}) {
                 <Breadcrumbs type="user"></Breadcrumbs>
             </header>
             <main>
-                <Container fluid>
+                <Container fluid className="pt-3">
                     <Row>
                         <Col>
                             <Outlet />

@@ -1,10 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, ListGroup } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 import { apiUrl } from "../../contexts/constants";
 import ChatAdmin from "../../components/chat/ChatAdmin";
-
+import userImage from "../../assets/images/userImage.png"
 function TinNhan() {
   const [userMessage, setUserMessage] = useState([]);
   const [nguoiNhan, setNguoiNhan] = useState(null);
@@ -21,8 +20,12 @@ function TinNhan() {
       <h3>Danh sách người gửi tin</h3>
       {userMessage.map((user) => (
         <ListGroup.Item style={{border: '1px solid', padding:'5px 15px', marginTop:'15px', borderRadius:'20px'}}>
-          <Button onClick={()=>{setNguoiNhan(user)}}>
-            {user.hoTen}
+          <Button style={{display: "flex",width: "300px"}} onClick={()=>{setNguoiNhan(user)}}>
+            <img src={userImage} alt="" height={'32px'} width={'32px'} style={{borderRadius:"50%", border:"1px solid"}}/>
+            <div className="mx-2">
+              <span>{user.hoTen}</span>
+              
+            </div>
           </Button>
         </ListGroup.Item>
       ))}

@@ -11,7 +11,7 @@ function Search() {
     setSearchInput(e.target.value)
   }
   return (
-    <div className="search">
+    <div className="search-main">
       <Form className="d-flex" >
         <Form.Control
           type="search"

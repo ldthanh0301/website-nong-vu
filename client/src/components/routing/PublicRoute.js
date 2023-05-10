@@ -24,7 +24,7 @@ function PublicRoute({ component: Component, ...props }) {
         <Breadcrumbs></Breadcrumbs>
       </header>
       <main>
-        <Container fluid>
+        <Container fluid className="pt-3">
           <Outlet></Outlet>
         </Container>
       </main>

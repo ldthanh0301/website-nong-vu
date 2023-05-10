@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 import UpdateAccountModal from "./UpdateAccountModal";
 
 function TableAccount(props) {
-  let { accounts, deleteAccount } = props;
+  let { accounts, deleteAccount,type="nhanvien",getAccounts } = props;
   let [showUpdateModal, setShowUpdateModal] = useState(false);
   let [accountInfo, setAccountInfo] = useState(null)
   const getInfoAccount = (taiKhoan) => {
-    axios.get(apiUrl+`/taikhoan/nhanvien/${taiKhoan}`)
+    axios.get(apiUrl+`/taikhoan/${type}/${taiKhoan}`)
       .then(res=>{
         if (res.data.success) {
           setAccountInfo(res.data.account)
@@ -65,9 +65,11 @@ function TableAccount(props) {
         </tbody>
       </Table>
       { accountInfo ?<UpdateAccountModal
-        // showUpdateModal={showUpdateModal}
-        // setShowUpdateModal={setShowUpdateModal}
-        // accountInfo={accountInfo}
+        showUpdateModal={showUpdateModal}
+        setShowUpdateModal={setShowUpdateModal}
+        accountInfo={accountInfo}
+        getAccounts={getAccounts}
+        type={type}
       ></UpdateAccountModal>:null}
       
     </div>

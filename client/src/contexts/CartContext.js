@@ -64,6 +64,10 @@ const CartContextProvider = ({ children }) => {
   };
   // đặt hàng
   const datHang = async ({address,phone}) => {
+    if (cartState.cart.products.length===0) {
+      toast.error('Giỏ hàng trống');
+      return;
+    }
     let data = { ...cartState.cart, msnd: user.msnd,mskm:null,diaChi:address,soDienThoai:phone};
     if (khuyenMaiInCart) {
         data = {...data, mskm:khuyenMaiInCart.mskm}
@@ -88,7 +92,7 @@ const CartContextProvider = ({ children }) => {
     let trung = products.findIndex((e) => e.msvt === vatTu.msvt);
     if (trung !== -1) {
       let newVatTu = products[trung];
-      newVatTu.soLuong += 1;
+      newVatTu.soLuong = parseInt(newVatTu.soLuong) + 1;
       newVatTu.tongGia += vatTu.tongGia;
       products.splice(trung, 1, newVatTu);
     } else {

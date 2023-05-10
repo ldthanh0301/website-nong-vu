@@ -4,14 +4,20 @@ import Table from 'react-bootstrap/esm/Table';
 import { useParams } from 'react-router-dom'
 import { DonHangContext } from '../../contexts/DonHangContext';
 import { VND } from '../../utils/format';
+import { Form } from 'react-bootstrap';
 
 function ChiTietDonHang() {
     const params = useParams()
     const msdh = params.id;
 
-    const {orderState: {orderInfo, orderInfoLoading},chiTietDonHang} = useContext(DonHangContext)
+    const {orderState: {orderInfo, orderInfoLoading},chiTietDonHang,changeState} = useContext(DonHangContext)
     useEffect(()=> {chiTietDonHang(msdh)},[msdh])
 
+    const handleChange = (msdh,e) => {
+        console.log("msdh : ", msdh)
+          let state = e.target.value;
+          changeState(state, msdh)
+        }
     let body = null;
     if (orderInfoLoading) {
         body = (<div className="spinner-container">
@@ -33,7 +39,17 @@ function ChiTietDonHang() {
                     <hr />
                     Tổng tiền: <span>{VND.format(orderInfo.info.tongTien)}</span>
                     <hr />
+                    Trạng thái:
+                    <Form.Select aria-label="Default select example"
+                        onChange={(e) => handleChange(orderInfo.info.msdh,e)}
+                    >
+                      <option value="0" selected={0==orderInfo.info.trangThai}>Chưa duyệt</option>
+                      <option value="1" selected={1==orderInfo.info.trangThai}>Đã duyệt</option>
+                      <option value="2" selected={2==orderInfo.info.trangThai}>Đã giao</option>
+                    </Form.Select>
                 </div>
+                <hr />
+                <h5>Danh sách sản phẩm:</h5>
                 <Table  striped bordered hover>
                 <thead>
                     <tr>

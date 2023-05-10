@@ -6,10 +6,11 @@ import { CartContext } from '../../../contexts/CartContext'
 import { apiUrl } from '../../../contexts/constants'
 import { VND } from '../../../utils/format'
 import './style.css'
+import { useNavigate } from 'react-router-dom'
 
 function ProductDetail(props) {
     const {product}  = props
-
+    const navigate = useNavigate();
     const {addProductToCart,setShowToast} = useContext(CartContext)
     const {authState: {isAuthenticated}} = useContext(AuthContext)
   return (
@@ -48,7 +49,16 @@ function ProductDetail(props) {
                     <FontAwesomeIcon icon="fa-solid fa-cart-shopping" size="x" className='mx-2'/>
                     Thêm vào giỏ
                 </Button>
-                <Button>Mua ngay</Button>
+                <Button onClick={
+                    ()=>{
+                        if (isAuthenticated) {
+                            addProductToCart(product)
+                            navigate("/nguoidung/giohang")
+                        } else {
+                            window.location.replace('/dangnhap');
+                        } 
+                    }
+                }>Mua ngay</Button>
             </div>
         </div>
     </>

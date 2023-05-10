@@ -39,16 +39,37 @@ const TaiKhoan = {
         let sql= `UPDATE nongdan SET soDienThoai='${info.soDienThoai}',hoTen='${info.hoTen}',diaChi='${info.diaChi}' where taiKhoan='${info.taiKhoan}'`
         con.query(sql, callback)
     },
+    updateProfileNhanVien: function({ hoTen, diaChi, soDienThoai, username}, callback) {
+        let sql= `UPDATE nhanvien SET soDienThoai='${soDienThoai}',hoTen='${hoTen}',diaChi='${diaChi}' where taiKhoan='${username}'`
+        con.query(sql, callback)
+    },
+    updatePassword: function ({password,username},callback) {
+        let sql = `Update taikhoan set  matKhau = '${password}' where taiKhoan = '${username}'`
+        con.query(sql, callback)
+    }
+    ,
     getAllNhanVien: function(callback) {
         let sql= "Select * from nhanvien";
+        con.query(sql,callback)
+    },
+    getAllNongDan: function(callback) {
+        let sql= "Select * from nongdan";
         con.query(sql,callback)
     },
     getInfoNhanVien: function(taiKhoan,callback) {
         let sql= `Select * from nhanvien where taiKhoan= '${taiKhoan}'`;
         con.query(sql,callback)
     },
+    getInfoNongDan: function(taiKhoan,callback) {
+        let sql= `Select * from nongdan where taiKhoan= '${taiKhoan}'`;
+        con.query(sql,callback)
+    },
     deleteNhanVien: function(taiKhoan, callback) {
         let sql= `DELETE FROM nhanvien WHERE taiKhoan= '${taiKhoan}'`;
+        con.query(sql,callback)
+    },
+    deleteNongDan: function(taiKhoan, callback) {
+        let sql= `DELETE FROM nongdan WHERE taiKhoan= '${taiKhoan}'`;
         con.query(sql,callback)
     },
     deleteTaiKhoan: function(taiKhoan, callback) {
